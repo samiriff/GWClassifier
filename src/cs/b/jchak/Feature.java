@@ -8,10 +8,7 @@ package cs.b.jchak;
  *
  */
 public class Feature {
-	private String featureName; 
-	private double lowerLimit;
-	private double upperLimit;
-	
+	private String featureName; 	
 	private double featureValue;
 	
 	/*
@@ -28,6 +25,22 @@ public class Feature {
 	 */
 	public void display()
 	{
-		System.out.print(featureName + " = " + featureValue);
+		System.out.print(featureName + " = " + featureValue + "\t");
+	}
+	
+	/*
+	 * Returns the Name of the feature
+	 */
+	public String getName()
+	{
+		return featureName;
+	}
+	
+	/*
+	 * Returns the value of the feature
+	 */
+	public double getValue()
+	{
+		return featureValue;
 	}
 }

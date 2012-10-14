@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import cs.b.jchak.Feature;
@@ -17,9 +18,9 @@ import cs.b.jchak.Feature;
  *
  */
 public class Sample {
-	private int year;
-	private String Location;
-	private ArrayList<Feature> features;
+	
+	private HashMap<String, Feature> featureMap;		//Maps a feature name to its corresponding value
+	private ArrayList<String> featureList;			//List of features to be tracked. It helps in retrieving feature values from the Hashmap in the proper order. 
 	
 	private String classifiedResult;
 	
@@ -29,38 +30,86 @@ public class Sample {
 	 * @param featureString - A comma-separated string of values for all the features
 	 * @param attributeList - An ArrayList of names of attributes (featureNames)
 	 */
-	public Sample(String featureString, ArrayList<String> attributeList)
+	public Sample(String featureString, ArrayList<String> featureList)
 	{		
-		int currentAttribute = 0;
-		features = new ArrayList<Feature>();
+		this.featureList = featureList;		
+		int currentFeature = 0;
+		featureMap = new HashMap<String, Feature>();
 		
 		StringTokenizer tokens = new StringTokenizer(featureString, ",");
 		
 		while(tokens.hasMoreTokens())
 		{
 			String token = tokens.nextToken();
-			if(currentAttribute < attributeList.size() - 1)				
-				features.add(new Feature(attributeList.get(currentAttribute++), Double.parseDouble(token)));
+			if(currentFeature < featureList.size())				
+				featureMap.put(featureList.get(currentFeature), new Feature(featureList.get(currentFeature++), Double.parseDouble(token)));
 			else
 			{
-				classifiedResult = tokens.nextToken();
-				currentAttribute = 0;
+				classifiedResult = token;
+				currentFeature = 0;
 			}
 		}
 	}
 	
 	/*
+	 * This constructor just initializes the Feature Map and the attribute list from a parent Sample
+	 * 			with a subset of attributes
+	 */
+	public Sample(Sample parentSample, ArrayList<String> subFeatureList)
+	{
+		featureMap = new HashMap<String, Feature>();
+		this.featureList = subFeatureList;
+		
+		for(String feature : subFeatureList)
+		{
+			Feature attribute = parentSample.featureMap.get(feature);
+			featureMap.put(feature, attribute);							
+		}
+		
+		classifiedResult = parentSample.classifiedResult;
+	}
+	
+	/*
+	 * Returns a new Sample which contains values corresponding to the attributes in subAttributeList (subset)
+	 */
+	public Sample getSampleSubset(ArrayList<String> subFeatureList)
+	{
+		return new Sample(this, subFeatureList);
+	}
+	
+		
+	/*
 	 * Displays all features of the sample included the classified Result
 	 */
 	public void display()
 	{
-		for(Feature feature : features)
+		for(String feature : featureList)
 		{
-			feature.display();
-			System.out.print(", ");
+			if(featureMap.containsKey(feature))
+				featureMap.get(feature).display();
 		}
 		
 		System.out.print("Classification = " + classifiedResult);
 	}
 
+	/*
+	 * Returns the value of the feature that corresponds to the feature name stored in the attribute parameter
+	 * @param attribute - contains the name of the feature whose value is to be returned 
+	 */
+	public Feature getFeature(String feature)
+	{
+		if(featureMap.containsKey(feature))
+			return featureMap.get(feature);
+		return null;
+	}
+	
+	/*
+	 * Returns the class to which this sample belongs
+	 */
+	public String getClassification()
+	{
+		return classifiedResult;
+	}
+	
+	
 }

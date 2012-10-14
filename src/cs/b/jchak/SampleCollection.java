@@ -14,32 +14,29 @@ import java.util.ArrayList;
 
 public class SampleCollection
 {
-	private ArrayList<Sample> samples;
+	private ArrayList<Sample> samples;				
+	private ArrayList<String> featureList;		
 	
 	/*
 	 * Constructor that takes as parameters, the file name of the file containing all the data samples,
-	 * 		and the file name of the file that contains the list of attributes required to describe each
+	 * 		and the file name of the file that contains the list of features required to describe each
 	 * 		data sample
 	 */
-	public SampleCollection(String samplesFileName, String attributesFileName)
+	public SampleCollection(String samplesFileName, String featuresFileName)
 	{
 		samples = new ArrayList<Sample>();		
 		
 		try {
-			ArrayList<String> attributeList = getAttributeList(attributesFileName);
+			this.featureList = getfeatureList(featuresFileName);
 			
-			BufferedReader sampleFile = new BufferedReader(new FileReader(samplesFileName));
-			
+			BufferedReader sampleFile = new BufferedReader(new FileReader(samplesFileName));			
 			while(true)
 			{
-				String line = sampleFile.readLine();
-				
+				String line = sampleFile.readLine();				
 				if(line == null)
-					break;
-				
-				samples.add(new Sample(line, attributeList));			
-			}
-			
+					break;				
+				samples.add(new Sample(line, featureList));			
+			}			
 			sampleFile.close();
 			
 		} catch (FileNotFoundException e) {
@@ -47,6 +44,33 @@ public class SampleCollection
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*
+	 * This constructor initializes a SampleCollection with features specified in subfeatureList,
+	 * 	from a parent sample collection that has already been defined. (subset)
+	 */
+	public SampleCollection(SampleCollection parentSampleCollection, ArrayList<String> subfeatureList)
+	{		
+		featureList = subfeatureList;
+		
+		ArrayList<Sample> samplesSubset = new ArrayList<Sample>();
+		for(Sample sample : parentSampleCollection.samples)
+		{
+			Sample subSample = sample.getSampleSubset(subfeatureList);
+			samplesSubset.add(subSample);
+		}
+		
+		samples = samplesSubset;
+	}
+	
+	/*
+	 * Returns a new SampleCollection with features specified in subfeatureList,
+	 * 	from a this sample collection as a parent table
+	 */
+	public SampleCollection getSampleCollectionSubset(ArrayList<String> subfeatureList)
+	{
+		return new SampleCollection(this, subfeatureList);
 	}
 	
 	/*
@@ -62,12 +86,32 @@ public class SampleCollection
 	}
 	
 	/*
-	 * Reads a file containing the list of attributes (feature names) necessary for describing each sample
+	 * Returns the arraylist containing strings of features (features)
 	 */
-	private static ArrayList<String> getAttributeList(String filename)throws IOException
+	public ArrayList<String> getfeatureList()
+	{
+		return featureList;
+	}
+	
+	/*
+	 * Displays the contents of the featureList arraylist
+	 */
+	public void displayfeatureList()
+	{
+		int i = 0;
+		System.out.println("features: ");
+		for(String feature : featureList)
+			System.out.println(i++ + " " + feature);
+	}
+	
+	
+	/*
+	 * Reads a file containing the list of features (feature names) necessary for describing each sample
+	 */
+	private static ArrayList<String> getfeatureList(String filename)throws IOException
 	{
 		BufferedReader br = new BufferedReader(new FileReader(filename));
-		ArrayList<String> attributeList = new ArrayList<String>();
+		ArrayList<String> featureList = new ArrayList<String>();
 		
 		while(true)
 		{
@@ -76,9 +120,9 @@ public class SampleCollection
 			if(line == null)
 				break;
 			
-			attributeList.add(line);
+			featureList.add(line);
 		}
 		
-		return attributeList;
+		return featureList;
 	}
 }
