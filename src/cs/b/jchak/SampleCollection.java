@@ -93,6 +93,11 @@ public class SampleCollection
 		return featureList;
 	}
 	
+	public ArrayList<Sample> getSampleList()
+	{
+		return samples;
+	}
+	
 	/*
 	 * Displays the contents of the featureList arraylist
 	 */

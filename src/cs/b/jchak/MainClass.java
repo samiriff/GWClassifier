@@ -9,8 +9,8 @@ public class MainClass {
 	{
 		System.out.println("Hello, Welcome to the Ground Water Classifier");
 
-		sampleCaller(); // This is for nsatvik
-		//sampleCaller2(); //This is for samiriff
+		//sampleCaller(); // This is for nsatvik
+		sampleCaller2(); //This is for samiriff
 	}
 	private static void sampleCaller2() {
 		//Creating a parent table from file data
@@ -26,6 +26,11 @@ public class MainClass {
 
 		SampleCollection subSamples = samples.getSampleCollectionSubset(featureList);
 		//subSamples.displaySamples();	
+		
+		
+		//Discretizer Example
+		for(int i=0; i<samples.getfeatureList().size(); i++)
+			Discretizer.discretizeEqualBinner(samples, i, 5);
 		samples.displaySamples();
 
 	}

@@ -14,7 +14,7 @@ import cs.b.jchak.Feature;
 /**
  * Sample class indicates each horse sample.
  * 
- * 
+ * @author nsatvik
  *
  */
 public class Sample {
@@ -101,6 +101,21 @@ public class Sample {
 		if(featureMap.containsKey(feature))
 			return featureMap.get(feature);
 		return null;
+	}
+		
+	/*
+	 * If the name of the feature exists in the Feature Map, this method changes the corresponding entry to parameter "feature"
+	 * 	Returns true, if operation is successful, else returns false 
+	 */
+	public boolean setFeature(Feature feature)
+	{
+		if(featureMap.containsKey(feature.getName()))
+		{
+			featureMap.put(feature.getName(), feature);
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/*
