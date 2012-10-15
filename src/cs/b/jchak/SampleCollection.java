@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * This class reads the sample data from a file and initializes all the necessary data structures to store
- * the data values for Jinkchak analysis.
+ * the data values for Classification analysis.
  */
 
 public class SampleCollection
@@ -104,6 +104,11 @@ public class SampleCollection
 			System.out.println(i++ + " " + feature);
 	}
 	
+	public ArrayList<Sample> getSampleAsArrayList()
+	{
+		return samples;
+	}
+	
 	
 	/*
 	 * Reads a file containing the list of features (feature names) necessary for describing each sample
@@ -125,4 +130,5 @@ public class SampleCollection
 		
 		return featureList;
 	}
+
 }

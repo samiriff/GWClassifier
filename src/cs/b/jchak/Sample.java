@@ -14,7 +14,7 @@ import cs.b.jchak.Feature;
 /**
  * Sample class indicates each horse sample.
  * 
- * @author nsatvik
+ * 
  *
  */
 public class Sample {
