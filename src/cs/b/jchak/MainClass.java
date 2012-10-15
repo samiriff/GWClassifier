@@ -9,8 +9,8 @@ public class MainClass {
 	{
 		System.out.println("Hello, Welcome to the Ground Water Classifier");
 
-		//sampleCaller(); // This is for nsatvik
-		sampleCaller2(); //This is for samiriff
+		sampleCaller(); // This is for nsatvik
+		//sampleCaller2(); //This is for samiriff
 	}
 	private static void sampleCaller2() {
 		//Creating a parent table from file data
@@ -40,16 +40,14 @@ public class MainClass {
 		ArrayList<String> featureList = new ArrayList<String>();		//Subset of features
 		featureList.add("K");
 		featureList.add("Na");
-		featureList.add("CL");
+		featureList.add("CL");	
 		featureList.add("HCO3");		
 		featureList.add("Endotoxin");
 		featureList.add("Breath rate");
 		featureList.add("Pulse rate");
 		
 		
-		
-		//This will construct a decision tree using the above features only
-		
+		//This will construct a decision tree using the above features only				
 		DecisionTreeConstructor dtbuilder = new DecisionTreeConstructor(samples.getSampleCollectionSubset(featureList));
 	}
 }
