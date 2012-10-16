@@ -12,21 +12,21 @@ public class DecisionTreeConstructor
 	private static final double MAX_PROBABILITY_STOPPING_CONDITION = 0.98;		//Required by isStoppingCondition()
 
 	/*
-	 * This constructor takes as a parameter - a collection of samples and constructs a BINARY decision tree
+	 * This constructor takes as a parameter - a collection of samples and constructs a MULTIWAY decision tree
 	 */
 	public DecisionTreeConstructor(SampleCollection samples) 
 	{
-		RootNode = buildDecisionTree(samples.getSampleAsArrayList(), samples.getfeatureList());
+		RootNode = buildDecisionTree(samples.getSampleAsArrayList(), samples.getfeatureList(), samples.getNumDiscreteClassesList());
 	}
 	
 	/*
 	 * Takes as parameters - an arraylist of samples and an arraylist of features
-	 * 		Constructs a binary decision tree recursively, and returns the root of the decision tree.
+	 * 		Constructs a  multiway decision tree recursively, and returns the root of the decision tree.
 	 * 		Makes use of the SampleSplitter class methods
 	 */
-	public DecisionTreeNode buildDecisionTree(ArrayList<Sample> samples, ArrayList<String> featureList)
+	public DecisionTreeNode buildDecisionTree(ArrayList<Sample> samples, ArrayList<String> featureList, int numDiscreteClassesList[])
 	{
-		//System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
+		System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
 		
 		//Base Condition
 		if ((samples.size() > 0 && isStoppingCondition(samples)) || (featureList.size()==0))
@@ -44,18 +44,19 @@ public class DecisionTreeConstructor
 		 * split into left and right sample array lists, then call recursively buildDecisionTree for left and right
 		 * return node
 		 */
-		DecisionTreeNode new_test_node = new DecisionTreeNode(featureList.get(0));
+		DecisionTreeNode new_test_node = new DecisionTreeNode(featureList.get(0), numDiscreteClassesList[0]);
 		
-		SampleSplitter sampleSplitter = new SampleSplitter(samples, featureList.get(0));
+		SampleSplitter sampleSplitter = new SampleSplitter(samples, featureList.get(0), numDiscreteClassesList[0]);
 		sampleSplitter.splitSamples(); //Find an optimum value of the feature and Split the samples into left and right sample subsets 
-		double opt_value = sampleSplitter.getOptimumValue();
-		new_test_node.setUpperLimit(opt_value);
 		featureList.remove(0);
-		
-		ArrayList<Sample> leftSampleSubset = sampleSplitter.getLeftSampleSubset();
-		ArrayList<Sample> rightSampleSubset = sampleSplitter.getRightSampleSubset();
-		new_test_node.setLeftNode(buildDecisionTree(leftSampleSubset, featureList));
-		new_test_node.setRightNode(buildDecisionTree(rightSampleSubset, featureList));
+				
+		//Creating the children nodes
+		for(int i = 0; i < numDiscreteClassesList[0]; i++)
+		{
+			ArrayList<Sample> sampleSubset = sampleSplitter.getSampleSubset(i);
+			new_test_node.setChildNode(i, buildDecisionTree(sampleSubset, (ArrayList<String>) featureList.clone(), numDiscreteClassesList));
+			//new_test_node.setChildNode(i, buildDecisionTree(sampleSubset, featureList, numDiscreteClassesList));
+		}
 		
 		return new_test_node;
 	}

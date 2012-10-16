@@ -14,6 +14,8 @@ public class DecisionTreeNode
 	
 	private DecisionTreeNode Left, Right;//Left and Right Nodes
 	
+	private DecisionTreeNode children[];
+	
 	/*
 	 * This constructor Initializes the class variables with default values
 	 * 		By default, this node is not a leaf and contains no children.
@@ -23,14 +25,25 @@ public class DecisionTreeNode
 		Left = Right = null;
 		lowerLimit = upperLimit = 0;
 		isLeaf = false;
+		children = null;
 	}
 	
+		
 	/*
 	 * This constructor initializes the feature name of the (internal) node
 	 */
 	public DecisionTreeNode(String feature_name)
 	{
 		this.featureName = feature_name;
+	}
+	
+	/*
+	 * This constructor initializes the feature name and the number of children of the (internal) node.
+	 */
+	public DecisionTreeNode(String feature_name, int numChildren)
+	{
+		this(feature_name);
+		children = new DecisionTreeNode[numChildren];
 	}
 	
 	/*
@@ -120,6 +133,23 @@ public class DecisionTreeNode
 	public void setRightNode(DecisionTreeNode right)
 	{
 		this.Right = right;
+	}
+	
+	
+	/*
+	 * Returns the child node at index
+	 */
+	public DecisionTreeNode getChildNode(int index)
+	{
+		return children[index];
+	}
+	
+	/*
+	 * Initializes the current node's child at index
+	 */
+	public void setChildNode(int index, DecisionTreeNode node)
+	{
+		children[index] = node;
 	}
 	
 	/*

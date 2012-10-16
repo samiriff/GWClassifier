@@ -44,7 +44,7 @@ public class DecisionTreeClassifier {
 			String classifiedValue = Classify(sample);
 			if (!classifiedValue.equals(sample.getClassification()))
 			{
-				System.out.println("Classification Failed : Actual Class is "+sample.getClassification());
+				//System.out.println("Classification Failed : Actual Class is "+sample.getClassification());
 				++errors;
 			}
 		}
@@ -63,11 +63,9 @@ public class DecisionTreeClassifier {
 			{
 				return treeNode.getClassification()+"."; //This . is important!
 			}
-			String feature = treeNode.getfeatureName();
-			if(sample.getFeature(feature).getValue() <= treeNode.getUpperLimit())
-				treeNode = treeNode.getLeftNode();
-			else
-				treeNode = treeNode.getRightNode();				
+			
+			String feature = treeNode.getfeatureName();			
+			treeNode = treeNode.getChildNode((int)sample.getFeature(feature).getValue());
 		}
 	}
 	/*

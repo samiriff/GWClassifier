@@ -10,4 +10,10 @@ public interface Constants
 		HIGH,
 		VERY_HIGH
 	}
+	
+	enum DiscretizerAlgorithms
+	{
+		MEDIAN,
+		EQUAL_BINNING
+	}
 }
