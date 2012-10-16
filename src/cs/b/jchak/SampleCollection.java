@@ -108,7 +108,9 @@ public class SampleCollection
 		for(String feature : featureList)
 			System.out.println(i++ + " " + feature);
 	}
-	
+	/*
+	 * This method returns the ArrayList of samples
+	 */
 	public ArrayList<Sample> getSampleAsArrayList()
 	{
 		return samples;

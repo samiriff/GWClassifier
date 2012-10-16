@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 /**
  * This class will take the training data as input and build a DT
- *
+ * and return the RootNode	
  */
 public class DecisionTreeConstructor
-{
-	DecisionTreeNode RootNode;
-	
+{	
+	private DecisionTreeNode RootNode;
 	private static final double MAX_PROBABILITY_STOPPING_CONDITION = 0.98;		//Required by isStoppingCondition()
 
 	/*
@@ -27,7 +26,7 @@ public class DecisionTreeConstructor
 	 */
 	public DecisionTreeNode buildDecisionTree(ArrayList<Sample> samples, ArrayList<String> featureList)
 	{
-		System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
+		//System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
 		
 		//Base Condition
 		if ((samples.size() > 0 && isStoppingCondition(samples)) || (featureList.size()==0))
@@ -36,7 +35,7 @@ public class DecisionTreeConstructor
 			DecisionTreeNode newleaf = new DecisionTreeNode();
 			newleaf.setAsLeaf();
 			newleaf.setClassifiedResult(getMajorityClass(samples));
-			System.out.println("New leaf Node - The classification is "+ newleaf.getClassification());
+			//System.out.println("New leaf Node - The classification is "+ newleaf.getClassification());
 			return newleaf;
 		}
 
@@ -55,8 +54,8 @@ public class DecisionTreeConstructor
 		
 		ArrayList<Sample> leftSampleSubset = sampleSplitter.getLeftSampleSubset();
 		ArrayList<Sample> rightSampleSubset = sampleSplitter.getRightSampleSubset();
-		new_test_node.setLeftNode(buildDecisionTree(leftSampleSubset, (ArrayList<String>) featureList.clone()));
-		new_test_node.setRightNode(buildDecisionTree(rightSampleSubset, (ArrayList<String>) featureList.clone()));
+		new_test_node.setLeftNode(buildDecisionTree(leftSampleSubset, featureList));
+		new_test_node.setRightNode(buildDecisionTree(rightSampleSubset, featureList));
 		
 		return new_test_node;
 	}
@@ -86,5 +85,13 @@ public class DecisionTreeConstructor
 		double prob_colic = 1 - prob_healthy;
 		double max = (prob_healthy > 0.5)? prob_colic :prob_healthy;
 		return (max > MAX_PROBABILITY_STOPPING_CONDITION);
+	}
+	
+	/*
+	 * This method returns the RootNode of the DT
+	 */
+	public DecisionTreeNode getDecisionTreeRootNode()
+	{
+		return RootNode;
 	}
 }

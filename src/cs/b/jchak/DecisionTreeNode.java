@@ -1,6 +1,6 @@
 package cs.b.jchak;
 
-/*
+/**
  * This class is used to create objects that represent nodes in a BINARY decision tree
  */
 public class DecisionTreeNode 
@@ -66,6 +66,14 @@ public class DecisionTreeNode
 	}
 	
 	/*
+	 * Returns the value of UpperLImit variable
+	 */
+	public double getUpperLimit()
+	{
+		return upperLimit;
+	}
+	
+	/*
 	 * Can be used to modify the node's feature name
 	 */
 	public void setfeatureName(String feature_name)
@@ -88,6 +96,23 @@ public class DecisionTreeNode
 	{
 		this.Left = left;
 	}
+	
+	/*
+	 * Returns the left child of this node
+	 */
+	public DecisionTreeNode getLeftNode()
+	{
+		return Left;
+	}
+
+	/*
+	 * Returns the right child of this node
+	 */
+	public DecisionTreeNode getRightNode()
+	{
+		return Right;
+	}
+
 	
 	/*
 	 * Initializes the node's right child

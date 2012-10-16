@@ -7,7 +7,7 @@ public class MainClass {
 
 	public static void main(String args[]) throws IOException
 	{
-		System.out.println("Hello, Welcome to the Ground Water Classifier");
+		System.out.println("Hello, Welcome to the Horse Shit Classifier");
 
 		sampleCaller(); // This is for nsatvik
 		//sampleCaller2(); //This is for samiriff
@@ -38,16 +38,20 @@ public class MainClass {
 	{
 		SampleCollection samples = new SampleCollection("Training Data/horse.train", "Training Data/AttributeList");
 		ArrayList<String> featureList = new ArrayList<String>();		//Subset of features
-		featureList.add("K");
-		featureList.add("Na");
-		featureList.add("CL");	
-		featureList.add("HCO3");		
+		//featureList.add("K");
+		//featureList.add("Na");
+		//featureList.add("CL");	
+		//featureList.add("HCO3");		
 		featureList.add("Endotoxin");
 		featureList.add("Breath rate");
 		featureList.add("Pulse rate");
+		SampleCollection testing_samples = new SampleCollection("Training Data/horse.test", "Training Data/AttributeList");		
+//		//This will construct a decision tree using the above features only				
+//		DecisionTreeConstructor dtbuilder = new DecisionTreeConstructor(samples.getSampleCollectionSubset(featureList));
+		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples.getSampleCollectionSubset(featureList));//Builds the DT with Training samples
+		dtClassifier.setTestingSamples(testing_samples);
+		dtClassifier.TestAndFindAccuracy();
+		dtClassifier.getAccuracy();
 		
-		
-		//This will construct a decision tree using the above features only				
-		DecisionTreeConstructor dtbuilder = new DecisionTreeConstructor(samples.getSampleCollectionSubset(featureList));
 	}
 }
