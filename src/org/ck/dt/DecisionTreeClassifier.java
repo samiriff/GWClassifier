@@ -1,6 +1,9 @@
-package cs.b.jchak;
+package org.ck.dt;
 
 import java.util.ArrayList;
+
+import org.ck.sample.Sample;
+import org.ck.sample.SampleCollection;
 
 
 /**
@@ -13,6 +16,8 @@ public class DecisionTreeClassifier {
 	private DecisionTreeNode RootNode;
 	private SampleCollection testingSamples;
 	private double Accuracy;
+	
+	
 	/*
 	 * This constructor takes an object of SampleCollection and initializes the DT
 	 * using DTConstructor method
@@ -20,6 +25,17 @@ public class DecisionTreeClassifier {
 	public DecisionTreeClassifier(SampleCollection samples)
 	{
 		this.dtConstructor = new DecisionTreeConstructor(samples);
+		this.RootNode = this.dtConstructor.getDecisionTreeRootNode();
+	}
+	
+	
+	/*
+	 * This constructor takes an object of SampleCollection and initializes the DT
+	 * using DTConstructor method
+	 */
+	public DecisionTreeClassifier(SampleCollection samples, ArrayList<String> features)
+	{
+		this.dtConstructor = new DecisionTreeConstructor(samples,features);
 		this.RootNode = this.dtConstructor.getDecisionTreeRootNode();
 	}
 	

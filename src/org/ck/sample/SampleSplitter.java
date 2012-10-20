@@ -1,4 +1,4 @@
-package cs.b.jchak;
+package org.ck.sample;
 
 import java.util.ArrayList;
 

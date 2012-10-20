@@ -1,4 +1,4 @@
-package cs.b.jchak;
+package org.ck.sample;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,6 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.ck.dt.Discretizer;
+import org.ck.gui.Constants;
+import org.ck.gui.Constants.DiscretizerAlgorithms;
+
 
 /**
  * This class reads the sample data from a file and initializes all the necessary data structures to store

@@ -1,6 +1,10 @@
-package cs.b.jchak;
+package org.ck.dt;
 
 import java.util.ArrayList;
+
+import org.ck.sample.Sample;
+import org.ck.sample.SampleCollection;
+import org.ck.sample.SampleSplitter;
 
 /**
  * This class will take the training data as input and build a DT
@@ -20,13 +24,24 @@ public class DecisionTreeConstructor
 	}
 	
 	/*
+	 * This constructor takes as a parameter - a collection of samples, a subset of features constructs a MULTIWAY decision tree
+	 * considering only those parameters in features.
+	 */
+	public DecisionTreeConstructor(SampleCollection samples, ArrayList<String> features) 
+	{
+		RootNode = buildDecisionTree(samples.getSampleAsArrayList(), features, samples.getNumDiscreteClassesList());
+	}
+	
+	
+	
+	/*
 	 * Takes as parameters - an arraylist of samples and an arraylist of features
 	 * 		Constructs a  multiway decision tree recursively, and returns the root of the decision tree.
 	 * 		Makes use of the SampleSplitter class methods
 	 */
 	public DecisionTreeNode buildDecisionTree(ArrayList<Sample> samples, ArrayList<String> featureList, int numDiscreteClassesList[])
 	{
-		System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
+		//System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
 		
 		//Base Condition
 		if ((samples.size() > 0 && isStoppingCondition(samples)) || (featureList.size()==0))

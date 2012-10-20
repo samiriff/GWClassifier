@@ -1,4 +1,4 @@
-package cs.b.jchak;
+package org.ck.sample;
 
 /**
  * A Feature class to represent each feature of the sample like pH, CO3, NO3, NC, NH3 ...(indicated by the 

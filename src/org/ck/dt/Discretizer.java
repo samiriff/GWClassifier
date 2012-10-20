@@ -1,6 +1,12 @@
-package cs.b.jchak;
+package org.ck.dt;
 
 import java.util.ArrayList;
+
+import org.ck.gui.Constants;
+import org.ck.sample.Feature;
+import org.ck.sample.Sample;
+import org.ck.sample.SampleCollection;
+
 
 public class Discretizer implements Constants
 {		

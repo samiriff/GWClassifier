@@ -1,4 +1,4 @@
-package cs.b.jchak;
+package org.ck.dt;
 
 /**
  * This class is used to create objects that represent nodes in a BINARY decision tree
@@ -12,7 +12,7 @@ public class DecisionTreeNode
 	private boolean isLeaf; //Is this node a leaf
 	private String ClassifiedResult;//If this is the leaf node what is the classified result
 	
-	private DecisionTreeNode Left, Right;//Left and Right Nodes
+	//private DecisionTreeNode Left, Right;//Left and Right Nodes
 	
 	private DecisionTreeNode children[];
 	
@@ -22,7 +22,7 @@ public class DecisionTreeNode
 	 */
 	public DecisionTreeNode()
 	{
-		Left = Right = null;
+		//Left = Right = null;
 		lowerLimit = upperLimit = 0;
 		isLeaf = false;
 		children = null;
@@ -107,7 +107,7 @@ public class DecisionTreeNode
 	 */
 	public void setLeftNode(DecisionTreeNode left)
 	{
-		this.Left = left;
+		//this.Left = left;
 	}
 	
 	/*
@@ -115,7 +115,7 @@ public class DecisionTreeNode
 	 */
 	public DecisionTreeNode getLeftNode()
 	{
-		return Left;
+		return null; //Left;
 	}
 
 	/*
@@ -123,7 +123,7 @@ public class DecisionTreeNode
 	 */
 	public DecisionTreeNode getRightNode()
 	{
-		return Right;
+		return null; //Right;
 	}
 
 	
@@ -132,7 +132,7 @@ public class DecisionTreeNode
 	 */
 	public void setRightNode(DecisionTreeNode right)
 	{
-		this.Right = right;
+		//this.Right = right;
 	}
 	
 	
@@ -140,7 +140,7 @@ public class DecisionTreeNode
 	 * Returns the child node at index
 	 */
 	public DecisionTreeNode getChildNode(int index)
-	{
+	{ 
 		return children[index];
 	}
 	
