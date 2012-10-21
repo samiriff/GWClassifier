@@ -1,7 +1,12 @@
 package org.ck.dt;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.ck.ga.OptimalScoreException;
 import org.ck.sample.Sample;
 import org.ck.sample.SampleCollection;
 import org.ck.sample.SampleSplitter;
@@ -39,7 +44,7 @@ public class DecisionTreeConstructor
 	 * 		Constructs a  multiway decision tree recursively, and returns the root of the decision tree.
 	 * 		Makes use of the SampleSplitter class methods
 	 */
-	public DecisionTreeNode buildDecisionTree(ArrayList<Sample> samples, ArrayList<String> featureList, int numDiscreteClassesList[])
+	public DecisionTreeNode buildDecisionTree(ArrayList<Sample> samples, ArrayList<String> featureList, HashMap<String, Integer> numDiscreteClassesList)
 	{
 		//System.out.println("buildDecisionTree - "+samples.size()+"\t"+featureList+" "+featureList.size());
 		
@@ -59,14 +64,18 @@ public class DecisionTreeConstructor
 		 * split into left and right sample array lists, then call recursively buildDecisionTree for left and right
 		 * return node
 		 */
-		DecisionTreeNode new_test_node = new DecisionTreeNode(featureList.get(0), numDiscreteClassesList[0]);
+		int bestFeatureIndex = findBestSplitFeatureIndex(samples, featureList, numDiscreteClassesList);
 		
-		SampleSplitter sampleSplitter = new SampleSplitter(samples, featureList.get(0), numDiscreteClassesList[0]);
-		sampleSplitter.splitSamples(); //Find an optimum value of the feature and Split the samples into left and right sample subsets 
-		featureList.remove(0);
+		DecisionTreeNode new_test_node = new DecisionTreeNode(featureList.get(bestFeatureIndex), numDiscreteClassesList.get(featureList.get(bestFeatureIndex)));
+		
+		SampleSplitter sampleSplitter = new SampleSplitter(samples, featureList.get(bestFeatureIndex), numDiscreteClassesList.get(featureList.get(bestFeatureIndex)));
+		sampleSplitter.splitSamples(); //Find an optimum value of the feature and Split the samples into left and right sample subsets
+		
+		String featureName = featureList.get(bestFeatureIndex);
+		featureList.remove(bestFeatureIndex);
 				
 		//Creating the children nodes
-		for(int i = 0; i < numDiscreteClassesList[0]; i++)
+		for(int i = 0; i < numDiscreteClassesList.get(featureName); i++)
 		{
 			ArrayList<Sample> sampleSubset = sampleSplitter.getSampleSubset(i);
 			new_test_node.setChildNode(i, buildDecisionTree(sampleSubset, (ArrayList<String>) featureList.clone(), numDiscreteClassesList));
@@ -74,6 +83,36 @@ public class DecisionTreeConstructor
 		}
 		
 		return new_test_node;
+	}
+	
+	/*
+	 * This method tries to split the samples based on every feature in featureList.
+	 * 		It returns the index of the feature in featureList which has the highest information gain.
+	 */
+	private int findBestSplitFeatureIndex(ArrayList<Sample> samples, ArrayList<String> featureList, HashMap<String, Integer> numDiscreteClassesList)
+	{
+		double maxInformationGain = Double.MIN_VALUE;
+		int bestFeatureIndex = 0;
+		
+		int index = 0;
+		for(String feature : featureList)
+		{
+			SampleSplitter sampleSplitter = new SampleSplitter(samples, feature, numDiscreteClassesList.get(feature));
+			sampleSplitter.splitSamples(); //Find an optimum value of the feature and Split the samples into left and right sample subsets
+			
+			//System.out.println(sampleSplitter.getInformationGain());
+			
+			if(sampleSplitter.getInformationGain() > maxInformationGain)
+			{
+				maxInformationGain = sampleSplitter.getInformationGain();
+				bestFeatureIndex = index; 
+			}
+			
+			index++;
+		}
+		
+		//System.out.println("Best = " + bestFeatureIndex + "  " + featureList.get(bestFeatureIndex));
+		return bestFeatureIndex;
 	}
 
 	/*

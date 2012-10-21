@@ -73,7 +73,7 @@ public class Discretizer implements Constants
 		ArrayList<String> featureList = samples.getfeatureList();
 		
 		double delta = computeBinWidth(samples, featureList.get(featureIndex), binSize);
-		System.out.println("Delta = " + delta);
+		//System.out.println("Delta = " + delta);
 		
 		discretizeSamples(samples, featureList.get(featureIndex), delta);
 		samples.setNumDiscreteClasses(featureIndex, binSize + 1);

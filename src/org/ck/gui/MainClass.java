@@ -9,7 +9,7 @@ import org.ck.ga.OptimalScoreException;
 import org.ck.ga.Population;
 import org.ck.sample.SampleCollection;
 
-public class MainClass {
+public class MainClass implements Constants{
 
 	public static void main(String args[]) throws IOException
 	{
@@ -18,6 +18,8 @@ public class MainClass {
 		//sampleCaller(); // This is for nsatvik
 		sampleCaller2(); //This is for samiriff
 	}
+	
+	
 	private static void sampleCaller2() {
 		Population population = null;
 		try {
@@ -27,15 +29,15 @@ public class MainClass {
 			
 			
 		} catch (OptimalScoreException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			//population.displayPopulation();
 		}
-		population.displayPopulation();
+		//population.displayPopulation();
 	}
 	private static void sampleCaller()
 	{
 		
-		SampleCollection samples = new SampleCollection("Training Data/horse.train", "Training Data/horse.attribute");
+		SampleCollection samples = new SampleCollection(TRAINING_SAMPLES_FILE_NAME, ATTRIBUTES_FILE_NAME);
 		ArrayList<String> featureList = new ArrayList<String>();		//Subset of features
 		featureList.add("K");
 		featureList.add("Na");
@@ -44,15 +46,16 @@ public class MainClass {
 		featureList.add("Endotoxin");
 		featureList.add("Breath rate");
 		//featureList.add("Pulse rate");
-		SampleCollection testing_samples = new SampleCollection("Training Data/horse.test", "Training Data/horse.attribute");
 		
+		SampleCollection testing_samples = new SampleCollection(TESTING_SAMPLES_FILE_NAME, ATTRIBUTES_FILE_NAME);
 		//Discretizing
 		samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 		testing_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
 		
 		samples.displaySamples();
 	
-		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples.getSampleCollectionSubset(featureList));
+		//DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples.getSampleCollectionSubset(featureList));
+		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples);
 		
 		System.out.println("\n\nTest Set Accuracy : ");
 		dtClassifier.setTestingSamples(testing_samples);

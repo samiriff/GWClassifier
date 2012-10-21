@@ -10,6 +10,9 @@ public class Population implements Constants
 	private ArrayList<Genome> genomes;
 	private Random rgen = new Random();
 	
+	/*
+	 * Initializes the genomes list with a random population
+	 */
 	public Population() throws OptimalScoreException
 	{
 		genomes = new ArrayList<Genome>();
@@ -17,6 +20,9 @@ public class Population implements Constants
 		randomPopulationInit();		
 	}
 	
+	/*
+	 * Darwin's Survival of the Fittest algorithm
+	 */
 	public void runGeneticAlgorithm() throws OptimalScoreException
 	{
 		for(int i=0; i<NUM_OF_GENERATIONS; ++i)
@@ -47,6 +53,10 @@ public class Population implements Constants
 		//throw new OptimalScoreException(bestGenome);
 	}
 
+	/*
+	 * Creates a new population from the old population by selecting two genomes randomly at a time, and
+	 * 		performing crossover and mutation operations.
+	 */
 	private void naturalSelection(double totalFitnessScore) throws OptimalScoreException
 	{
 		ArrayList<Genome> newPopulation = new ArrayList<Genome>();
@@ -56,8 +66,8 @@ public class Population implements Constants
 			Genome randGenome1 = rouletteSelection(totalFitnessScore);
 			Genome randGenome2 = rouletteSelection(totalFitnessScore);
 			
-			System.out.println("Selected 1 " + randGenome1.getFitnessScore());
-			System.out.println("Selected 2 " + randGenome2.getFitnessScore());
+			//System.out.println("Selected 1 " + randGenome1.getFitnessScore());
+			//System.out.println("Selected 2 " + randGenome2.getFitnessScore());
 			
 			crossoverGenomes(randGenome1, randGenome2, newPopulation);
 			mutateGenomes(newPopulation);
@@ -68,12 +78,20 @@ public class Population implements Constants
 		genomes = newPopulation;
 	}
 	
+	/*
+	 * Performs genetic mutation on the two most recent offspring 
+	 */
 	private void mutateGenomes(ArrayList<Genome> newPopulation) throws OptimalScoreException
 	{
 		newPopulation.get(newPopulation.size() - 1).mutate(MUTATION_PROBABILITY);
 		newPopulation.get(newPopulation.size() - 2).mutate(MUTATION_PROBABILITY);
 	}
 	
+	/*
+	 * With a probability equal to CROSSOVER_PROBABILITY, two new children are created by mixing the traits of
+	 * 		two genomes based on a crossover point. These new children are added to the new population. The parents aren't.
+	 * With a probability equal to (1 - CROSSOVER_PROBABILITY), the father and mother are added to the new population.
+	 */
 	private void crossoverGenomes(Genome father, Genome mother, ArrayList<Genome> newPopulation) throws OptimalScoreException
 	{
 		if(getProbabilisticOutcome(CROSSOVER_PROBABILITY))
@@ -85,10 +103,10 @@ public class Population implements Constants
 			Genome child2 = new Genome(mother.getChromosome().substring(0, crossoverPoint) 
 					+ father.getChromosome().substring(crossoverPoint));
 			
-			System.out.println("Child 1");
+			/*System.out.println("Child 1");
 			child1.displayGenes();
 			System.out.println("Child 2");
-			child2.displayGenes();
+			child2.displayGenes();*/
 			
 			//New Generation
 			newPopulation.add(child1);
@@ -103,6 +121,9 @@ public class Population implements Constants
 		}		
 	}
 	
+	/*
+	 * Converts a number i of any length to a bit string of length n 
+	 */
 	private String toNBitBinaryString(int i, int n)
 	{
 		String str = Integer.toBinaryString(i);
@@ -115,6 +136,10 @@ public class Population implements Constants
 
 	}
 
+	/*
+	 * This kind of selection ensures that genomes having a higher fitness score than others have a better
+	 * 		chance of being seleted for reproduction.
+	 */
 	private Genome rouletteSelection(double totalFitnessScore)
 	{
 	    double ball  = rgen.nextDouble() * totalFitnessScore;
@@ -131,6 +156,9 @@ public class Population implements Constants
 	    return genomes.get(0);
 	}
 	
+	/*
+	 * Returns the sum of all fitness scores of all the genomes in the current population.
+	 */
 	private double assessFitness(ArrayList<Genome> genomes)
 	{
 		double totalFitnessScore = 0.0;
@@ -143,6 +171,9 @@ public class Population implements Constants
 		return totalFitnessScore;
 	}
 	
+	/*
+	 * Displays the population
+	 */
 	public void displayPopulation()
 	{
 		System.out.println("\nPopulation: ");
@@ -151,6 +182,9 @@ public class Population implements Constants
 		System.out.println();
 	}
 
+	/*
+	 * Initializes a random population
+	 */
 	private void randomPopulationInit() throws OptimalScoreException
 	{
 		int numOfFeatures = Genome.getFeatureSuperSetSize();
@@ -173,6 +207,7 @@ public class Population implements Constants
 		}
 	}
 
+	
 	private boolean getProbabilisticOutcome(double probability)
 	{
 		return (rgen.nextInt((int)Math.pow(10, 6)) + 1 <= probability * Math.pow(10, 6));
