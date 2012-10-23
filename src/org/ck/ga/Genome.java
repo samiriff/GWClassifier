@@ -42,7 +42,7 @@ public class Genome
 		dtClassifier.TestAndFindAccuracy();
 		fitnessScore = dtClassifier.getAccuracy();		
 		
-		if(fitnessScore >= 0.969)
+		if(fitnessScore >= 0.96)
 			throw new OptimalScoreException(this);
 	}
 	

@@ -103,7 +103,7 @@ public class SampleCollection implements Constants
 			break;
 			
 		case EQUAL_BINNING:
-			int numDiscreteClasses = 2;
+			int numDiscreteClasses = 6;
 			for(int i=0; i<featureList.size(); i++)
 			{
 				Discretizer.discretizeEqualBinner(this, i, numDiscreteClasses);

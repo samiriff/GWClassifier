@@ -30,7 +30,7 @@ public class MainClass {
 			e.printStackTrace();
 			//population.displayPopulation();
 		}
-		population.displayPopulation();
+		//population.displayPopulation();
 	}
 	private static void sampleCaller()
 	{
