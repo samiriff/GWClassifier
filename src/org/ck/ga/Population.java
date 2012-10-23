@@ -192,7 +192,7 @@ public class Population implements Constants
 		int[] FeatureSubsetValues = new int[(int)upperLimit];
 		for(int i=0; i<upperLimit; ++i)
 			FeatureSubsetValues[i] = i;
-		//randomShuffle(FeatureSubsetValues);
+		randomShuffle(FeatureSubsetValues);
 		for(int i=0; i< POPULATION_SIZE; i++)
 			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i],numOfFeatures)));		
 	}
