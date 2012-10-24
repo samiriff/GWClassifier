@@ -22,8 +22,8 @@ public class SampleCollection implements Constants
 	private ArrayList<String> featureList;		
 	private HashMap<String, Integer> featureNumDiscreteClasses;			//To keep track of the number of values of each attribute after discretization
 	
-	private String trainingSamplesFilename;								//Name of the file that has training examples
-	private String featuresFilename;									//Name of the file that has the list of attributes
+//	private String trainingSamplesFilename;								//Name of the file that has training examples
+//	private String featuresFilename;									//Name of the file that has the list of attributes
 	
 	/*
 	 * Constructor that takes as parameters, the file name of the file containing all the data samples,
@@ -32,8 +32,8 @@ public class SampleCollection implements Constants
 	 */
 	public SampleCollection(String samplesFileName, String featuresFileName)
 	{
-		trainingSamplesFilename = samplesFileName; 
-		this.featuresFilename = featuresFileName;
+//		trainingSamplesFilename = samplesFileName; 
+//		this.featuresFilename = featuresFileName;
 		
 		samples = new ArrayList<Sample>();		
 		
@@ -189,8 +189,8 @@ public class SampleCollection implements Constants
 	{
 		switch(type)
 		{
-		case TRAINING_SAMPLES_FILE: return trainingSamplesFilename;
-		case FEATURES_FILE: return featuresFilename;
+		case TRAINING_SAMPLES_FILE: return DataHolder.getTrainingSamplesFileName();
+		case FEATURES_FILE: return DataHolder.getAttributesFileName();
 		default: return null;
 		}		
 	}

@@ -60,7 +60,7 @@ public class DecisionTreeClassifier {
 			String classifiedValue = Classify(sample);
 			if (!classifiedValue.equals(sample.getClassification()))
 			{
-				//System.out.println("Classification Failed : Actual Class is "+sample.getClassification());
+				System.out.println("Classification Failed : " + "Actual Class is "+sample.getClassification());
 				++errors;
 			}
 		}
@@ -77,7 +77,7 @@ public class DecisionTreeClassifier {
 		{
 			if(treeNode.isLeaf())
 			{
-				return treeNode.getClassification()+"."; //This . is important!
+				return treeNode.getClassification();
 			}
 			
 			String feature = treeNode.getfeatureName();			

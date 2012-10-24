@@ -5,6 +5,7 @@ import java.util.Random;
 import org.ck.dt.DecisionTreeClassifier;
 import org.ck.gui.Constants;
 import org.ck.gui.Constants.Filenames;
+import org.ck.sample.DataHolder;
 import org.ck.sample.SampleCollection;
 
 
@@ -17,7 +18,7 @@ public class Genome implements Constants
 	
 	static
 	{
-		samples = new SampleCollection(TRAINING_SAMPLES_FILE_NAME, ATTRIBUTES_FILE_NAME);
+		samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
 		FeatureSuperSet = samples.getfeatureList();
 		samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 	}

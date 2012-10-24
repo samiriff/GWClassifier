@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.ck.ga.OptimalScoreException;
+import org.ck.sample.DataHolder;
 import org.ck.sample.Sample;
 import org.ck.sample.SampleCollection;
 import org.ck.sample.SampleSplitter;
@@ -54,6 +55,7 @@ public class DecisionTreeConstructor
 
 			DecisionTreeNode newleaf = new DecisionTreeNode();
 			newleaf.setAsLeaf();
+			
 			newleaf.setClassifiedResult(getMajorityClass(samples));
 			//System.out.println("New leaf Node - The classification is "+ newleaf.getClassification());
 			return newleaf;
@@ -119,26 +121,26 @@ public class DecisionTreeConstructor
 	 * Returns the class to which a majority of the samples belong
 	 */
 	private String getMajorityClass(ArrayList<Sample> samples) {
-		int healthy = 0, colic = 0;
+		int positive_class = 0, negative_class = 0;
 		for (Sample sample : samples)
 		{
-			if (sample.getClassification().equals("healthy.")) healthy++; else colic ++;
+			if (sample.getClassification().equals(DataHolder.getPositiveClass())) positive_class++; else negative_class++;
 		}
-		return healthy>colic ? "healthy":"colic";
+		return positive_class>negative_class ? DataHolder.getPositiveClass():DataHolder.getNegativeClass();
 	}
 
 	/*
 	 * Returns true if the majority class of the samples is greater than 0.9
 	 */
 	private boolean isStoppingCondition(ArrayList<Sample> samples) {
-		int healthy = 0, colic = 0;
+		int positive = 0;
 		for (Sample sample : samples)
 		{
-			if (sample.getClassification().equals("healthy.")) healthy++; else colic ++;
+			if (sample.getClassification().equals(DataHolder.getPositiveClass())) positive++;
 		}
-		double prob_healthy = (double)healthy/samples.size();
-		double prob_colic = 1 - prob_healthy;
-		double max = (prob_healthy > 0.5)? prob_colic :prob_healthy;
+		double prob_positive = (double)positive/samples.size();
+		double prob_negative = 1 - prob_positive;
+		double max = (prob_positive > 0.5)? prob_positive :prob_negative;
 		return (max > MAX_PROBABILITY_STOPPING_CONDITION);
 	}
 	

@@ -44,21 +44,7 @@ public class Discretizer implements Constants
 		//Setting the number of discrete classes for easy access during decision tree induction.
 		samples.setNumDiscreteClasses(featureIndex, 2);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/* *************************************ALGORITHM 2 ******************************************/
 	
 	private static double minValue = Double.MAX_VALUE;

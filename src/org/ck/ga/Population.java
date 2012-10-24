@@ -42,7 +42,6 @@ public class Population implements Constants
 		{
 			if(genomes.get(i).getFitnessScore() > bestFitnessScore)
 			{
-				System.out.println("HAHAH");
 				bestFitnessScore = genomes.get(i).getFitnessScore();
 				bestGenome = genomes.get(i);
 			}

@@ -2,6 +2,7 @@ package org.ck.ga;
 
 import org.ck.dt.DecisionTreeClassifier;
 import org.ck.gui.Constants;
+import org.ck.sample.DataHolder;
 import org.ck.sample.SampleCollection;
 
 public class OptimalScoreException extends Exception implements Constants
@@ -23,7 +24,7 @@ public class OptimalScoreException extends Exception implements Constants
 		this.genome_solution = genome;
 		genome_solution.displayGenes();
 		
-		SampleCollection test_samples = new SampleCollection(TESTING_SAMPLES_FILE_NAME, ATTRIBUTES_FILE_NAME);
+		SampleCollection test_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
 		test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 		
 		DecisionTreeClassifier dtClassifier = genome_solution.getDecisionTree();

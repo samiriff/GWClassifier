@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 /**
  * Sample class indicates each horse sample.
  * 
- * @author nsatvik
+ * 
  *
  */
 public class Sample {
@@ -44,7 +44,11 @@ public class Sample {
 				featureMap.put(featureList.get(currentFeature), new Feature(featureList.get(currentFeature++), Double.parseDouble(token)));
 			else
 			{
-				classifiedResult = token;
+
+				if(token.equals(DataHolder.getPositiveClass()))
+					classifiedResult = DataHolder.getPositiveClass();
+				else
+					classifiedResult = DataHolder.getNegativeClass();
 				currentFeature = 0;
 			}
 		}
