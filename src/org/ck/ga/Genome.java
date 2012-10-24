@@ -41,13 +41,33 @@ public class Genome implements Constants
 	{
 		this.chromosome = chromosome;
 		
-		DecisionTreeClassifier dtClassifier = getDecisionTree();
-		dtClassifier.TestAndFindAccuracy();
-		
-		fitnessScore = dtClassifier.getAccuracy();		
+		calculateFitnessScore(TRAINING_SET_WEIGHT, TEST_SET_WEIGHT);
 		
 		if(fitnessScore >= Constants.FITNESS_SCORE_THRESHOLD)
 			throw new OptimalScoreException(this);
+	}
+	
+	/*
+	 * A redesigned Fitness Function calculator
+	 * 	It takes into account the accuracy of the decision tree while classifying both, training and test examples
+	 * 	The fitness score is a function of the weighted average of the two accuracies.
+	 */
+	private void calculateFitnessScore(double trainingWeight, double testingWeight)
+	{
+		DecisionTreeClassifier dtClassifier = getDecisionTree();
+		dtClassifier.TestAndFindAccuracy();
+		
+		//Part 1 - Get training set accuracy
+		double trainingSetAccuracy = dtClassifier.getAccuracy();	
+		
+		//Part 2 - Get test set accuracy
+		SampleCollection test_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
+		test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
+		dtClassifier.setTestingSamples(test_samples);		
+		dtClassifier.TestAndFindAccuracy();		
+		double testSetAccuracy = dtClassifier.getAccuracy();
+		
+		fitnessScore = (trainingWeight * trainingSetAccuracy + testingWeight * testSetAccuracy) / (trainingWeight + testingWeight);
 	}
 	
 	/*

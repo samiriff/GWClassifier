@@ -24,12 +24,15 @@ public class OptimalScoreException extends Exception implements Constants
 		this.genome_solution = genome;
 		genome_solution.displayGenes();
 		
-		SampleCollection test_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
-		test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
+		System.out.println("\n\nEXCEPTION CAUGHT - SOLUTION FOUND");
 		
 		DecisionTreeClassifier dtClassifier = genome_solution.getDecisionTree();
-		dtClassifier.setTestingSamples(test_samples);
+		dtClassifier.TestAndFindAccuracy();
+		System.out.println("Training Set Accuracy = " + dtClassifier.getAccuracy());
 		
+		SampleCollection test_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
+		test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
+		dtClassifier.setTestingSamples(test_samples);		
 		dtClassifier.TestAndFindAccuracy();
 		
 		System.out.println("Test set accuracy = " + dtClassifier.getAccuracy());	

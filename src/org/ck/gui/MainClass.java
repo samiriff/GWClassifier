@@ -18,16 +18,21 @@ public class MainClass implements Constants{
 		
 		//sampleCaller(); // This is for nsatvik
 		sampleCaller2(); //This is for samiriff
+		
+		
 	}
 	
 	
-	private static void sampleCaller2() {
-		DataHolder.setDataset(DatasetOptions.WHINE_DATASET);
+	public static void sampleCaller2() {
+		DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
 		Population population = null;
 		try {
 			population = new Population();
 			population.displayPopulation();
-			//population.runGeneticAlgorithm();
+			
+			System.out.println("Starting Genetic Algorithm Engine...");
+			Thread.sleep(500);
+			population.runGeneticAlgorithm();
 			
 			
 		} catch (OptimalScoreException e) {
@@ -35,8 +40,14 @@ public class MainClass implements Constants{
 			//population.displayPopulation();
 		}
 		//population.displayPopulation();
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	private static void sampleCaller()
+	
+	public static void sampleCaller()
 	{
 		DataHolder.setDataset(DatasetOptions.WHINE_DATASET);
 		SampleCollection samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
