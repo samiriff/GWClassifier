@@ -43,7 +43,7 @@ public class Genome implements Constants
 		
 		calculateFitnessScore(TRAINING_SET_WEIGHT, TEST_SET_WEIGHT);
 		
-		if(fitnessScore >= Constants.FITNESS_SCORE_THRESHOLD)
+		if(fitnessScore >= DataHolder.getFitnessScoreThreshold())
 			throw new OptimalScoreException(this);
 	}
 	

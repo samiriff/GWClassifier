@@ -9,7 +9,15 @@ public class DataHolder implements Constants{
 	private static String ATTRIBUTES_FILE_NAME ;
 	private static String POSITIVE_CLASS;
 	private static String NEGATIVE_CLASS;
+	
+	private static double FITNESS_SCORE_THRESHOLD;
 
+	static
+	{
+		setDataset(DatasetOptions.HORSE_DATASET);
+		setFitnessScoreThreshold(Constants.FITNESS_SCORE_THRESHOLD);
+	}
+	
 	/**
 	 * The option indicates the desired data sets to be used and
 	 * depending on this option, the training sample and testing sample file
@@ -74,4 +82,13 @@ public class DataHolder implements Constants{
 		return NEGATIVE_CLASS;
 	}
 
+	public static void setFitnessScoreThreshold(double value)
+	{
+		FITNESS_SCORE_THRESHOLD = value;
+	}
+	
+	public static double getFitnessScoreThreshold()
+	{
+		return FITNESS_SCORE_THRESHOLD;
+	}
 }

@@ -24,14 +24,16 @@ public class MainClass implements Constants{
 	
 	
 	public static void sampleCaller2() {
-		DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
+		//DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
 		Population population = null;
 		try {
 			population = new Population();
 			population.displayPopulation();
 			
 			System.out.println("Starting Genetic Algorithm Engine...");
-			Thread.sleep(500);
+			System.out.println(DataHolder.getPositiveClass());
+			System.out.println(DataHolder.getFitnessScoreThreshold());
+			Thread.sleep(1000);
 			population.runGeneticAlgorithm();
 			
 			
