@@ -63,7 +63,7 @@ public class MainWindow
 	public static void main(String args[])
 	{
 		Display display = new Display();
-		new MainWindow(display);
+		new WelcomeWindow(display);
 		display.dispose();
 	}
 	
@@ -210,7 +210,7 @@ public class MainWindow
         
         final List list = new List(shell, SWT.BORDER);        
         list.add("Decision Tree Classifier");
-        list.add("K-Means Clustering Classifier");
+        //list.add("K-Means Clustering Classifier");
         //list.select(0);
 
         list.addListener(SWT.Selection, new Listener () {
