@@ -53,7 +53,7 @@ public class WelcomeWindow {
 			@Override
 			public void handleEvent(Event event) {
 				System.out.println("https://www.github.com/samiriff/GWClassifier");
-
+				new BrowserWindow(shell.getDisplay());
 			}
 		});
 
