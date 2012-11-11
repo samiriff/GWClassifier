@@ -24,6 +24,17 @@ public class Genome implements Constants
 	}
 	
 	/*
+	 * Used to reinitialize the static variables of this class, when DataHolder is updated, since static variables
+	 * aren't updated automatically.
+	 */
+	public static void reInitializeStaticVariables()
+	{
+		samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
+		FeatureSuperSet = samples.getfeatureList();
+		samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
+	}
+	
+	/*
 	 * This constructor takes a bit string representing features as a parameter and 
 	 * 	initializes a decision tree from it.
 	 */
@@ -147,5 +158,13 @@ public class Genome implements Constants
 		dtClassifier.setTestingSamples(training_samples);
 		
 		return dtClassifier;
+	}
+	
+	/*
+	 * Returns the statically initialized Sample Collection
+	 */
+	public static SampleCollection getSamples()
+	{
+		return samples;
 	}
 }

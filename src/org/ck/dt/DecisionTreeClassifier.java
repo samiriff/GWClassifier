@@ -50,21 +50,30 @@ public class DecisionTreeClassifier {
 	/*
 	 * This method uses the testingSamples and tests the accuracy of the 
 	 * decisiontree and initializes the Accuracy variable.
+	 * 
+	 * Returns an arraylist of indices of all the samples that have been misclassified - This was added for the GUI
 	 */
-	public void TestAndFindAccuracy()
+	public ArrayList<Integer> TestAndFindAccuracy()
 	{
 		ArrayList<Sample> samples = testingSamples.getSampleAsArrayList();
 		int errors = 0;
+		
+		int index = 0;
+		ArrayList<Integer> errorIndices = new ArrayList<Integer>();
 		for(Sample sample : samples)
-		{
+		{			
 			String classifiedValue = Classify(sample);
 			if (!classifiedValue.equals(sample.getClassification()))
 			{
 				//System.out.println("Classification Failed : " + "Actual Class is "+sample.getClassification());
+				errorIndices.add(index);
 				++errors;
 			}
+			index++;
 		}
 		Accuracy = 1 - (double)errors/samples.size();
+		
+		return errorIndices;
 	}
 	
 	/*

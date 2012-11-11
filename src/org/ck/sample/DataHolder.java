@@ -11,11 +11,15 @@ public class DataHolder implements Constants{
 	private static String NEGATIVE_CLASS;
 	
 	private static double FITNESS_SCORE_THRESHOLD;
+	private static double CROSSOVER_PROBABILITY_THRESHOLD;
+	private static double MUTATION_PROBABILITY_THRESHOLD;
 
 	static
 	{
 		setDataset(DatasetOptions.HORSE_DATASET);
 		setFitnessScoreThreshold(Constants.FITNESS_SCORE_THRESHOLD);
+		setCrossoverProbabilityThreshold(Constants.CROSSOVER_PROBABILITY_THRESHOLD);
+		setMutationProbabilityThreshold(Constants.MUTATION_PROBABILITY_THRESHOLD);
 	}
 	
 	/**
@@ -90,5 +94,25 @@ public class DataHolder implements Constants{
 	public static double getFitnessScoreThreshold()
 	{
 		return FITNESS_SCORE_THRESHOLD;
+	}
+	
+	public static void setCrossoverProbabilityThreshold(double value)
+	{
+		CROSSOVER_PROBABILITY_THRESHOLD = value;
+	}
+	
+	public static double getCrossoverProbabilityThreshold()
+	{
+		return CROSSOVER_PROBABILITY_THRESHOLD;
+	}
+	
+	public static void setMutationProbabilityThreshold(double value)
+	{
+		MUTATION_PROBABILITY_THRESHOLD = value;
+	}
+	
+	public static double getMutationProbabilityThreshold()
+	{
+		return MUTATION_PROBABILITY_THRESHOLD;
 	}
 }

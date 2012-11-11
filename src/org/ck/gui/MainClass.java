@@ -12,18 +12,17 @@ import org.ck.sample.SampleCollection;
 
 public class MainClass implements Constants{
 
-	public static void main(String args[]) throws IOException
+	public static void main(String args[]) throws IOException, OptimalScoreException
 	{
 		System.out.println("Hello, Welcome to the Decision Tree Based Classifier");
 		
 		//sampleCaller(); // This is for nsatvik
-		sampleCaller2(); //This is for samiriff
-		
-		
+		sampleCaller2(); //This is for samiriff		
 	}
 	
 	
-	public static void sampleCaller2() {
+	public static void sampleCaller2()throws OptimalScoreException
+	{
 		//DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
 		Population population = null;
 		try {
@@ -37,16 +36,20 @@ public class MainClass implements Constants{
 			population.runGeneticAlgorithm();
 			
 			
-		} catch (OptimalScoreException e) {
+		} /*catch (OptimalScoreException e) {
 			//e.printStackTrace();
 			//population.displayPopulation();
-		}
+		}*/
 		//population.displayPopulation();
 		catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println(DataHolder.getFitnessScoreThreshold());
+		System.out.println(DataHolder.getCrossoverProbabilityThreshold());
+		System.out.println(DataHolder.getMutationProbabilityThreshold());
 	}
 	
 	public static void sampleCaller()

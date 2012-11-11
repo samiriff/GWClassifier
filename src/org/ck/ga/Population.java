@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.ck.gui.Constants;
+import org.ck.sample.DataHolder;
 
 
 public class Population implements Constants
@@ -82,8 +83,8 @@ public class Population implements Constants
 	 */
 	private void mutateGenomes(ArrayList<Genome> newPopulation) throws OptimalScoreException
 	{
-		newPopulation.get(newPopulation.size() - 1).mutate(MUTATION_PROBABILITY);
-		newPopulation.get(newPopulation.size() - 2).mutate(MUTATION_PROBABILITY);
+		newPopulation.get(newPopulation.size() - 1).mutate(DataHolder.getMutationProbabilityThreshold());
+		newPopulation.get(newPopulation.size() - 2).mutate(DataHolder.getMutationProbabilityThreshold());
 	}
 	
 	/*
@@ -93,7 +94,7 @@ public class Population implements Constants
 	 */
 	private void crossoverGenomes(Genome father, Genome mother, ArrayList<Genome> newPopulation) throws OptimalScoreException
 	{
-		if(getProbabilisticOutcome(CROSSOVER_PROBABILITY))
+		if(getProbabilisticOutcome(DataHolder.getCrossoverProbabilityThreshold()))
 		{
 			int crossoverPoint = rgen.nextInt(father.getChromosome().length());
 			
