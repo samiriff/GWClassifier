@@ -14,6 +14,7 @@ import org.ck.sample.SampleCollection;
 public class DecisionTreeClassifier {
 	private DecisionTreeConstructor dtConstructor;
 	private DecisionTreeNode RootNode;
+	private SampleCollection trainingSamples;
 	private SampleCollection testingSamples;
 	private double Accuracy;
 	
@@ -24,6 +25,7 @@ public class DecisionTreeClassifier {
 	 */
 	public DecisionTreeClassifier(SampleCollection samples)
 	{
+		this.trainingSamples = samples;
 		this.dtConstructor = new DecisionTreeConstructor(samples);
 		this.RootNode = this.dtConstructor.getDecisionTreeRootNode();
 	}
@@ -102,4 +104,16 @@ public class DecisionTreeClassifier {
 		return Accuracy;
 	}
 	
+	/*
+	 * Returns the current training samples based on which this decision tree was constructed
+	 */
+	public SampleCollection getTrainingSamples()
+	{
+		return trainingSamples;
+	}
+	
+	public void setTrainingSamples(SampleCollection samples)
+	{
+		trainingSamples = samples;
+	}
 }

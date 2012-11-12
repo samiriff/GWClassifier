@@ -2,6 +2,7 @@ package org.ck.gui;
 
 import java.util.ArrayList;
 
+import org.ck.dt.DecisionTreeClassifier;
 import org.ck.ga.Genome;
 import org.ck.ga.OptimalScoreException;
 import org.ck.gui.Constants.DatasetOptions;
@@ -10,6 +11,7 @@ import org.ck.sample.Sample;
 import org.ck.sample.SampleCollection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
@@ -31,6 +33,7 @@ import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 
 public class MainWindow implements Constants
 {
@@ -56,17 +59,12 @@ public class MainWindow implements Constants
 	private Button discretizeCheckBox;
 		
 	private StyledText accuracyTextArea;
-	
-	
-	
-	
-	private Color red, blue, gray, white;
+	   
+    private Table userSamplesTable = null;
+    private Button classifyButton;
+    private Label classifyResultLabel;
     
-    
-    
-    
-    
-	
+	private OptimalScoreException currentException = null;
 	/*
 	 * A constructor that takes in a display parameter and initializes the shell and other components of the UI
 	 */
@@ -74,18 +72,14 @@ public class MainWindow implements Constants
 	{
 		this.display = display;
 		
-		red = display.getSystemColor(SWT.COLOR_RED);
-	    blue = display.getSystemColor(SWT.COLOR_BLUE);
-	    white = display.getSystemColor(SWT.COLOR_WHITE);
-	    gray = display.getSystemColor(SWT.COLOR_GRAY);
-		
 		shell = new Shell(display);
 		shell.setText("Decision Tree Classifier");
 		
 		centerShell();
 		initUI();
 		
-		shell.setSize(500, 700);
+		shell.setSize(450, 900);
+		shell.setLocation(0, 0);
 		
 		shell.open();
 		while(!shell.isDisposed())
@@ -162,6 +156,11 @@ public class MainWindow implements Constants
 		addDiscretizeCheckbox();		
 		
 		addResultDisplay();
+		
+		addBreak(4);
+		addEditableSamplesTable();
+		classifyButton = addClassifyButton();		
+		classifyButton.setVisible(false);
 	}
 
 
@@ -184,8 +183,11 @@ public class MainWindow implements Constants
 				  MainClass.sampleCaller2();
 			  }
 			  catch(OptimalScoreException exception)
-			  {						  
-				  try{Thread.sleep(1000);} catch (InterruptedException e1){}
+			  {									  
+				  //try{Thread.sleep(1000);} catch (InterruptedException e1){}
+				  
+				  currentException = exception;
+				  
 				  accuracyTextArea.setVisible(true);
 				  
 				  String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy() + "\n";
@@ -193,12 +195,22 @@ public class MainWindow implements Constants
 				  result += "Selected Features = " + exception.getSelectedFeatures(); 
 				  accuracyTextArea.setText(result);				  
 				  
+				  //Clear previous selection, if any
+				  TableItem items[] = samplesTable.getItems();
+				  for(int i=0; i < items.length; i++)
+				  {
+					  items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
+					  items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
+				  }
 				  
 				  ArrayList<Integer> trainingErrorIndices = exception.getTrainingErrorIndices();
 				  for(int index : trainingErrorIndices)
 				  {					  
-					  samplesTable.getItem(index).setForeground(red);
-				  }				  
+					  samplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
+					  samplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
+				  }			
+				  
+				  toggleIllegalWidgetsForStep2(true);
 			  }
 		  }
 		});			
@@ -239,8 +251,10 @@ public class MainWindow implements Constants
             	DataHolder.setDataset(DatasetOptions.valueOf(combo.getText()));
             	Genome.reInitializeStaticVariables();
             	addSamplesTable(discretizeCheckBox.getSelection());
+            	addEditableSamplesTable();
             	
             	accuracyTextArea.setText("");
+            	toggleIllegalWidgetsForStep2(false);
             };
         });
 
@@ -272,6 +286,7 @@ public class MainWindow implements Constants
 		        DataHolder.setFitnessScoreThreshold(value);
 		        
 		        accuracyTextArea.setText("");
+		        toggleIllegalWidgetsForStep2(false);
 		    }
 		});
 		
@@ -305,6 +320,7 @@ public class MainWindow implements Constants
 		        DataHolder.setCrossoverProbabilityThreshold(value);
 		        
 		        accuracyTextArea.setText("");
+		        toggleIllegalWidgetsForStep2(false);
 		    }
 		});
 		
@@ -338,6 +354,7 @@ public class MainWindow implements Constants
 		        DataHolder.setMutationProbabilityThreshold(value);
 		        
 		        accuracyTextArea.setText("");
+		        toggleIllegalWidgetsForStep2(false);
 		    }
 		});
 		
@@ -365,27 +382,17 @@ public class MainWindow implements Constants
                 
                 if(items[0].equalsIgnoreCase("Decision Tree Classifier"))
                 {
-	            	fitnessSliderLabel.setVisible(true);
-	            	fitnessSlider.setVisible(true);
-	            	crossoverSliderLabel.setVisible(true);
-	            	crossoverSlider.setVisible(true);
-	            	mutationSliderLabel.setVisible(true);
-	            	mutationSlider.setVisible(true);
-	            	runButton.setVisible(true);
+                	toggleIllegalWidgetsForStep1(true);
 	            	
 	            	accuracyTextArea.setText("");
+	            	toggleIllegalWidgetsForStep2(false);
                 }
                 else
                 {
-                	fitnessSliderLabel.setVisible(false);
-	            	fitnessSlider.setVisible(false);
-	            	crossoverSliderLabel.setVisible(false);
-	            	crossoverSlider.setVisible(false);
-	            	mutationSliderLabel.setVisible(false);
-	            	mutationSlider.setVisible(false);
-	            	runButton.setVisible(false);
+                	toggleIllegalWidgetsForStep1(false);
 	            	
 	            	accuracyTextArea.setText("");
+	            	toggleIllegalWidgetsForStep2(false);
                 }
             }
         });
@@ -492,6 +499,151 @@ public class MainWindow implements Constants
 	    (accuracyTextArea).setLayoutData(gridData);
 	}
 	
+	/*
+	 * This creates a table of 1 row, that accepts user-input for classification
+	 */
+	private void addEditableSamplesTable()
+	{
+		Table tempTable = userSamplesTable;					//Required for replacement in Grid Layout
+		
+		userSamplesTable = new Table (shell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		userSamplesTable .setLinesVisible (true);
+		userSamplesTable .setHeaderVisible (true);
+		userSamplesTable.setVisible(false);
+		
+		GridData data = new GridData(); //SWT.FILL, SWT.FILL, false, false);
+		data.heightHint = 50;
+		data.widthHint = 100;
+		data.horizontalSpan = 4;
+	    data.horizontalAlignment = GridData.FILL;
+	    userSamplesTable.setLayoutData(data);
+		
+		//This block is executed if a previous table has to be overwritten with a new table
+		if(tempTable != null)
+		{
+			userSamplesTable.moveAbove(tempTable);
+			tempTable.dispose();
+			userSamplesTable.getParent().layout();
+		}
+		
+		SampleCollection samplesCollection = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
+		
+		ArrayList<String> featureList = samplesCollection.getfeatureList();
+		for (String feature : featureList) 
+		{
+			TableColumn column = new TableColumn(userSamplesTable, SWT.NONE);
+			column.setText(feature);
+		}	
+		
+		//Fill initial table with dummy values that can be modified
+		TableItem item = new TableItem (userSamplesTable, SWT.NONE);		
+		ArrayList<Sample> samplesList = samplesCollection.getSampleAsArrayList();					
+		int featureIndex = 0;
+		for(String feature : featureList)
+			item.setText(featureIndex++, "" + samplesList.get(0).getFeature(feature).getValue());	
+	
+		
+		for (int i=0; i <  featureList.size(); i++) 
+		{
+			userSamplesTable.getColumn(i).pack();
+		}
+		
+		
+		//Editor
+		final TableEditor editor = new TableEditor (userSamplesTable);
+		editor.horizontalAlignment = SWT.LEFT;
+		editor.grabHorizontal = true;
+		userSamplesTable.addListener (SWT.MouseDown, new Listener () {
+			public void handleEvent (Event event) {
+				Rectangle clientArea = userSamplesTable.getClientArea ();
+				Point pt = new Point (event.x, event.y);
+				int index = userSamplesTable.getTopIndex ();
+				while (index < userSamplesTable.getItemCount ()) {
+					boolean visible = false;
+					final TableItem item = userSamplesTable.getItem (index);
+					for (int i=0; i<userSamplesTable.getColumnCount (); i++) {
+						Rectangle rect = item.getBounds (i);
+						if (rect.contains (pt)) {
+							final int column = i;
+							final Text text = new Text (userSamplesTable, SWT.NONE);
+							Listener textListener = new Listener () {
+								public void handleEvent (final Event e) {
+									switch (e.type) {
+										case SWT.FocusOut:
+											item.setText (column, text.getText ());
+											text.dispose ();
+											break;
+										case SWT.Traverse:
+											switch (e.detail) {
+												case SWT.TRAVERSE_RETURN:
+													item.setText (column, text.getText ());
+													//FALL THROUGH
+												case SWT.TRAVERSE_ESCAPE:
+													text.dispose ();
+													e.doit = false;
+											}
+											break;
+									}
+								}
+							};
+							text.addListener (SWT.FocusOut, textListener);
+							text.addListener (SWT.Traverse, textListener);
+							editor.setEditor (text, item, i);
+							text.setText (item.getText (i));
+							text.selectAll ();
+							text.setFocus ();
+							return;
+						}
+						if (!visible && rect.intersects (clientArea)) {
+							visible = true;
+						}
+					}
+					if (!visible) return;
+					index++;
+				}
+			}
+		});
+	}
+	
+	/*
+	 * Adds a "classify" button to classify the sample entered by the user in the Editable Table.
+	 */
+	private Button addClassifyButton()
+	{
+		Button button =  new Button(shell, SWT.PUSH);
+		button.setText("Classify");
+		button.setVisible(false);
+		
+		addToGrid(button, 2);	
+		
+		classifyResultLabel = addLabel("Result: ", 2, SWT.RIGHT);
+		classifyResultLabel.setVisible(false);
+		
+		button.addSelectionListener(new SelectionAdapter() {
+		  @Override
+		  public void widgetSelected(SelectionEvent e) 
+		  {
+			  String line = "";
+			  TableItem item = userSamplesTable.getItem(0);
+			  for(int i = 0; i < userSamplesTable.getColumnCount(); i++)
+				  line += item.getText(i) + ",";
+			  line += "null";
+			  System.out.println(line);
+			  
+			  Sample sample = new Sample(line, Genome.getSamples().getfeatureList());
+			  //sample.display();
+			  
+			  SampleCollection trainingSamples = currentException.getCurrentDTClassifier().getTrainingSamples();
+			  trainingSamples.discretizeSample(sample);
+			  //sample.display();
+			  
+			  String classification = currentException.getCurrentDTClassifier().Classify(sample);
+			  classifyResultLabel.setText("Result: " + classification);
+		  }
+		});			
+		
+		return button;
+	}
 	
 	/*
 	 * This method creates a label widget with the lyrics as the text parameter, and size = horizontalSpacing
@@ -515,5 +667,29 @@ public class MainWindow implements Constants
 	    gridData.horizontalSpan = horizantalSpan;
 	    gridData.horizontalAlignment = GridData.FILL;
 	    ((Control) widget).setLayoutData(gridData);
+	}
+	
+	/* 
+	 * Shows/Hides all widgets that shouldn't be displayed in the GUI because algorithm hasn't been selected (Step 1)
+	 */
+	private void toggleIllegalWidgetsForStep1(boolean flag)
+	{
+		fitnessSliderLabel.setVisible(flag);
+    	fitnessSlider.setVisible(flag);
+    	crossoverSliderLabel.setVisible(flag);
+    	crossoverSlider.setVisible(flag);
+    	mutationSliderLabel.setVisible(flag);
+    	mutationSlider.setVisible(flag);
+    	runButton.setVisible(flag);
+	}
+	
+	/*
+	 * Shows/Hides all widgets that shouldn't be displayed before the Genetic Algorithm is run
+	 */
+	private void toggleIllegalWidgetsForStep2(boolean flag)
+	{	
+		userSamplesTable.setVisible(flag);
+		classifyButton.setVisible(flag);
+		classifyResultLabel.setVisible(flag);
 	}
 }

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import org.ck.dt.Discretizer;
+
 
 /**
  * Sample class indicates each horse sample.
@@ -127,5 +129,13 @@ public class Sample {
 	public String getClassification()
 	{
 		return classifiedResult;
+	}
+	
+	/*
+	 * To be used ONLY IN EMERGENCIES...The normal way is to use the discretizer method of SampleCollection
+	 */
+	public void discretize(String featureName, double delta, double min)
+	{
+		Discretizer.discretizeSample(this, featureName, delta, min);
 	}
 }

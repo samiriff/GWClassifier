@@ -22,6 +22,20 @@ public class SampleCollection implements Constants
 	private ArrayList<String> featureList;		
 	private HashMap<String, Integer> featureNumDiscreteClasses;			//To keep track of the number of values of each attribute after discretization
 	
+	private class BinningVars
+	{
+		public double minValue;
+		public double delta;
+		
+		public BinningVars(double d, double m)
+		{
+			delta = d;
+			minValue = m;
+		}
+	}
+	private ArrayList<BinningVars> binningVars;			//Used to keep track of the Equal Binning variables - delta and min of each feature
+	
+	
 //	private String trainingSamplesFilename;								//Name of the file that has training examples
 //	private String featuresFilename;									//Name of the file that has the list of attributes
 	
@@ -58,6 +72,10 @@ public class SampleCollection implements Constants
 		
 		//featureNumDiscreteClasses = new int[featureList.size()];	
 		featureNumDiscreteClasses = new HashMap<String, Integer>();
+		
+		binningVars = new ArrayList<SampleCollection.BinningVars>();
+		for(int i=0; i<featureList.size(); i++)
+			binningVars.add(null);
 	}
 	
 	/*
@@ -217,4 +235,45 @@ public class SampleCollection implements Constants
 		return featureList;
 	}
 
+	/*
+	 * Adds a new entry (delta, minValue) to the arraylist of binningVars at index i
+	 */
+	public void addBinningVar(int index, double delta, double minValue)
+	{
+		binningVars.set(index, new BinningVars(delta, minValue));
+	}
+	
+	/*
+	 * Returns the delta value of the bin at index
+	 */
+	public double getBinningVarDelta(int index)
+	{
+		return binningVars.get(index).delta;
+	}
+	
+	/*
+	 * Returns the min value of the bin at index
+	 */
+	public double getBinningVarMinvalue(int index)
+	{
+		return binningVars.get(index).minValue;
+	}
+	
+	/*
+	 * Displays the bin values for each feature of the sample collection
+	 */
+	public void displayBinning()
+	{
+		for(int i=0; i<binningVars.size(); i++)
+			System.out.println(binningVars.get(i).delta + "\t" + binningVars.get(i).minValue);
+	}
+	
+	/*
+	 * Discretizes a sample based on the Binning values of this sample collection
+	 */
+	public void discretizeSample(Sample sample)
+	{
+		for(int i=0; i<featureList.size(); i++)
+			sample.discretize(featureList.get(i), binningVars.get(i).delta, binningVars.get(i).minValue);
+	}
 }

@@ -19,6 +19,8 @@ public class OptimalScoreException extends Exception implements Constants
 	private ArrayList<Integer> trainingErrorIndices;
 	private ArrayList<Integer> testErrorIndices;
 	
+	private DecisionTreeClassifier dtClassifier;
+	
 	public OptimalScoreException()
 	{}
 	
@@ -47,7 +49,10 @@ public class OptimalScoreException extends Exception implements Constants
 		dtClassifier.setTestingSamples(test_samples);		
 		testErrorIndices = dtClassifier.TestAndFindAccuracy();
 		
-		System.out.println("Test set accuracy = " + (testSetAccuracy = dtClassifier.getAccuracy()));			
+		System.out.println("Test set accuracy = " + (testSetAccuracy = dtClassifier.getAccuracy()));	
+		
+		//test_samples.displayBinning();
+		this.dtClassifier = dtClassifier;
 	}
 	
 	public double getTrainingSetAccuracy()
@@ -83,5 +88,10 @@ public class OptimalScoreException extends Exception implements Constants
 		
 		System.out.println(selectedFeatures);
 		return selectedFeatures;
+	}
+	
+	public DecisionTreeClassifier getCurrentDTClassifier()
+	{
+		return dtClassifier;
 	}
 }

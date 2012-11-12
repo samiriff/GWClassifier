@@ -156,6 +156,7 @@ public class Genome implements Constants
 		SampleCollection training_samples = new SampleCollection(samples.getSamplesFilename(Filenames.TRAINING_SAMPLES_FILE), samples.getSamplesFilename(Filenames.FEATURES_FILE));
 		training_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 		dtClassifier.setTestingSamples(training_samples);
+		dtClassifier.setTrainingSamples(training_samples);
 		
 		return dtClassifier;
 	}

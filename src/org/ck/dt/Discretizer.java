@@ -60,6 +60,7 @@ public class Discretizer implements Constants
 		
 		double delta = computeBinWidth(samples, featureList.get(featureIndex), binSize);
 		//System.out.println("Delta = " + delta);
+		samples.addBinningVar(featureIndex, delta, minValue);
 		
 		discretizeSamples(samples, featureList.get(featureIndex), delta);
 		samples.setNumDiscreteClasses(featureIndex, binSize + 1);
@@ -76,9 +77,19 @@ public class Discretizer implements Constants
 				
 		for(Sample sample : samplesList)
 		{
-			double newValue = (int)((sample.getFeature(featureName).getValue() - minValue) / delta);
-			sample.setFeature(new Feature(featureName, newValue));
+			/*double newValue = (int)((sample.getFeature(featureName).getValue() - minValue) / delta);
+			sample.setFeature(new Feature(featureName, newValue));*/
+			discretizeSample(sample, featureName, delta, minValue);
 		}
+	}	
+	
+	/*
+	 * A public method to discretize the feature - featureName of sample based on delta and min
+	 */
+	public static void discretizeSample(Sample sample, String featureName, double delta, double min)
+	{
+		double newValue = (int)((sample.getFeature(featureName).getValue() - min) / delta);
+		sample.setFeature(new Feature(featureName, newValue));
 	}
 	
 	/*
