@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.ck.sample.Sample;
 import org.ck.sample.SampleCollection;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 
 /**
@@ -112,8 +114,58 @@ public class DecisionTreeClassifier {
 		return trainingSamples;
 	}
 	
+	/*
+	 * Returns the current testing samples based on which this decision tree was constructed
+	 */
+	public SampleCollection getTestingSamples()
+	{
+		return testingSamples;
+	}
+	
+	/*
+	 * Sets the samples based on which this decision tree will be constructed
+	 */
 	public void setTrainingSamples(SampleCollection samples)
 	{
 		trainingSamples = samples;
+	}
+	
+	/*
+	 * Takes a Tree SWT object and creates a graphical representation of the decision tree. This is a wrapper class
+	 */
+	public void getGraphicalDecisionTree(Tree tree)
+	{		
+		getGraphicalDecisionTree(tree, RootNode);
+	}
+
+	/*
+	 * To reduce the number of lines of code, this method was made generic. Due to this, there is an 
+	 * 		instanceof check to find the type-cast required wherever necessary.
+	 */
+	private <T> void getGraphicalDecisionTree(T treeItem, DecisionTreeNode root)
+	{		
+		if(root.isLeaf())
+		{
+			TreeItem item;
+			if(treeItem instanceof Tree)
+				item = new TreeItem((Tree) treeItem, 0);
+			else
+				item = new TreeItem((TreeItem)treeItem, 0);
+			item.setText(root.getClassification());
+		}
+		else
+		{
+			for(int child = 0; child < root.getNumChildren(); child++)
+			{
+				TreeItem item;
+				if(treeItem instanceof Tree)
+					item = new TreeItem((Tree) treeItem, 0);
+				else
+					item = new TreeItem((TreeItem)treeItem, 0);				
+				item.setText(root.getfeatureName() + " = " + child + "?");
+				
+				getGraphicalDecisionTree(item, root.getChildNode(child));
+			}
+		}
 	}
 }

@@ -34,16 +34,18 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
 
 public class MainWindow implements Constants
 {
 	private Shell shell;
 	private Display display;
 	
-	private int gridHorizontalSpacing = 4;
+	private int gridHorizontalSpacing = 10;
 	private int gridVerticalSpacing = 4;
 	private int gridMarginBottom = 5;
 	private int gridMarginTop = 5;
+	private int gridPadding = 2;
 	
 	private Slider fitnessSlider;
 	private Label fitnessSliderLabel;
@@ -55,14 +57,17 @@ public class MainWindow implements Constants
 	private Slider mutationSlider;
 	private Label mutationSliderLabel;
 	
-	private Table samplesTable = null;
+	private Table trainingSamplesTable = null;
 	private Button discretizeCheckBox;
+	private Table testingSamplesTable = null;
 		
 	private StyledText accuracyTextArea;
 	   
     private Table userSamplesTable = null;
     private Button classifyButton;
     private Label classifyResultLabel;
+    
+    private Tree graphicalDecisionTree = null;
     
 	private OptimalScoreException currentException = null;
 	/*
@@ -78,8 +83,8 @@ public class MainWindow implements Constants
 		centerShell();
 		initUI();
 		
-		shell.setSize(450, 900);
-		shell.setLocation(0, 0);
+		shell.setSize(1024, 900);
+		shell.setLocation(480, 0);
 		
 		shell.open();
 		while(!shell.isDisposed())
@@ -121,7 +126,7 @@ public class MainWindow implements Constants
 	private void initUI()
 	{	
 		//Initialize Grid Layout parameters
-		GridLayout gridLayout = new GridLayout(4, true);
+		GridLayout gridLayout = new GridLayout(gridHorizontalSpacing, true);
 		gridLayout.horizontalSpacing = gridHorizontalSpacing;
 		gridLayout.verticalSpacing = gridVerticalSpacing;
 		gridLayout.marginBottom = gridMarginBottom;
@@ -131,10 +136,10 @@ public class MainWindow implements Constants
 		//Adding Widgets
 		addLabel("THE ULTIMATE CLASSIFIER", gridHorizontalSpacing, SWT.CENTER);
 		addDataSamplesComboBox();
-		addBreak(4);
+		//addBreak(gridHorizontalSpacing / 2);
 		
 		addListBox();
-		addBreak(4);
+		addBreak(gridHorizontalSpacing);
 		
 		fitnessSlider = addFitnessThresholdSlider();
 		fitnessSlider.setVisible(false);
@@ -146,21 +151,25 @@ public class MainWindow implements Constants
 		mutationSlider.setVisible(false);
 				
 		addBreak(4);
-		addBreak(1);
 		runButton = addRunButton();	
 		runButton.setVisible(false);
 		
-		addBreak(2);
-		addSamplesTable(false);
-		addBreak(1);
+		addBreak(gridHorizontalSpacing);
+		addTrainingSamplesTable(false);
+		addTestingSamplesTable(false);
 		addDiscretizeCheckbox();		
 		
 		addResultDisplay();
 		
-		addBreak(4);
+		//addBreak(1);
 		addEditableSamplesTable();
+		addBreak(gridHorizontalSpacing / 2);
 		classifyButton = addClassifyButton();		
-		classifyButton.setVisible(false);
+		classifyButton.setVisible(false);	
+		
+		addBreak(gridHorizontalSpacing / 4);
+		addGraphicalDecisionTree();
+		graphicalDecisionTree.setVisible(false);
 	}
 
 
@@ -169,7 +178,7 @@ public class MainWindow implements Constants
 	 */
 	private Button addRunButton()
 	{
-		Button button =  new Button(shell, SWT.PUSH);
+		Button button =  new Button(shell, SWT.PUSH | SWT.CENTER);
 		button.setText("Run the Engine");
 		
 		addToGrid(button, 2);		
@@ -196,7 +205,7 @@ public class MainWindow implements Constants
 				  accuracyTextArea.setText(result);				  
 				  
 				  //Clear previous selection, if any
-				  TableItem items[] = samplesTable.getItems();
+				  TableItem items[] = trainingSamplesTable.getItems();
 				  for(int i=0; i < items.length; i++)
 				  {
 					  items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
@@ -206,11 +215,21 @@ public class MainWindow implements Constants
 				  ArrayList<Integer> trainingErrorIndices = exception.getTrainingErrorIndices();
 				  for(int index : trainingErrorIndices)
 				  {					  
-					  samplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
-					  samplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
+					  trainingSamplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
+					  trainingSamplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
 				  }			
 				  
-				  toggleIllegalWidgetsForStep2(true);
+				  ArrayList<Integer> testErrorIndices = exception.getTestErrorIndices();
+				  for(int index : testErrorIndices)
+				  {					  
+					  testingSamplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
+					  testingSamplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
+				  }			
+				  
+				  
+				  
+				  toggleIllegalWidgetsForStep2(true);				  
+				  addGraphicalDecisionTree();
 			  }
 		  }
 		});			
@@ -237,7 +256,7 @@ public class MainWindow implements Constants
 	 */
 	private void addDataSamplesComboBox()
 	{
-		addLabel("Select Data Samples File: ", 2, SWT.CENTER);
+		addLabel("Select Data Samples File: ", gridHorizontalSpacing / 2, SWT.RIGHT);
 
         final Combo combo = new Combo(shell, SWT.DROP_DOWN);
         for(int i = 0; i < DatasetOptions.values().length; i++)
@@ -250,7 +269,8 @@ public class MainWindow implements Constants
             public void widgetSelected(SelectionEvent e) {
             	DataHolder.setDataset(DatasetOptions.valueOf(combo.getText()));
             	Genome.reInitializeStaticVariables();
-            	addSamplesTable(discretizeCheckBox.getSelection());
+            	addTrainingSamplesTable(discretizeCheckBox.getSelection());
+            	addTestingSamplesTable(discretizeCheckBox.getSelection());
             	addEditableSamplesTable();
             	
             	accuracyTextArea.setText("");
@@ -258,7 +278,8 @@ public class MainWindow implements Constants
             };
         });
 
-        addToGrid(combo, 2);
+        addToGrid(combo, gridHorizontalSpacing / 2 - gridPadding);
+        addBreak(gridPadding);
 	}
 
 	/*
@@ -269,13 +290,14 @@ public class MainWindow implements Constants
 	{        
 		final double sliderRange = 1000;
 		
-		fitnessSliderLabel = addLabel("Fitness Threshold --->  ", 2, SWT.CENTER);
+		fitnessSliderLabel = addLabel("Fitness Threshold --->  ", gridHorizontalSpacing / 2, SWT.RIGHT);
 		fitnessSliderLabel.setVisible(false);
 		
 		final Slider slider = new Slider(shell, SWT.HORIZONTAL);
 		slider.setMaximum((int)sliderRange);
 		slider.setSelection((int) (DataHolder.getFitnessScoreThreshold() * sliderRange));
-		addToGrid(slider, 2);
+		addToGrid(slider, gridHorizontalSpacing / 2 - gridPadding);
+		addBreak(gridPadding);
 		
 		fitnessSliderLabel.setText(fitnessSliderLabel.getText() + slider.getSelection() / sliderRange);
 		
@@ -303,13 +325,14 @@ public class MainWindow implements Constants
 	{        
 		final double sliderRange = 10000;
 		
-		crossoverSliderLabel = addLabel("Crossover Rate --->  ", 2, SWT.CENTER);
+		crossoverSliderLabel = addLabel("Crossover Rate --->  ", gridHorizontalSpacing / 2, SWT.RIGHT);
 		crossoverSliderLabel.setVisible(false);
 		
 		final Slider slider = new Slider(shell, SWT.HORIZONTAL);
 		slider.setMaximum((int)sliderRange);
 		slider.setSelection((int) (DataHolder.getCrossoverProbabilityThreshold() * sliderRange));
-		addToGrid(slider, 2);
+		addToGrid(slider, gridHorizontalSpacing / 2 - gridPadding);
+		addBreak(gridPadding);
 		
 		crossoverSliderLabel.setText(crossoverSliderLabel.getText() + slider.getSelection() / sliderRange);
 		
@@ -337,13 +360,14 @@ public class MainWindow implements Constants
 	{        
 		final double sliderRange = 10000;
 		
-		mutationSliderLabel = addLabel("Mutation Rate --->  ", 2, SWT.CENTER);
+		mutationSliderLabel = addLabel("Mutation Rate --->  ", gridHorizontalSpacing / 2, SWT.RIGHT);
 		mutationSliderLabel.setVisible(false);
 		
 		final Slider slider = new Slider(shell, SWT.HORIZONTAL);
 		slider.setMaximum((int)sliderRange);
 		slider.setSelection((int) (DataHolder.getMutationProbabilityThreshold() * sliderRange));
-		addToGrid(slider, 2);
+		addToGrid(slider, gridHorizontalSpacing / 2 - gridPadding);
+		addBreak(gridPadding);
 		
 		mutationSliderLabel.setText(mutationSliderLabel.getText() + slider.getSelection() / sliderRange);
 		
@@ -369,7 +393,7 @@ public class MainWindow implements Constants
 	 */
 	private void addListBox()
 	{       
-        addLabel("Select Algorithm", 2, SWT.CENTER);
+        addLabel("Select Algorithm", gridHorizontalSpacing / 2, SWT.RIGHT);
         
         final List list = new List(shell, SWT.BORDER);        
         list.add("Decision Tree Classifier");
@@ -397,7 +421,8 @@ public class MainWindow implements Constants
             }
         });
 
-        addToGrid(list, 2);     
+        addToGrid(list, gridHorizontalSpacing / 2 - gridPadding);
+        addBreak(gridPadding);
 	}
 	
 	private void addDiscretizeCheckbox()
@@ -405,7 +430,9 @@ public class MainWindow implements Constants
 		 discretizeCheckBox = new Button(shell, SWT.CHECK);
 	     discretizeCheckBox.setText("Show Discretized Values");
 	     discretizeCheckBox.setSelection(false);
+	     discretizeCheckBox.setVisible(false);
 	     
+	     addBreak(5);
 	     addToGrid(discretizeCheckBox, 2);
 
 	     discretizeCheckBox.addSelectionListener(new SelectionAdapter()
@@ -413,45 +440,75 @@ public class MainWindow implements Constants
             @Override
             public void widgetSelected(SelectionEvent e) {
                 if (discretizeCheckBox.getSelection()) {
-                    addSamplesTable(true);
+                    addTrainingSamplesTable(true);
+                    addTestingSamplesTable(true);
                 } else {
-                    addSamplesTable(false);
+                    addTrainingSamplesTable(false);
+                    addTestingSamplesTable(false);
                 }
             }
         });
 	}
 	
 	/*
-	 * This method creates an Excel-type table to display all the samples of the selected dataset
+	 * Initializes the trainingSamplesTable and selects the appropriate SampleCollection, based on the value of
+	 * 		isDiscretize
 	 */
-	private void addSamplesTable(boolean isDiscretize)
+	private void addTrainingSamplesTable(boolean isDiscretize)
 	{
-		Table tempTable = samplesTable;					//Required for replacement in Grid Layout
-		
-		samplesTable = new Table (shell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
-		samplesTable.setLinesVisible (true);
-		samplesTable.setHeaderVisible (true);
-		
-		GridData data = new GridData(); //SWT.FILL, SWT.FILL, false, false);
-		data.heightHint = 200;
-		data.widthHint = 200;
-		data.horizontalSpan = 4;
-	    data.horizontalAlignment = GridData.FILL;
-		samplesTable.setLayoutData(data);
-		
-		//This block is executed if a previous table has to be overwritten with a new table
-		if(tempTable != null)
-		{
-			samplesTable.moveAbove(tempTable);
-			tempTable.dispose();
-			samplesTable.getParent().layout();
-		}
+		Table previousTable = trainingSamplesTable;					//Required for replacement in Grid Layout
+		trainingSamplesTable = new Table (shell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
 		
 		SampleCollection samplesCollection = null;
 		if(isDiscretize)
 			samplesCollection = Genome.getSamples();
 		else
 			samplesCollection = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
+		
+		addTable(trainingSamplesTable, samplesCollection, previousTable);
+	}
+	
+	/*
+	 * Initializes the testingSamplesTable and selects the appropriate SampleCollection, based on the value of
+	 * 		isDiscretize
+	 */
+	private void addTestingSamplesTable(boolean isDiscretize)
+	{
+		Table previousTable = testingSamplesTable;					//Required for replacement in Grid Layout
+		testingSamplesTable = new Table (shell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+		
+		SampleCollection samplesCollection = null;
+		if(isDiscretize)
+			samplesCollection = currentException.getCurrentDTClassifier().getTestingSamples();
+		else
+			samplesCollection = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
+		
+		addTable(testingSamplesTable, samplesCollection, previousTable);
+	}
+	
+	/*
+	 * This method creates an Excel-type table to display all the samples of the selected SampleCollection 
+	 * 		in a samplesTable, replacing any previousSamplesTable that was drawn previously, if any.
+	 */
+	private void addTable(Table samplesTable, SampleCollection samplesCollection, Table previousSamplesTable)
+	{		
+		samplesTable.setLinesVisible (true);
+		samplesTable.setHeaderVisible (true);
+		
+		GridData data = new GridData(); //SWT.FILL, SWT.FILL, false, false);
+		data.heightHint = 200;
+		data.widthHint = 200;
+		data.horizontalSpan = gridHorizontalSpacing / 2;
+	    data.horizontalAlignment = GridData.FILL;
+		samplesTable.setLayoutData(data);
+		
+		//This block is executed if a previous table has to be overwritten with a new table
+		if(previousSamplesTable != null)
+		{
+			samplesTable.moveAbove(previousSamplesTable);
+			previousSamplesTable.dispose();
+			samplesTable.getParent().layout();
+		}		
 		
 		ArrayList<String> featureList = samplesCollection.getfeatureList();
 		for (String feature : featureList) 
@@ -493,8 +550,8 @@ public class MainWindow implements Constants
 		accuracyTextArea.setVisible(false);
 				
 		GridData gridData = new GridData();
-	    gridData.horizontalSpan = 4;
-	    gridData.heightHint = 100;
+	    gridData.horizontalSpan = gridHorizontalSpacing / 2;
+	    gridData.heightHint = 70;
 	    gridData.horizontalAlignment = GridData.FILL;
 	    (accuracyTextArea).setLayoutData(gridData);
 	}
@@ -512,9 +569,9 @@ public class MainWindow implements Constants
 		userSamplesTable.setVisible(false);
 		
 		GridData data = new GridData(); //SWT.FILL, SWT.FILL, false, false);
-		data.heightHint = 50;
+		data.heightHint = 60;
 		data.widthHint = 100;
-		data.horizontalSpan = 4;
+		data.horizontalSpan = gridHorizontalSpacing / 2;
 	    data.horizontalAlignment = GridData.FILL;
 	    userSamplesTable.setLayoutData(data);
 		
@@ -614,9 +671,9 @@ public class MainWindow implements Constants
 		button.setText("Classify");
 		button.setVisible(false);
 		
-		addToGrid(button, 2);	
+		addToGrid(button, gridHorizontalSpacing / 3);	
 		
-		classifyResultLabel = addLabel("Result: ", 2, SWT.RIGHT);
+		classifyResultLabel = addLabel("Result: ", gridHorizontalSpacing / 4, SWT.RIGHT);
 		classifyResultLabel.setVisible(false);
 		
 		button.addSelectionListener(new SelectionAdapter() {
@@ -643,6 +700,29 @@ public class MainWindow implements Constants
 		});			
 		
 		return button;
+	}
+	
+	/*
+	 * Draws the generated optimal decision tree in the GUI, replacing any instance of an older decision tree 
+	 */
+	private void addGraphicalDecisionTree()
+	{
+		Tree previousTree = graphicalDecisionTree;
+		
+		graphicalDecisionTree = new Tree(shell, SWT.BORDER);
+		
+		if(currentException != null)
+			currentException.getCurrentDTClassifier().getGraphicalDecisionTree(graphicalDecisionTree);
+		
+		addToGrid(graphicalDecisionTree, gridHorizontalSpacing / 2);
+		
+		//This block is executed if a previous table has to be overwritten with a new table
+		if(previousTree != null)
+		{
+			graphicalDecisionTree.moveAbove(previousTree);
+			previousTree.dispose();
+			graphicalDecisionTree.getParent().layout();
+		}
 	}
 	
 	/*
@@ -691,5 +771,7 @@ public class MainWindow implements Constants
 		userSamplesTable.setVisible(flag);
 		classifyButton.setVisible(flag);
 		classifyResultLabel.setVisible(flag);
+		graphicalDecisionTree.setVisible(flag);
+		discretizeCheckBox.setVisible(flag);
 	}
 }
