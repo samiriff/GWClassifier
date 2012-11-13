@@ -47,6 +47,11 @@ public class MainWindow implements Constants
 	private int gridMarginTop = 5;
 	private int gridPadding = 2;
 	
+	private List algorithmList;
+	
+	private Table featureSelectorTable;	
+	private Button featureSelectorButtons[];
+	
 	private Slider fitnessSlider;
 	private Label fitnessSliderLabel;
 	private Button runButton;
@@ -70,6 +75,7 @@ public class MainWindow implements Constants
     private Tree graphicalDecisionTree = null;
     
 	private OptimalScoreException currentException = null;
+	
 	/*
 	 * A constructor that takes in a display parameter and initializes the shell and other components of the UI
 	 */
@@ -83,7 +89,7 @@ public class MainWindow implements Constants
 		centerShell();
 		initUI();
 		
-		shell.setSize(1024, 900);
+		shell.setSize(1024, 1000);
 		shell.setLocation(480, 0);
 		
 		shell.open();
@@ -141,6 +147,8 @@ public class MainWindow implements Constants
 		addListBox();
 		addBreak(gridHorizontalSpacing);
 		
+		addFeatureSelectorTable();
+		
 		fitnessSlider = addFitnessThresholdSlider();
 		fitnessSlider.setVisible(false);
 		
@@ -150,13 +158,13 @@ public class MainWindow implements Constants
 		mutationSlider = addMutationRateSlider();
 		mutationSlider.setVisible(false);
 				
-		addBreak(4);
+		addBreak(gridHorizontalSpacing / 4 + 1);
 		runButton = addRunButton();	
 		runButton.setVisible(false);
 		
 		addBreak(gridHorizontalSpacing);
-		addTrainingSamplesTable(false);
-		addTestingSamplesTable(false);
+		addTrainingSamplesTable(false, false);
+		addTestingSamplesTable(false, false);
 		addDiscretizeCheckbox();		
 		
 		addResultDisplay();
@@ -170,8 +178,7 @@ public class MainWindow implements Constants
 		addBreak(gridHorizontalSpacing / 4);
 		addGraphicalDecisionTree();
 		graphicalDecisionTree.setVisible(false);
-	}
-
+	}	
 
 	/*
 	 * Adds a run button, to start Machine Learning 
@@ -181,57 +188,76 @@ public class MainWindow implements Constants
 		Button button =  new Button(shell, SWT.PUSH | SWT.CENTER);
 		button.setText("Run the Engine");
 		
-		addToGrid(button, 2);		
+		addToGrid(button, gridHorizontalSpacing / 2);		
 		
-		button.addSelectionListener(new SelectionAdapter() {
+		button.addSelectionListener(new SelectionAdapter() 
+		{
 		  @Override
-		  public void widgetSelected(SelectionEvent e) {
-		    // Handle the selection event
+		  public void widgetSelected(SelectionEvent e) 
+		  {
+		      //Handle the selection event
 			  try
-			  {		
-				  MainClass.sampleCaller2();
+			  {				  
+	              switch(algorithmList.getSelectionIndex())
+	              {
+	              case 0:
+	            	  MainClass.sampleCaller2();
+	            	  break;
+	              case 1:
+	            	  //String allFeaturesChromosome = "0001111000101001";
+	            	  String allFeaturesChromosome = constructChromosomeFromFeatureSelectorButtons();	            	  
+	            	  Genome allFeaturesGenome = new Genome(allFeaturesChromosome);
+	            	  System.out.println(allFeaturesChromosome);
+	            	  throw new OptimalScoreException(allFeaturesGenome);	            	  
+	              }
 			  }
 			  catch(OptimalScoreException exception)
 			  {									  
-				  //try{Thread.sleep(1000);} catch (InterruptedException e1){}
-				  
-				  currentException = exception;
-				  
-				  accuracyTextArea.setVisible(true);
-				  
-				  String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy() + "\n";
-				  result += "Test Set Accuracy = " + exception.getTestSetAccuracy() + "\n";
-				  result += "Selected Features = " + exception.getSelectedFeatures(); 
-				  accuracyTextArea.setText(result);				  
-				  
-				  //Clear previous selection, if any
-				  TableItem items[] = trainingSamplesTable.getItems();
-				  for(int i=0; i < items.length; i++)
-				  {
-					  items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
-					  items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
-				  }
-				  
-				  ArrayList<Integer> trainingErrorIndices = exception.getTrainingErrorIndices();
-				  for(int index : trainingErrorIndices)
-				  {					  
-					  trainingSamplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
-					  trainingSamplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
-				  }			
-				  
-				  ArrayList<Integer> testErrorIndices = exception.getTestErrorIndices();
-				  for(int index : testErrorIndices)
-				  {					  
-					  testingSamplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
-					  testingSamplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
-				  }			
-				  
-				  
-				  
-				  toggleIllegalWidgetsForStep2(true);				  
-				  addGraphicalDecisionTree();
+				  displayResult(exception);
 			  }
 		  }
+
+		  private String constructChromosomeFromFeatureSelectorButtons()
+		  {
+			  String chromosome = "";
+			  for(int i=0; i<featureSelectorButtons.length; i++)
+			  {
+				  if(featureSelectorButtons[i].getSelection())
+					  chromosome += '1';
+				  else
+					  chromosome += '0';
+			  }
+			  return chromosome;
+		  }
+
+		private void displayResult(OptimalScoreException exception)
+		  {
+			//try{Thread.sleep(1000);} catch (InterruptedException e1){}
+			  
+			  currentException = exception;
+			  
+			  accuracyTextArea.setVisible(true);
+			  
+			  String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy() + "\n";
+			  result += "Test Set Accuracy = " + exception.getTestSetAccuracy() + "\n";
+			  result += "Selected Features = " + exception.getSelectedFeatures(); 
+			  accuracyTextArea.setText(result);				  
+			  
+			  //Clear previous selection, if any
+			  TableItem items[] = trainingSamplesTable.getItems();
+			  for(int i=0; i < items.length; i++)
+			  {
+				  items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
+				  items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
+			  }
+			  
+			  highlightIncorrectlyClassifiedSamples();
+			  
+			  
+			  toggleIllegalWidgetsForStep2(true);				  
+			  addGraphicalDecisionTree();
+		  }
+		  
 		});			
 		
 		return button;
@@ -269,9 +295,13 @@ public class MainWindow implements Constants
             public void widgetSelected(SelectionEvent e) {
             	DataHolder.setDataset(DatasetOptions.valueOf(combo.getText()));
             	Genome.reInitializeStaticVariables();
-            	addTrainingSamplesTable(discretizeCheckBox.getSelection());
-            	addTestingSamplesTable(discretizeCheckBox.getSelection());
+            	addTrainingSamplesTable(discretizeCheckBox.getSelection(), false);
+            	addTestingSamplesTable(discretizeCheckBox.getSelection(), false);
             	addEditableSamplesTable();
+            	addFeatureSelectorTable();
+            	
+            	if(algorithmList.getSelectionIndex() == 1)
+            		featureSelectorTable.setVisible(true);
             	
             	accuracyTextArea.setText("");
             	toggleIllegalWidgetsForStep2(false);
@@ -281,7 +311,7 @@ public class MainWindow implements Constants
         addToGrid(combo, gridHorizontalSpacing / 2 - gridPadding);
         addBreak(gridPadding);
 	}
-
+	
 	/*
 	 * Adds a slider to vary the fitness threshold for the fitness function of the genetic algorithm
 	 * 	Returns the initialized slider
@@ -395,21 +425,21 @@ public class MainWindow implements Constants
 	{       
         addLabel("Select Algorithm", gridHorizontalSpacing / 2, SWT.RIGHT);
         
-        final List list = new List(shell, SWT.BORDER);        
-        list.add("Decision Tree Classifier");
-        //list.add("K-Means Clustering Classifier");
-        //list.select(0);
+        algorithmList = new List(shell, SWT.BORDER);
+        algorithmList.add("GA-based Feature Selection");
+        algorithmList.add("Manual Feature Selection");        
 
-        list.addListener(SWT.Selection, new Listener () {
+        algorithmList.addListener(SWT.Selection, new Listener () {
             public void handleEvent (Event e) {
-                String[] items = list.getSelection();
                 
-                if(items[0].equalsIgnoreCase("Decision Tree Classifier"))
+            	if(algorithmList.getSelectionIndex() == 0)
                 {
                 	toggleIllegalWidgetsForStep1(true);
 	            	
 	            	accuracyTextArea.setText("");
 	            	toggleIllegalWidgetsForStep2(false);
+	            	
+	            	featureSelectorTable.setVisible(false);
                 }
                 else
                 {
@@ -417,11 +447,16 @@ public class MainWindow implements Constants
 	            	
 	            	accuracyTextArea.setText("");
 	            	toggleIllegalWidgetsForStep2(false);
+	            	
+	            	addFeatureSelectorTable();
+	            	featureSelectorTable.setVisible(true);
                 }
+                
+                runButton.setVisible(true);
             }
         });
 
-        addToGrid(list, gridHorizontalSpacing / 2 - gridPadding);
+        addToGrid(algorithmList, gridHorizontalSpacing / 2 - gridPadding);
         addBreak(gridPadding);
 	}
 	
@@ -440,11 +475,11 @@ public class MainWindow implements Constants
             @Override
             public void widgetSelected(SelectionEvent e) {
                 if (discretizeCheckBox.getSelection()) {
-                    addTrainingSamplesTable(true);
-                    addTestingSamplesTable(true);
+                    addTrainingSamplesTable(true, true);
+                    addTestingSamplesTable(true, true);
                 } else {
-                    addTrainingSamplesTable(false);
-                    addTestingSamplesTable(false);
+                    addTrainingSamplesTable(false, true);
+                    addTestingSamplesTable(false, true);
                 }
             }
         });
@@ -454,7 +489,7 @@ public class MainWindow implements Constants
 	 * Initializes the trainingSamplesTable and selects the appropriate SampleCollection, based on the value of
 	 * 		isDiscretize
 	 */
-	private void addTrainingSamplesTable(boolean isDiscretize)
+	private void addTrainingSamplesTable(boolean isDiscretize, boolean highlightIncorrectItems)
 	{
 		Table previousTable = trainingSamplesTable;					//Required for replacement in Grid Layout
 		trainingSamplesTable = new Table (shell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
@@ -466,13 +501,16 @@ public class MainWindow implements Constants
 			samplesCollection = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
 		
 		addTable(trainingSamplesTable, samplesCollection, previousTable);
+		
+		if(highlightIncorrectItems)
+			highlightIncorrectlyClassifiedSamples();
 	}
 	
 	/*
 	 * Initializes the testingSamplesTable and selects the appropriate SampleCollection, based on the value of
 	 * 		isDiscretize
 	 */
-	private void addTestingSamplesTable(boolean isDiscretize)
+	private void addTestingSamplesTable(boolean isDiscretize, boolean highlightIncorrectItems)
 	{
 		Table previousTable = testingSamplesTable;					//Required for replacement in Grid Layout
 		testingSamplesTable = new Table (shell, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
@@ -484,6 +522,9 @@ public class MainWindow implements Constants
 			samplesCollection = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
 		
 		addTable(testingSamplesTable, samplesCollection, previousTable);
+		
+		if(highlightIncorrectItems)
+			highlightIncorrectlyClassifiedSamples();
 	}
 	
 	/*
@@ -539,6 +580,93 @@ public class MainWindow implements Constants
 		{
 			samplesTable.getColumn(i).pack();
 		}
+	}
+	
+	/*
+	 * This method is used to highlight all the samples in the graphical tables that have been classified
+	 * 		incorrectly by the chosen decision tree.
+	 */
+	private void highlightIncorrectlyClassifiedSamples()
+	{
+		 if(currentException == null)
+			 return;
+		 
+		 ArrayList<Integer> trainingErrorIndices = currentException.getTrainingErrorIndices();
+		  for(int index : trainingErrorIndices)
+		  {					  
+			  trainingSamplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
+			  trainingSamplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
+		  }			
+		  
+		  ArrayList<Integer> testErrorIndices = currentException.getTestErrorIndices();
+		  for(int index : testErrorIndices)
+		  {					  
+			  testingSamplesTable.getItem(index).setBackground(display.getSystemColor(SWT.COLOR_RED));
+			  testingSamplesTable.getItem(index).setForeground(display.getSystemColor(SWT.COLOR_YELLOW));
+		  }	
+	}
+	
+	/*
+	 * Adds a table for manual feature selection by the user.
+	 */
+	private void addFeatureSelectorTable()
+	{
+		Table previousTable = featureSelectorTable;
+		
+		featureSelectorTable = new Table(shell, SWT.MULTI| SWT.BORDER | SWT.FULL_SELECTION | SWT.V_SCROLL);
+		featureSelectorTable.setLinesVisible (true);
+		featureSelectorTable.setHeaderVisible (true);
+		featureSelectorTable.setVisible(false);
+		
+		GridData data = new GridData(); //SWT.FILL, SWT.FILL, false, false);
+		data.heightHint = 25;
+		data.widthHint = 200;
+		data.horizontalSpan = gridHorizontalSpacing;
+	    data.horizontalAlignment = GridData.FILL;
+		featureSelectorTable.setLayoutData(data);
+		
+		//This block is executed if a previous table has to be overwritten with a new table
+		if(previousTable != null)
+		{
+			featureSelectorTable.moveAbove(previousTable);
+			previousTable.dispose();
+			featureSelectorTable.getParent().layout();
+		}		
+		
+		ArrayList<String> featureList = Genome.getSamples().getfeatureList();
+		for (String feature : featureList) 
+		{
+			TableColumn column = new TableColumn(featureSelectorTable, SWT.NONE);
+			column.setMoveable(true);
+			column.setText(feature);
+		}	
+		
+		double minWidth = 0;
+		TableItem item = new TableItem(featureSelectorTable, SWT.NONE);
+		
+		featureSelectorButtons = new Button[featureList.size()];
+		
+		for(int i=0; i<featureList.size(); i++)
+		{
+			featureSelectorButtons[i] = new Button(featureSelectorTable, SWT.CHECK);
+			featureSelectorButtons[i].pack();
+			TableEditor editor = new TableEditor(featureSelectorTable);
+			Point size = featureSelectorButtons[i].computeSize(SWT.DEFAULT, SWT.DEFAULT);
+			editor.minimumWidth = size.x;
+			minWidth = Math.max(size.x, minWidth);
+			editor.minimumHeight = size.y;
+			editor.horizontalAlignment = SWT.CENTER;
+			editor.verticalAlignment = SWT.CENTER;
+			editor.setEditor(featureSelectorButtons[i], item , i);
+		}
+		
+		for (int i=0; i <  featureList.size(); i++) 
+		{
+			featureSelectorTable.getColumn(i).pack();
+		}
+		
+		TableItem item1 = featureSelectorTable.getItem(0);
+		System.out.println(item1);
 	}
 	
 	/*
