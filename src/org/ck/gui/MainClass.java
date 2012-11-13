@@ -23,7 +23,7 @@ public class MainClass implements Constants{
 	
 	public static void sampleCaller2()throws OptimalScoreException
 	{
-		//DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
+		DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
 		Population population = null;
 		try {
 			population = new Population();
