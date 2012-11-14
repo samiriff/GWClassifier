@@ -50,8 +50,8 @@ public class Population implements Constants
 		}
 		
 		System.out.println("Best Genome: ");
-		bestGenome.displayGenes();
-		throw new OptimalScoreException(bestGenome);
+		//bestGenome.displayGenes();
+		//throw new OptimalScoreException(bestGenome);
 	}
 
 	/*
@@ -193,7 +193,7 @@ public class Population implements Constants
 		int[] FeatureSubsetValues = new int[(int)upperLimit];
 		for(int i=0; i<upperLimit; ++i)
 			FeatureSubsetValues[i] = i;
-		randomShuffle(FeatureSubsetValues);
+		//randomShuffle(FeatureSubsetValues);
 		for(int i=0; i< POPULATION_SIZE; i++)
 			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i],numOfFeatures)));		
 	}

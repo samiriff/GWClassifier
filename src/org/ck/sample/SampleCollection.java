@@ -276,4 +276,12 @@ public class SampleCollection implements Constants
 		for(int i=0; i<featureList.size(); i++)
 			sample.discretize(featureList.get(i), binningVars.get(i).delta, binningVars.get(i).minValue);
 	}
+	
+	public void discretizeSamplesBasedOnOtherSampleCollection(SampleCollection trainingSampleCollection)
+	{
+		for(Sample sample : samples)
+		{
+			trainingSampleCollection.discretizeSample(sample);
+		}
+	}
 }

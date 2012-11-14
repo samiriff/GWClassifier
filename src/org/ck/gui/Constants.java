@@ -37,7 +37,7 @@ public interface Constants
 	
 	public static final int POPULATION_SIZE = 75;
 	public static final int NUM_OF_GENERATIONS = 150;
-	public static final double FITNESS_SCORE_THRESHOLD = 0.96;
+	public static final double FITNESS_SCORE_THRESHOLD = 0.87;
 	public static final double CROSSOVER_PROBABILITY_THRESHOLD = 0.85;
 	public static final double MUTATION_PROBABILITY_THRESHOLD = 0.025;
 	

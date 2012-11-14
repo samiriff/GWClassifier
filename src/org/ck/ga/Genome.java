@@ -76,7 +76,8 @@ public class Genome implements Constants
 		
 		//Part 2 - Get test set accuracy
 		SampleCollection test_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
-		test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
+		//test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
+		test_samples.discretizeSamplesBasedOnOtherSampleCollection(dtClassifier.getTrainingSamples());
 		dtClassifier.setTestingSamples(test_samples);		
 		dtClassifier.TestAndFindAccuracy();		
 		double testSetAccuracy = dtClassifier.getAccuracy();
@@ -84,8 +85,6 @@ public class Genome implements Constants
 		fitnessScore = (trainingWeight * trainingSetAccuracy + testingWeight * testSetAccuracy) / (trainingWeight + testingWeight);
 		//fitnessScore = trainingSetAccuracy; It was running very slowly that's why all this circus. We'll find a solution.
 		//fitnessScore = trainingSetAccuracy > testSetAccuracy ? trainingSetAccuracy : testSetAccuracy;
-		if(fitnessScore >= DataHolder.getFitnessScoreThreshold())
-			throw new OptimalScoreException(this);
 	}
 	
 	/*

@@ -45,7 +45,8 @@ public class OptimalScoreException extends Exception implements Constants
 		System.out.println("Training Set Accuracy = " + (trainingSetAccuracy = dtClassifier.getAccuracy()));
 		
 		SampleCollection test_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
-		test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
+		//test_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
+		test_samples.discretizeSamplesBasedOnOtherSampleCollection(dtClassifier.getTrainingSamples());
 		dtClassifier.setTestingSamples(test_samples);		
 		testErrorIndices = dtClassifier.TestAndFindAccuracy();
 		

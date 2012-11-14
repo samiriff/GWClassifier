@@ -89,6 +89,13 @@ public class Discretizer implements Constants
 	public static void discretizeSample(Sample sample, String featureName, double delta, double min)
 	{
 		double newValue = (int)((sample.getFeature(featureName).getValue() - min) / delta);
+		
+		//Check for extraneous values
+		if(newValue < 0)
+			newValue = 0;
+		if(newValue > NUMBER_OF_BINS)
+			newValue = NUMBER_OF_BINS;
+		
 		sample.setFeature(new Feature(featureName, newValue));
 	}
 	

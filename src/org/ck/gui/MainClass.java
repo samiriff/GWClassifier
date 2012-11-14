@@ -23,16 +23,22 @@ public class MainClass implements Constants{
 	
 	public static void sampleCaller2()throws OptimalScoreException
 	{
-		DataHolder.setDataset(DatasetOptions.WATER_DATASET);
 		Population population = null;
-		population = new Population();
-		population.displayPopulation();
-		
-		System.out.println("Starting Genetic Algorithm Engine***");
-		//System.out.println(DataHolder.getPositiveClass());
-		//System.out.println(DataHolder.getFitnessScoreThreshold());
-		//Thread.sleep(1000);
-		population.runGeneticAlgorithm();
+		try {
+			population = new Population();
+			population.displayPopulation();
+			
+			System.out.println("Starting Genetic Algorithm Engine...");
+			System.out.println(DataHolder.getPositiveClass());
+			System.out.println(DataHolder.getFitnessScoreThreshold());
+			Thread.sleep(1000);
+			population.runGeneticAlgorithm();			
+			
+		} 
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
 		System.out.println(DataHolder.getFitnessScoreThreshold());
 		System.out.println(DataHolder.getCrossoverProbabilityThreshold());

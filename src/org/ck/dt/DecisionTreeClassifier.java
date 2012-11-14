@@ -39,6 +39,7 @@ public class DecisionTreeClassifier {
 	 */
 	public DecisionTreeClassifier(SampleCollection samples, ArrayList<String> features)
 	{
+		this.trainingSamples = samples;
 		this.dtConstructor = new DecisionTreeConstructor(samples,features);
 		this.RootNode = this.dtConstructor.getDecisionTreeRootNode();
 	}
