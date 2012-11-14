@@ -47,6 +47,8 @@ public class MainWindow implements Constants
 	private int gridMarginTop = 5;
 	private int gridPadding = 2;
 	
+	private Combo comboDatasetBox;
+	
 	private List algorithmList;
 	
 	private Table featureSelectorTable;	
@@ -70,8 +72,9 @@ public class MainWindow implements Constants
 	   
     private Table userSamplesTable = null;
     private Button classifyButton;
-    private Button saveDTButton;
     private Label classifyResultLabel;
+    
+    private Button saveDTButton;
     
     private Tree graphicalDecisionTree = null;
     
@@ -107,6 +110,7 @@ public class MainWindow implements Constants
 	public static void main(String args[])
 	{
 		Display display = new Display();
+		//new WelcomeWindow(display);
 		new MainWindow(display);
 		display.dispose();
 	}
@@ -173,32 +177,18 @@ public class MainWindow implements Constants
 		//addBreak(1);
 		addEditableSamplesTable();
 		addBreak(gridHorizontalSpacing / 2);
+		classifyButton = addClassifyButton();		
+		classifyButton.setVisible(false);	
+		
 		classifyButton = addClassifyButton();	
 		saveDTButton = addSaveDTButton();
-		classifyButton.setVisible(false);	
-		//saveDTButton.setVisible();
+
+		
 		addBreak(gridHorizontalSpacing / 4);
 		addGraphicalDecisionTree();
 		graphicalDecisionTree.setVisible(false);
 	}	
 
-	private Button addSaveDTButton() {
-		Button button =  new Button(shell, SWT.PUSH);
-		button.setText("Save To File");
-		//button.setVisible(false);
-		
-		addToGrid(button, gridHorizontalSpacing / 3);	
-		
-		button.addSelectionListener(new SelectionAdapter() {
-		  @Override
-		  public void widgetSelected(SelectionEvent e) 
-		  {
-			  
-		  }
-		});			
-		
-		return button;
-	}
 	/*
 	 * Adds a run button, to start Machine Learning 
 	 */
@@ -270,7 +260,9 @@ public class MainWindow implements Constants
 				  items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
 			  }
 			  
-			  highlightIncorrectlyClassifiedSamples();
+			  //highlightIncorrectlyClassifiedSamples();
+			  addTrainingSamplesTable(false, true);
+			  addTestingSamplesTable(false, true);
 			  
 			  
 			  toggleIllegalWidgetsForStep2(true);				  
@@ -281,6 +273,25 @@ public class MainWindow implements Constants
 		
 		return button;
 	}
+	
+	private Button addSaveDTButton() 
+	{
+		Button button =  new Button(shell, SWT.PUSH);
+		button.setText("Save To File");
+		button.setVisible(false);
+		
+		addToGrid(button, gridHorizontalSpacing / 3);	
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) 
+			  {
+				  
+			  }
+			});			
+			
+			return button;
+	}
+
 
 	/*
 	 * This method can be used to insert 'num' blank labels to create spaces in the Grid Layout
@@ -303,16 +314,16 @@ public class MainWindow implements Constants
 	{
 		addLabel("Select Data Samples File: ", gridHorizontalSpacing / 2, SWT.RIGHT);
 
-        final Combo combo = new Combo(shell, SWT.DROP_DOWN);
+        comboDatasetBox = new Combo(shell, SWT.DROP_DOWN);
         for(int i = 0; i < DatasetOptions.values().length; i++)
-        	combo.add("" + DatasetOptions.values()[i]);
+        	comboDatasetBox.add("" + DatasetOptions.values()[i]);
 
-        combo.select(0);
-        combo.addSelectionListener(new SelectionAdapter() {
+        comboDatasetBox.select(0);
+        comboDatasetBox.addSelectionListener(new SelectionAdapter() {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-            	DataHolder.setDataset(DatasetOptions.valueOf(combo.getText()));
+            	DataHolder.setDataset(DatasetOptions.valueOf(comboDatasetBox.getText()));
             	Genome.reInitializeStaticVariables();
             	addTrainingSamplesTable(discretizeCheckBox.getSelection(), false);
             	addTestingSamplesTable(discretizeCheckBox.getSelection(), false);
@@ -327,7 +338,7 @@ public class MainWindow implements Constants
             };
         });
 
-        addToGrid(combo, gridHorizontalSpacing / 2 - gridPadding);
+        addToGrid(comboDatasetBox, gridHorizontalSpacing / 2 - gridPadding);
         addBreak(gridPadding);
 	}
 	
@@ -638,7 +649,10 @@ public class MainWindow implements Constants
 		featureSelectorTable.setVisible(false);
 		
 		GridData data = new GridData(); //SWT.FILL, SWT.FILL, false, false);
+		
 		data.heightHint = 25;
+		if(comboDatasetBox.getText().startsWith("WHINE"))			//Special case...can't resize row height later, due to bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=154341
+			data.heightHint = 50;
 		data.widthHint = 200;
 		data.horizontalSpan = gridHorizontalSpacing;
 	    data.horizontalAlignment = GridData.FILL;
@@ -730,7 +744,7 @@ public class MainWindow implements Constants
 			userSamplesTable.getParent().layout();
 		}
 		
-		SampleCollection samplesCollection = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
+		SampleCollection samplesCollection = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
 		
 		ArrayList<String> featureList = samplesCollection.getfeatureList();
 		for (String feature : featureList) 
@@ -744,7 +758,7 @@ public class MainWindow implements Constants
 		ArrayList<Sample> samplesList = samplesCollection.getSampleAsArrayList();					
 		int featureIndex = 0;
 		for(String feature : featureList)
-			item.setText(featureIndex++, "" + samplesList.get(0).getFeature(feature).getValue());	
+			item.setText(featureIndex++, "" + samplesList.get(4).getFeature(feature).getValue());	
 	
 		
 		for (int i=0; i <  featureList.size(); i++) 
@@ -839,7 +853,7 @@ public class MainWindow implements Constants
 			  
 			  SampleCollection trainingSamples = currentException.getCurrentDTClassifier().getTrainingSamples();
 			  trainingSamples.discretizeSample(sample);
-			  //sample.display();
+			  sample.display();
 			  
 			  String classification = currentException.getCurrentDTClassifier().Classify(sample);
 			  classifyResultLabel.setText("Result: " + classification);
