@@ -23,29 +23,16 @@ public class MainClass implements Constants{
 	
 	public static void sampleCaller2()throws OptimalScoreException
 	{
-		DataHolder.setDataset(DatasetOptions.HORSE_DATASET);
+		DataHolder.setDataset(DatasetOptions.WATER_DATASET);
 		Population population = null;
-		try {
-			population = new Population();
-			population.displayPopulation();
-			
-			System.out.println("Starting Genetic Algorithm Engine...");
-			System.out.println(DataHolder.getPositiveClass());
-			System.out.println(DataHolder.getFitnessScoreThreshold());
-			Thread.sleep(1000);
-			population.runGeneticAlgorithm();
-			
-			
-		} /*catch (OptimalScoreException e) {
-			//e.printStackTrace();
-			//population.displayPopulation();
-		}*/
-		//population.displayPopulation();
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		population = new Population();
+		population.displayPopulation();
+		
+		System.out.println("Starting Genetic Algorithm Engine***");
+		//System.out.println(DataHolder.getPositiveClass());
+		//System.out.println(DataHolder.getFitnessScoreThreshold());
+		//Thread.sleep(1000);
+		population.runGeneticAlgorithm();
 		
 		System.out.println(DataHolder.getFitnessScoreThreshold());
 		System.out.println(DataHolder.getCrossoverProbabilityThreshold());

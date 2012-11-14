@@ -70,6 +70,7 @@ public class MainWindow implements Constants
 	   
     private Table userSamplesTable = null;
     private Button classifyButton;
+    private Button saveDTButton;
     private Label classifyResultLabel;
     
     private Tree graphicalDecisionTree = null;
@@ -106,7 +107,7 @@ public class MainWindow implements Constants
 	public static void main(String args[])
 	{
 		Display display = new Display();
-		new WelcomeWindow(display);
+		new MainWindow(display);
 		display.dispose();
 	}
 	
@@ -172,14 +173,32 @@ public class MainWindow implements Constants
 		//addBreak(1);
 		addEditableSamplesTable();
 		addBreak(gridHorizontalSpacing / 2);
-		classifyButton = addClassifyButton();		
+		classifyButton = addClassifyButton();	
+		saveDTButton = addSaveDTButton();
 		classifyButton.setVisible(false);	
-		
+		//saveDTButton.setVisible();
 		addBreak(gridHorizontalSpacing / 4);
 		addGraphicalDecisionTree();
 		graphicalDecisionTree.setVisible(false);
 	}	
 
+	private Button addSaveDTButton() {
+		Button button =  new Button(shell, SWT.PUSH);
+		button.setText("Save To File");
+		//button.setVisible(false);
+		
+		addToGrid(button, gridHorizontalSpacing / 3);	
+		
+		button.addSelectionListener(new SelectionAdapter() {
+		  @Override
+		  public void widgetSelected(SelectionEvent e) 
+		  {
+			  
+		  }
+		});			
+		
+		return button;
+	}
 	/*
 	 * Adds a run button, to start Machine Learning 
 	 */

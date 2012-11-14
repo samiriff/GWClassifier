@@ -35,7 +35,7 @@ public class WelcomeWindow {
 		initUI();
 		initListeners();
 		shell.setText("Welcome to the Decision Tree Based Classifier");
-		shell.setImage(new Image(display, "Icons/whistle.png"));
+		shell.setImage(new Image(display, "Icons/statistics.png"));
 		shell.setSize(720,720);
 		shell.setLocation(50, 50);
 		shell.setBackgroundImage(new Image(display, "Icons/white_background.png"));

@@ -2,6 +2,8 @@ package org.ck.ga;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import org.ck.dt.DecisionTreeClassifier;
 import org.ck.gui.Constants;
 import org.ck.gui.Constants.Filenames;
@@ -13,6 +15,7 @@ public class Genome implements Constants
 {
 	static private SampleCollection samples;		//Sample Collection
 	private static ArrayList<String> FeatureSuperSet;	//The complete set of features from which smaller subsets are derived for the GA
+	private Random rgen = new Random();
 	private String chromosome;					//A bit string that shows which features are present or absent
 	private double fitnessScore;				//Here, the fitness function is a function of the classification accuracy of the decision tree
 	
@@ -63,7 +66,7 @@ public class Genome implements Constants
 	 * 	It takes into account the accuracy of the decision tree while classifying both, training and test examples
 	 * 	The fitness score is a function of the weighted average of the two accuracies.
 	 */
-	private void calculateFitnessScore(double trainingWeight, double testingWeight)
+	private void calculateFitnessScore(double trainingWeight, double testingWeight) throws OptimalScoreException
 	{
 		DecisionTreeClassifier dtClassifier = getDecisionTree();
 		dtClassifier.TestAndFindAccuracy();
@@ -79,6 +82,10 @@ public class Genome implements Constants
 		double testSetAccuracy = dtClassifier.getAccuracy();
 		
 		fitnessScore = (trainingWeight * trainingSetAccuracy + testingWeight * testSetAccuracy) / (trainingWeight + testingWeight);
+		//fitnessScore = trainingSetAccuracy; It was running very slowly that's why all this circus. We'll find a solution.
+		//fitnessScore = trainingSetAccuracy > testSetAccuracy ? trainingSetAccuracy : testSetAccuracy;
+		if(fitnessScore >= DataHolder.getFitnessScoreThreshold())
+			throw new OptimalScoreException(this);
 	}
 	
 	/*
@@ -151,7 +158,7 @@ public class Genome implements Constants
 		for(int i=0; i<chromosome.length(); ++i)
 			if(chromosome.charAt(i)=='1')
 				features.add(FeatureSuperSet.get(i));
-		
+		//randomizeFeatures(features);
 		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples, features);
 		SampleCollection training_samples = new SampleCollection(samples.getSamplesFilename(Filenames.TRAINING_SAMPLES_FILE), samples.getSamplesFilename(Filenames.FEATURES_FILE));
 		training_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
@@ -160,7 +167,22 @@ public class Genome implements Constants
 		
 		return dtClassifier;
 	}
-	
+	/*
+	 * Radomize the features. (Just experimenting)
+	 * By randomizing the feature, the order in which the DT
+	 * is different and may result in better accuracy.
+	 */
+	private void randomizeFeatures(ArrayList<String> features) {
+		for(int i=0; i<features.size(); ++i)
+		{
+			int j = rgen.nextInt(features.size());
+			String temp = features.get(i);
+			features.set(i, features.get(j));
+			features.set(j, temp);			
+		}
+		
+	}
+
 	/*
 	 * Returns the statically initialized Sample Collection
 	 */
