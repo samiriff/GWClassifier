@@ -17,7 +17,7 @@ public class MainClass implements Constants{
 		System.out.println("Hello, Welcome to the Decision Tree Based Classifier");
 		
 		//sampleCaller(); // This is for nsatvik
-		sampleCaller2(); //This is for samiriff		
+		//sampleCaller2(); //This is for samiriff		
 	}
 	
 	
@@ -31,7 +31,7 @@ public class MainClass implements Constants{
 			System.out.println("Starting Genetic Algorithm Engine...");
 			System.out.println(DataHolder.getPositiveClass());
 			System.out.println(DataHolder.getFitnessScoreThreshold());
-			Thread.sleep(1000);
+			Thread.sleep(0);
 			population.runGeneticAlgorithm();			
 			
 		} 
@@ -45,18 +45,13 @@ public class MainClass implements Constants{
 		System.out.println(DataHolder.getMutationProbabilityThreshold());
 	}
 	
-	public static void sampleCaller()
+	/*
+	 * I call this method from the Classifier Window.
+	 */
+	public static DecisionTreeClassifier sampleCaller(ArrayList<String> featureList)
 	{
-		DataHolder.setDataset(DatasetOptions.WHINE_DATASET);
+		
 		SampleCollection samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
-		ArrayList<String> featureList = new ArrayList<String>();		//Subset of features
-		featureList.add("PH");
-		featureList.add("ALCOHOL");
-		featureList.add("SULPHATES");
-		featureList.add("CITRIC-ACID");
-		featureList.add("VOLATILE-ACIDITY");
-		//featureList.add("Breath rate");
-		//featureList.add("Pulse rate");
 		
 		SampleCollection testing_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
 		SampleCollection new_samples = new SampleCollection(samples, featureList);
@@ -65,7 +60,7 @@ public class MainClass implements Constants{
 		samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 		testing_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
 		
-		new_samples.displaySamples();
+		//new_samples.displaySamples();
 	
 		//DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples.getSampleCollectionSubset(featureList));
 		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(new_samples);
@@ -79,6 +74,7 @@ public class MainClass implements Constants{
 		dtClassifier.setTestingSamples(samples);
 		dtClassifier.TestAndFindAccuracy();
 		dtClassifier.getAccuracy();
+		return dtClassifier;
 		
 	}
 }

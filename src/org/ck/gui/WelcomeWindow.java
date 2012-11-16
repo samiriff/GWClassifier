@@ -74,6 +74,14 @@ public class WelcomeWindow {
 
 			}
 		});
+		iconClassify.addListener(SWT.MouseDown, new Listener() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				new ClassifyWindow(shell.getDisplay());
+				
+			}
+		});
 
 
 	}
@@ -149,7 +157,7 @@ public class WelcomeWindow {
 		iconSettings.setLayoutData(formData);
 		iconSettings.addPaintListener(new PaintListener() {
 			public void paintControl(final PaintEvent event) {
-				Image imageSrc = new Image(shell.getDisplay(), "Icons/settings.png");
+				Image imageSrc = new Image(shell.getDisplay(), "Icons/users.png");
 				if (imageSrc != null) {
 					event.gc.drawImage(imageSrc, 0, 0);
 				}
@@ -188,7 +196,7 @@ public class WelcomeWindow {
 		formData.left = new FormAttachment(iconSettings, 10, SWT.RIGHT);
 		settingsLabel.setLayoutData(formData);
 		settingsLabel.setFont(f);
-		settingsLabel.setText("Settings");
+		settingsLabel.setText("Dev Info");
 
 		Label viewLabel = new Label(shell,SWT.WRAP);
 		formData = new FormData();

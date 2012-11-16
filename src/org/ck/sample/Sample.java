@@ -43,7 +43,10 @@ public class Sample {
 		{
 			String token = tokens.nextToken();
 			if(currentFeature < featureList.size())				
-				featureMap.put(featureList.get(currentFeature), new Feature(featureList.get(currentFeature++), Double.parseDouble(token)));
+			{
+				featureMap.put(featureList.get(currentFeature), new Feature(featureList.get(currentFeature), Double.parseDouble(token)));
+				currentFeature++;
+			}
 			else
 			{
 

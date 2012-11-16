@@ -1,5 +1,9 @@
 package org.ck.gui;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import org.ck.dt.DecisionTreeClassifier;
@@ -110,8 +114,8 @@ public class MainWindow implements Constants
 	public static void main(String args[])
 	{
 		Display display = new Display();
-		//new WelcomeWindow(display);
-		new MainWindow(display);
+		new WelcomeWindow(display);
+		//new MainWindow(display);
 		display.dispose();
 	}
 	
@@ -176,13 +180,18 @@ public class MainWindow implements Constants
 		
 		//addBreak(1);
 		addEditableSamplesTable();
-		addBreak(gridHorizontalSpacing / 2);
+		//addBreak(gridHorizontalSpacing / 2);
+		saveDTButton = addSaveDTButton();	
+		//addLabel("", gridHorizontalSpacing/4, SWT.RIGHT);
 		classifyButton = addClassifyButton();		
 		classifyButton.setVisible(false);	
+		//addBreak(gridHorizontalSpacing / 2);
 		
-		classifyButton = addClassifyButton();	
-		saveDTButton = addSaveDTButton();
-
+		
+		classifyResultLabel = addLabel("Result: ", gridHorizontalSpacing / 4, SWT.RIGHT);
+		classifyResultLabel.setVisible(false);
+		
+		
 		
 		addBreak(gridHorizontalSpacing / 4);
 		addGraphicalDecisionTree();
@@ -281,15 +290,42 @@ public class MainWindow implements Constants
 		button.setVisible(false);
 		
 		addToGrid(button, gridHorizontalSpacing / 3);	
-		button.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) 
-			  {
-				  
-			  }
-			});			
+		
 			
-			return button;
+		button.addSelectionListener(new SelectionAdapter() {
+		  @Override
+		  public void widgetSelected(SelectionEvent e) 
+		  {
+			  System.out.println("Save to File Button Clicked");
+			  //System.out.println(currentException.getChromosomes()+" "+currentException.getTestSetAccuracy());
+			  BufferedWriter bw;
+			  //OutputStreamWriter osw = new OutputStreamWriter(new File)
+			  
+			try {
+				bw = new BufferedWriter(new FileWriter(DataHolder.getSaveDatoToFileName(),true));
+				ArrayList<String> SelectedFeatures = currentException.getSelectedFeatures();
+				String data = "";
+				for (int i=0; i<SelectedFeatures.size(); ++i)
+				{
+						data = data + SelectedFeatures.get(i)+",";
+				}
+				data = data.substring(0, data.length()-1);
+				System.out.println("Data "+data);
+				bw.append(data+"->"+currentException.getTrainingSetAccuracy()*100+"%\n");
+				bw.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			catch (StringIndexOutOfBoundsException sioe)
+			{
+				sioe.printStackTrace();
+			}
+			  
+		  }
+		});			
+		
+		return button;
 	}
 
 
@@ -834,8 +870,7 @@ public class MainWindow implements Constants
 		
 		addToGrid(button, gridHorizontalSpacing / 3);	
 		
-		classifyResultLabel = addLabel("Result: ", gridHorizontalSpacing / 4, SWT.RIGHT);
-		classifyResultLabel.setVisible(false);
+		
 		
 		button.addSelectionListener(new SelectionAdapter() {
 		  @Override
@@ -931,6 +966,7 @@ public class MainWindow implements Constants
 	{	
 		userSamplesTable.setVisible(flag);
 		classifyButton.setVisible(flag);
+		saveDTButton.setVisible(flag);
 		classifyResultLabel.setVisible(flag);
 		graphicalDecisionTree.setVisible(flag);
 		discretizeCheckBox.setVisible(flag);

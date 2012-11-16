@@ -7,9 +7,10 @@ public class DataHolder implements Constants{
 	private static String TRAINING_SAMPLES_FILE_NAME;
 	private static String TESTING_SAMPLES_FILE_NAME ;
 	private static String ATTRIBUTES_FILE_NAME ;
+	private static String SAVE_DATA_TO_FILE;
 	private static String POSITIVE_CLASS;
 	private static String NEGATIVE_CLASS;
-	
+	private static String CURRENT_DATASET;
 	private static double FITNESS_SCORE_THRESHOLD;
 	private static double CROSSOVER_PROBABILITY_THRESHOLD;
 	private static double MUTATION_PROBABILITY_THRESHOLD;
@@ -44,6 +45,8 @@ public class DataHolder implements Constants{
 							ATTRIBUTES_FILE_NAME = "Training Data/Horse/horse.attribute";
 							POSITIVE_CLASS = "healthy.";
 							NEGATIVE_CLASS = "colic.";
+							CURRENT_DATASET = "HORSE_DATASET";
+							SAVE_DATA_TO_FILE = "Saved Data/HorseDT";
 							break;
 		
 		case WHINE_DATASET:	TRAINING_SAMPLES_FILE_NAME = "Training Data/Whine/whine.train";
@@ -51,7 +54,8 @@ public class DataHolder implements Constants{
 							ATTRIBUTES_FILE_NAME = "Training Data/Whine/whine.attribute";
 							POSITIVE_CLASS = "excellent.";
 							NEGATIVE_CLASS = "poor.";
-							
+							CURRENT_DATASET = "WHINE_DATASET";
+							SAVE_DATA_TO_FILE = "Saved Data/WhineDT";
 							break;
 		default :		
 		case WATER_DATASET: TRAINING_SAMPLES_FILE_NAME = "Training Data/Water/water.train";
@@ -59,8 +63,14 @@ public class DataHolder implements Constants{
 							ATTRIBUTES_FILE_NAME = "Training Data/Water/water.attribute";
 							POSITIVE_CLASS = "portable.";
 							NEGATIVE_CLASS = "not portable.";
+							CURRENT_DATASET = "WATER_DATASET";
+							SAVE_DATA_TO_FILE = "Saved Data/WaterDT";
 							
 		}
+	}
+	public static String getSaveDatoToFileName()
+	{
+		return SAVE_DATA_TO_FILE;
 	}
 	
 	public static String getTrainingSamplesFileName()
@@ -114,5 +124,10 @@ public class DataHolder implements Constants{
 	public static double getMutationProbabilityThreshold()
 	{
 		return MUTATION_PROBABILITY_THRESHOLD;
+	}
+
+	public static String getCurrentDataSet() {
+
+		return CURRENT_DATASET;
 	}
 }
