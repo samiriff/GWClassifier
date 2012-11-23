@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section*.5}{ACKNOWLEDGEMENT}{}% 1
+\BOOKMARK [1][-]{section*.6}{ABSTRACT}{}% 2
+\BOOKMARK [1][-]{section*.6}{CONTENTS}{}% 3
+\BOOKMARK [0][-]{chapter.1}{INTRODUCTION}{}% 4
+\BOOKMARK [1][-]{section.1.1}{SCOPE}{chapter.1}% 5
+\BOOKMARK [0][-]{chapter.2}{REQUIREMENT SPECIFICATION}{}% 6
+\BOOKMARK [0][-]{chapter.3}{Compression}{}% 7
+\BOOKMARK [1][-]{section.3.1}{A Naive Approach}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.2}{The Basic Idea}{chapter.3}% 9
+\BOOKMARK [1][-]{section.3.3}{Building the Huffman Tree}{chapter.3}% 10
+\BOOKMARK [1][-]{section.3.4}{An Example}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.4.1}{An Example: "go go gophers"}{section.3.4}% 12
+\BOOKMARK [2][-]{subsection.3.4.2}{Example Encoding Table}{section.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.4.3}{Encoded String}{section.3.4}% 14
+\BOOKMARK [0][-]{chapter.4}{Decompression}{}% 15
+\BOOKMARK [1][-]{section.4.1}{Storing the Huffman Tree}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.2}{Creating the Huffman Table}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.3}{Storing Sizes}{chapter.4}% 18
+\BOOKMARK [0][-]{chapter.5}{CONCLUSION AND FUTURE WORKS}{}% 19
+\BOOKMARK [1][-]{Item.8}{BIBLIOGRAPHY}{chapter.5}% 20
+\BOOKMARK [0][-]{chapter*.13}{APPENDICES}{}% 21

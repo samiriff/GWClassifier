@@ -162,7 +162,7 @@ public class ClassifyWindow {
 
 	private void initDataLoaderPart() {
 		Group dataLoader = new Group(shell, SWT.NONE);
-		dataLoader.setText("Load/Build Decision Tree");
+		dataLoader.setText("Load The Decision Tree");
 		GridLayout dataLoaderLayout = new GridLayout(2,false);
 		dataLoaderLayout.marginWidth = 5;
 		dataLoaderLayout.marginHeight = 5;
@@ -176,6 +176,8 @@ public class ClassifyWindow {
 
         dataSetSelectorCombo.select(0);
         DataHolder.setDataset(DatasetOptions.valueOf(dataSetSelectorCombo.getText()));
+        samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
+    	samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
         dataSetSelectorCombo.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -183,6 +185,8 @@ public class ClassifyWindow {
             	DataHolder.setDataset(DatasetOptions.valueOf(dataSetSelectorCombo.getText()));
             	initFeatureLabels();
             	initDTSelector();
+            	samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
+            	samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
             	//Genome.reInitializeStaticVariables();
             }
 
@@ -214,8 +218,7 @@ public class ClassifyWindow {
     	for(int i=0; i<features.length; ++i)
     		featrList.add(features[i]);
     	infoLabel.setText("Decision Tree with features\n"+featrList+"\nConstructed has a accuracy of "+selection.split("->")[1]);
-    	samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
-    	samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
+    	
     	dtClassifier = new DecisionTreeClassifier(samples,featrList);
 		initGraphicalDecitionTree();
 	}
@@ -273,7 +276,6 @@ public class ClassifyWindow {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
