@@ -16,9 +16,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
@@ -54,7 +56,7 @@ public class ClassifyWindow {
 	public ClassifyWindow(Display display)
 	{
 		shell = new Shell(display);
-		shell.setSize(840, 720);
+		shell.setSize(1032, 500);
 		shell.setBackgroundImage(new Image(display, "Icons/white_background.png"));
 		initUI();
 		shell.open ();
@@ -77,7 +79,7 @@ public class ClassifyWindow {
 		initDataLoaderPart();
 		initFeatureReaderPart();
 		initDTSelector();
-		initGraphicalDecitionTree();
+		initGraphicalDecisionTree();
 		ClassificationLabel = new Label(shell,SWT.BORDER);
 		ClassificationLabel.setFont(new Font(shell.getDisplay(), "Helvectica", 20, SWT.ITALIC | SWT.BOLD));
 		ClassificationLabel.setText("Classification Result\n Appears Here");
@@ -100,8 +102,9 @@ public class ClassifyWindow {
 				}
 				featureLine += DataHolder.getPositiveClass();//Ignore this, only for the format (Check the Sample constructor).
 				Sample currentSample= new Sample(featureLine, featureList);
+				samples.discretizeSample(currentSample);
 				String Classification = dtClassifier.Classify(currentSample);
-				ClassificationLabel.setText("Classification\n" + Classification);
+				ClassificationLabel.setText("Classification: \n" + Classification);
 //				if(Classification.equals(DataHolder.getPositiveClass()))
 //					ClassificationLabel.setBackground(new Color(shell.getDisplay(), 0, 1, 0));				
 //				else
@@ -116,14 +119,15 @@ public class ClassifyWindow {
 			public void handleEvent(Event event) {
 				for(int i=0; i<16; i++)
 				{
-					featureTextBox[i].setText("0");
+					featureTextBox[i].setText("     0");
 				}
+				ClassificationLabel.setText("Classification Result\n Appears Here");
 				
 			}
 		});
 	}
 
-	private void initGraphicalDecitionTree() {
+	private void initGraphicalDecisionTree() {
 		Tree previousTree = graphicalDecisionTree;
 		
 		graphicalDecisionTree = new Tree(shell, SWT.BORDER);
@@ -142,10 +146,11 @@ public class ClassifyWindow {
 
 	private void initFeatureReaderPart() {
 		Group featureReader = new Group(shell, SWT.NONE);
-		featureReader.setText("Enter Feature Values[0-"+Constants.NUMBER_OF_BINS+"]");
-		GridLayout featureReaderLayout = new GridLayout(2,true);
+		featureReader.setText("Enter Feature Values"); //[0-"+Constants.NUMBER_OF_BINS+"]");
+		GridLayout featureReaderLayout = new GridLayout(6, false);		
 		featureReaderLayout.marginWidth = 5;
 		featureReaderLayout.marginHeight = 5;
+		featureReaderLayout.horizontalSpacing = 5;
 		featureReader.setLayout(featureReaderLayout);
 		
 		featureLabels = new Label[16];
@@ -154,7 +159,7 @@ public class ClassifyWindow {
 		for(int i=0; i<16; ++i)
 		{
 			featureLabels[i] = new Label(featureReader, SWT.WRAP|SWT.BORDER);
-			featureTextBox[i] = new Text(featureReader,SWT.BORDER);
+			featureTextBox[i] = new Text(featureReader,SWT.WRAP);			
 		}
 		initFeatureLabels();
 		initButtons(featureReader);
@@ -220,7 +225,7 @@ public class ClassifyWindow {
     	infoLabel.setText("Decision Tree with features\n"+featrList+"\nConstructed has a accuracy of "+selection.split("->")[1]);
     	
     	dtClassifier = new DecisionTreeClassifier(samples,featrList);
-		initGraphicalDecitionTree();
+		initGraphicalDecisionTree();
 	}
 	private void initDTSelector()
 	{
@@ -264,7 +269,7 @@ public class ClassifyWindow {
 					//featureTextBox[i].setVisible(true);
 				}
 				featureLabels[i].setText(featureList.get(i));
-				featureTextBox[i].setText("0");
+				featureTextBox[i].setText("     0     ");
 				System.out.println(""+featureList.get(i));
 				
 			}
@@ -278,7 +283,7 @@ public class ClassifyWindow {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}	
 	public static void main(String args[])
 	{
 		new ClassifyWindow(new Display());

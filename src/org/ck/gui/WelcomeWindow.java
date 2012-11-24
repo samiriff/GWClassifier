@@ -34,7 +34,7 @@ public class WelcomeWindow {
 		shell = new Shell(display);
 		initUI();
 		initListeners();
-		shell.setText("Welcome to the Decision Tree Based Classifier");
+		shell.setText("Decision Tree Based Classifier");
 		shell.setImage(new Image(display, "Icons/statistics.png"));
 		shell.setSize(720,720);
 		shell.setLocation(50, 50);
@@ -92,9 +92,9 @@ public class WelcomeWindow {
 		welcomeLabel.setFont(new Font(shell.getDisplay(),"Jokerman",20,SWT.ITALIC));
 		FormData formData = new FormData(20,20);
 		formData.left = new FormAttachment(20);
-		formData.right = new FormAttachment(80);
+		formData.right = new FormAttachment(90);
 		formData.top = new FormAttachment(5);
-		formData.bottom = new FormAttachment(10);
+		formData.bottom = new FormAttachment(15);
 		welcomeLabel.setText("Decision Tree Based Classifier");
 		welcomeLabel.setLayoutData(formData);
 

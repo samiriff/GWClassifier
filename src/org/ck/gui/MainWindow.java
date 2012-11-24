@@ -177,21 +177,16 @@ public class MainWindow implements Constants
 		addDiscretizeCheckbox();		
 
 		addResultDisplay();
-
-		//addBreak(1);
+		
 		addEditableSamplesTable();
-		//addBreak(gridHorizontalSpacing / 2);
+	
 		saveDTButton = addSaveDTButton();	
-		//addLabel("", gridHorizontalSpacing/4, SWT.RIGHT);
+		addBreak(2);
 		classifyButton = addClassifyButton();		
-		classifyButton.setVisible(false);	
-		//addBreak(gridHorizontalSpacing / 2);
-
-
+		classifyButton.setVisible(false);
+		
 		classifyResultLabel = addLabel("Result: ", gridHorizontalSpacing / 4, SWT.RIGHT);
 		classifyResultLabel.setVisible(false);
-
-
 
 		addBreak(gridHorizontalSpacing / 4);
 		addGraphicalDecisionTree();
@@ -283,6 +278,9 @@ public class MainWindow implements Constants
 		return button;
 	}
 
+	/*
+	 * Creates a button, which, when clicked, will save the decision tree that has just been generated
+	 */
 	private Button addSaveDTButton() 
 	{
 		Button button =  new Button(shell, SWT.PUSH);
