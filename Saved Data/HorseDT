@@ -6,3 +6,4 @@ HCO3,TPP,Breath rate,Pulse rate,FibPerDim->99.24242424242425%
 K,Aniongap,TPP,Pulse rate,Fibrinogen,Dimer->99.24242424242425%
 Breath rate,FibPerDim->89.39393939393939%
 K,Na,CL,HCO3,Aniongap->95.45454545454545%
+K,PCV,Pulse rate,Fibrinogen,Dimer,FibPerDim->100.0%
