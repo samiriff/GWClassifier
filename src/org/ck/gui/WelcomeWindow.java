@@ -163,6 +163,7 @@ public class WelcomeWindow {
 				}
 			}
 		});
+		iconSettings.setVisible(false);
 
 		iconExit = new Canvas(shell, SWT.BORDER);
 		formData = new FormData();
@@ -196,7 +197,7 @@ public class WelcomeWindow {
 		formData.left = new FormAttachment(iconSettings, 10, SWT.RIGHT);
 		settingsLabel.setLayoutData(formData);
 		settingsLabel.setFont(f);
-		settingsLabel.setText("Dev Info");
+		settingsLabel.setText("Dev Info"); settingsLabel.setVisible(false);
 
 		Label viewLabel = new Label(shell,SWT.WRAP);
 		formData = new FormData();

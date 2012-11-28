@@ -149,7 +149,7 @@ public class MainWindow implements Constants
 		shell.setLayout(gridLayout);
 
 		//Adding Widgets
-		addLabel("THE ULTIMATE CLASSIFIER", gridHorizontalSpacing, SWT.CENTER);
+		addLabel("Decision Tree Based Classifier", gridHorizontalSpacing, SWT.CENTER);
 		addDataSamplesComboBox();
 		//addBreak(gridHorizontalSpacing / 2);
 
@@ -245,14 +245,12 @@ public class MainWindow implements Constants
 
 			private void displayResult(OptimalScoreException exception)
 			{
-				//try{Thread.sleep(1000);} catch (InterruptedException e1){}
-
 				currentException = exception;
 
 				accuracyTextArea.setVisible(true);
 
-				String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy() + "\n";
-				result += "Test Set Accuracy = " + exception.getTestSetAccuracy() + "\n";
+				String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy()*100 + "%\n";
+				result += "Test Set Accuracy = " + exception.getTestSetAccuracy()*100 + "%\n";
 				result += "Selected Features = " + exception.getSelectedFeatures(); 
 				accuracyTextArea.setText(result);				  
 
