@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.19)  23 NOV 2012 16:24
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.3.19)  2 DEC 2012 11:07
 entering extended mode
-**C:/Users/nsatvik/Documents/GitHub/GWClassifier/Report/dt_ga_report.tex
-(C:/Users/nsatvik/Documents/GitHub/GWClassifier/Report/dt_ga_report.tex
+**dt_ga_report.tex
+(C:\Users\nsatvik\Documents\GitHub\GWClassifier\Report\dt_ga_report.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -444,12 +444,6 @@ Missing character: There is no ’ in font cmr12!
 [9
 
 ] [10]
-! Undefined control sequence.
-l.422 \bibtitem
-               {te}Decision Trees - \url{http://web.cecs.pdx.edu/~mm/Machine...
-
-? 
-
 Underfull \hbox (badness 3942) in paragraph at lines 426--427
 []\OT1/cmr/m/n/12 Kardi Maams' Tu-to-ri-als - []$\OT1/cmtt/m/n/12 http : / / pe
 ople . revoledu . com / kardi / tutorial /$
@@ -485,20 +479,20 @@ l.432 \newpage
 
 Package hyperref Warning: bookmark level for unknown section* defaults to 0.
 
-[12] <welcome_window.png, id=225, 542.025pt x 542.025pt>
+[12] <welcome_window.png, id=223, 542.025pt x 542.025pt>
 File: welcome_window.png Graphic file (type png)
 
 <use welcome_window.png>
 Package pdftex.def Info: welcome_window.png used on input line 481.
 (pdftex.def)             Requested size: 216.80615pt x 216.80615pt.
- <dt_classifier.png, id=227, 616.55344pt x 632.3625pt>
+ <dt_classifier.png, id=225, 616.55344pt x 632.3625pt>
 File: dt_classifier.png Graphic file (type png)
 
 <use dt_classifier.png>
 Package pdftex.def Info: dt_classifier.png used on input line 488.
 (pdftex.def)             Requested size: 277.44647pt x 284.5605pt.
 
-<dt_classification_window.png, id=228, 632.3625pt x 573.64313pt>
+<dt_classification_window.png, id=226, 632.3625pt x 573.64313pt>
 File: dt_classification_window.png Graphic file (type png)
 
 <use dt_classification_window.png>
@@ -508,7 +502,7 @@ Package pdftex.def Info: dt_classification_window.png used on input line 495.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<dt_ga_algorithm.png, id=229, 619.56468pt x 644.4075pt>
+<dt_ga_algorithm.png, id=227, 619.56468pt x 644.4075pt>
 File: dt_ga_algorithm.png Graphic file (type png)
 
 <use dt_ga_algorithm.png>
@@ -518,7 +512,7 @@ Package pdftex.def Info: dt_ga_algorithm.png used on input line 501.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<dt_manual_selection.png, id=230, 616.55344pt x 632.3625pt>
+<dt_manual_selection.png, id=228, 616.55344pt x 632.3625pt>
 File: dt_manual_selection.png Graphic file (type png)
 
 <use dt_manual_selection.png>
@@ -528,7 +522,7 @@ Package pdftex.def Info: dt_manual_selection.png used on input line 508.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<git_hub.png, id=231, 542.025pt x 542.025pt>
+<git_hub.png, id=229, 542.025pt x 542.025pt>
 File: git_hub.png Graphic file (type png)
  <use git_hub.png>
 Package pdftex.def Info: git_hub.png used on input line 515.
@@ -574,7 +568,7 @@ Here is how much of TeX's memory you used:
  11274 multiletter control sequences out of 15000+200000
  9316 words of font info for 33 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 36i,11n,43p,1098b,409s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,11n,43p,1044b,409s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:
 /Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pr
@@ -582,9 +576,9 @@ ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Fi
 les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on dt_ga_report.pdf (22 pages, 452366 bytes).
+Output written on dt_ga_report.pdf (22 pages, 451259 bytes).
 PDF statistics:
- 297 PDF objects out of 1000 (max. 8388607)
+ 295 PDF objects out of 1000 (max. 8388607)
  68 named destinations out of 1000 (max. 500000)
  204 words of extra memory for PDF output out of 10000 (max. 10000000)
 
