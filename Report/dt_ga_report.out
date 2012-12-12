@@ -13,14 +13,19 @@
 \BOOKMARK [2][-]{subsection.3.4.2}{Choosing the best attribute for a given node}{section.3.4}% 13
 \BOOKMARK [2][-]{subsection.3.4.3}{Entropy - a measure of homogeneity of the set of examples}{section.3.4}% 14
 \BOOKMARK [2][-]{subsection.3.4.4}{Information gain measures the expected reduction in entropy}{section.3.4}% 15
-\BOOKMARK [1][-]{section.3.5}{An Example}{chapter.3}% 16
-\BOOKMARK [2][-]{subsection.3.5.1}{An Example: "go go gophers"}{section.3.5}% 17
-\BOOKMARK [2][-]{subsection.3.5.2}{Example Encoding Table}{section.3.5}% 18
-\BOOKMARK [2][-]{subsection.3.5.3}{Encoded String}{section.3.5}% 19
-\BOOKMARK [0][-]{chapter.4}{Genetic Algorithms}{}% 20
-\BOOKMARK [1][-]{section.4.1}{Storing the Huffman Tree}{chapter.4}% 21
-\BOOKMARK [1][-]{section.4.2}{Creating the Huffman Table}{chapter.4}% 22
-\BOOKMARK [1][-]{section.4.3}{Storing Sizes}{chapter.4}% 23
-\BOOKMARK [0][-]{chapter.5}{CONCLUSION AND FUTURE WORKS}{}% 24
-\BOOKMARK [1][-]{Item.12}{BIBLIOGRAPHY}{chapter.5}% 25
-\BOOKMARK [0][-]{chapter*.15}{APPENDICES}{}% 26
+\BOOKMARK [2][-]{subsection.3.4.5}{Weakness of Decision Tree Methods}{section.3.4}% 16
+\BOOKMARK [1][-]{section.3.5}{An Example}{chapter.3}% 17
+\BOOKMARK [2][-]{subsection.3.5.1}{An Example: "go go gophers"}{section.3.5}% 18
+\BOOKMARK [2][-]{subsection.3.5.2}{Example Encoding Table}{section.3.5}% 19
+\BOOKMARK [2][-]{subsection.3.5.3}{Encoded String}{section.3.5}% 20
+\BOOKMARK [0][-]{chapter.4}{Genetic Algorithms}{}% 21
+\BOOKMARK [1][-]{section.4.1}{The Algorithm}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.2}{Genetic Operators}{chapter.4}% 23
+\BOOKMARK [2][-]{subsection.4.2.1}{Generation Zero}{section.4.2}% 24
+\BOOKMARK [2][-]{subsection.4.2.2}{Survival of the Fittest}{section.4.2}% 25
+\BOOKMARK [2][-]{subsection.4.2.3}{The Next Generation}{section.4.2}% 26
+\BOOKMARK [1][-]{section.4.3}{An Example}{chapter.4}% 27
+\BOOKMARK [0][-]{chapter.5}{When Decision Trees and Genetic Algorithms Meet}{}% 28
+\BOOKMARK [0][-]{chapter.6}{CONCLUSION AND FUTURE WORKS}{}% 29
+\BOOKMARK [1][-]{Item.12}{BIBLIOGRAPHY}{chapter.6}% 30
+\BOOKMARK [0][-]{chapter*.21}{APPENDICES}{}% 31

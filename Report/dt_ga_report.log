@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.2.1)  12 DEC 2012 19:11
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.2.1)  12 DEC 2012 19:45
 entering extended mode
 **dt_ga_report.tex
 (E:\Project\GitHub\GWClassifier\Report\dt_ga_report.tex
@@ -277,6 +277,18 @@ Package caption Info: listings package is loaded.
 LaTeX Warning: Label `fig:ID3' multiply defined.
 
 
+LaTeX Warning: Label `fig:ID3' multiply defined.
+
+
+LaTeX Warning: Label `fig:ID3' multiply defined.
+
+
+LaTeX Warning: Label `fig:ID3' multiply defined.
+
+
+LaTeX Warning: Label `fig:ID3' multiply defined.
+
+
 LaTeX Warning: Label `t' multiply defined.
 
 
@@ -372,7 +384,7 @@ LaTeX Info: Redefining \nameref on input line 21.
 \c@lstlisting=\count118
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<RVCE.png, id=106, 225.84375pt x 225.84375pt>
+<RVCE.png, id=122, 225.84375pt x 225.84375pt>
 File: RVCE.png Graphic file (type png)
  <use RVCE.png>
 Package pdftex.def Info: RVCE.png used on input line 54.
@@ -434,7 +446,7 @@ Chapter 2.
 Chapter 3.
 [4
 
-] <dtreeexample.jpg, id=189, 463.13025pt x 354.72525pt>
+] <dtreeexample.jpg, id=209, 463.13025pt x 354.72525pt>
 File: dtreeexample.jpg Graphic file (type jpg)
 
 <use dtreeexample.jpg>
@@ -451,13 +463,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 307--308
  []
 
 [5 <E:/Project/GitHub/GWClassifier/Report/dtreeexample.jpg>] [6]
-<ID3.png, id=202, 407.72325pt x 427.5975pt>
+<ID3.png, id=222, 407.72325pt x 427.5975pt>
 File: ID3.png Graphic file (type png)
  <use ID3.png>
 Package pdftex.def Info: ID3.png used on input line 331.
 (pdftex.def)             Requested size: 407.72224pt x 427.59645pt.
  [7 <E:/Project/GitHub/GWClassifier/Report/ID3.png>]
-<entropy_graph.jpg, id=210, 767.86874pt x 445.06274pt>
+<entropy_graph.jpg, id=230, 767.86874pt x 445.06274pt>
 File: entropy_graph.jpg Graphic file (type jpg)
  <use entropy_graph.jpg>
 Package pdftex.def Info: entropy_graph.jpg used on input line 365.
@@ -470,99 +482,158 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no Ž in font cmr12!
  [10] [11]
+[12]
 Chapter 4.
-[12
+[13
 
-] [13] [14]
+] <genome.png, id=265, 546.24075pt x 92.14426pt>
+File: genome.png Graphic file (type png)
+ <use genome.png>
+Package pdftex.def Info: genome.png used on input line 510.
+(pdftex.def)             Requested size: 436.9932pt x 73.71548pt.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+ [14 <E:/Project/GitHub/GWClassifier/Report/genome.png>]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+
+<roulette.png, id=272, 340.8735pt x 160.80075pt>
+File: roulette.png Graphic file (type png)
+ <use roulette.png>
+Package pdftex.def Info: roulette.png used on input line 530.
+(pdftex.def)             Requested size: 340.87265pt x 160.80034pt.
+ [15 <E:/Project/GitHub/GWClassifier/Report/roulette.png>]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+
+<crossover.png, id=280, 378.213pt x 152.9715pt>
+File: crossover.png Graphic file (type png)
+ <use crossover.png>
+Package pdftex.def Info: crossover.png used on input line 543.
+(pdftex.def)             Requested size: 378.21207pt x 152.9711pt.
+
+<mutation.png, id=281, 322.0833pt x 129.3633pt>
+File: mutation.png Graphic file (type png)
+ <use mutation.png>
+Package pdftex.def Info: mutation.png used on input line 554.
+(pdftex.def)             Requested size: 322.0825pt x 129.36296pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[16 <E:/Project/GitHub/GWClassifier/Report/crossover.png>] [17 <E:/Project/GitH
+ub/GWClassifier/Report/mutation.png>]
 Chapter 5.
+[18
+
+]
+Chapter 6.
 Missing character: There is no â in font cmr12!
 Missing character: There is no ˆ in font cmr12!
 Missing character: There is no ’ in font cmr12!
-[15
+[19
 
-] [16]
-Underfull \hbox (badness 3942) in paragraph at lines 548--549
+] [20]
+Underfull \hbox (badness 3942) in paragraph at lines 629--630
 []\OT1/cmr/m/n/12 Kardi Maams' Tu-to-ri-als - []$\OT1/cmtt/m/n/12 http : / / pe
 ople . revoledu . com / kardi / tutorial /$
  []
 
-[17
+[21
 
 pdfTeX warning (ext4): destination with the same identifier (name{cite.t}) has 
 been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.554 \newpage
+l.635 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {cite.t}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.554 \newpage
+l.635 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {cite.t}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.554 \newpage
+l.635 \newpage
               pdfTeX warning (ext4): destination with the same identifier (name
 {cite.t}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.554 \newpage
+l.635 \newpage
               ]
 
 Package hyperref Warning: bookmark level for unknown section* defaults to 0.
 
-[18] <welcome_window.png, id=289, 542.025pt x 542.025pt>
+[22] <welcome_window.png, id=339, 542.025pt x 542.025pt>
 File: welcome_window.png Graphic file (type png)
 
 <use welcome_window.png>
-Package pdftex.def Info: welcome_window.png used on input line 603.
+Package pdftex.def Info: welcome_window.png used on input line 684.
 (pdftex.def)             Requested size: 216.80615pt x 216.80615pt.
- <dt_classifier.png, id=290, 616.55344pt x 632.3625pt>
+ <dt_classifier.png, id=340, 616.55344pt x 632.3625pt>
 File: dt_classifier.png Graphic file (type png)
 
 <use dt_classifier.png>
-Package pdftex.def Info: dt_classifier.png used on input line 610.
+Package pdftex.def Info: dt_classifier.png used on input line 691.
 (pdftex.def)             Requested size: 277.44647pt x 284.5605pt.
 
-<dt_classification_window.png, id=291, 632.3625pt x 573.64313pt>
+<dt_classification_window.png, id=341, 632.3625pt x 573.64313pt>
 File: dt_classification_window.png Graphic file (type png)
 
 <use dt_classification_window.png>
-Package pdftex.def Info: dt_classification_window.png used on input line 617.
+Package pdftex.def Info: dt_classification_window.png used on input line 698.
 (pdftex.def)             Requested size: 284.5605pt x 258.13702pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<dt_ga_algorithm.png, id=292, 619.56468pt x 644.4075pt>
+<dt_ga_algorithm.png, id=342, 619.56468pt x 644.4075pt>
 File: dt_ga_algorithm.png Graphic file (type png)
 
 <use dt_ga_algorithm.png>
-Package pdftex.def Info: dt_ga_algorithm.png used on input line 623.
+Package pdftex.def Info: dt_ga_algorithm.png used on input line 704.
 (pdftex.def)             Requested size: 278.80153pt x 289.9807pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<dt_manual_selection.png, id=293, 616.55344pt x 632.3625pt>
+<dt_manual_selection.png, id=343, 616.55344pt x 632.3625pt>
 File: dt_manual_selection.png Graphic file (type png)
 
 <use dt_manual_selection.png>
-Package pdftex.def Info: dt_manual_selection.png used on input line 630.
+Package pdftex.def Info: dt_manual_selection.png used on input line 711.
 (pdftex.def)             Requested size: 277.44647pt x 284.5605pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<git_hub.png, id=294, 542.025pt x 542.025pt>
+<git_hub.png, id=344, 542.025pt x 542.025pt>
 File: git_hub.png Graphic file (type png)
  <use git_hub.png>
-Package pdftex.def Info: git_hub.png used on input line 637.
+Package pdftex.def Info: git_hub.png used on input line 718.
 (pdftex.def)             Requested size: 243.90898pt x 243.90898pt.
 
 
@@ -572,39 +643,45 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 18.
 See the caption package documentation for explanation.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 642.
-[19 <E:/Project/GitHub/GWClassifier/Report/welcome_window.png> <E:/Project/GitH
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 723.
+[23 <E:/Project/GitHub/GWClassifier/Report/welcome_window.png> <E:/Project/GitH
 ub/GWClassifier/Report/dt_classifier.png>]
 
-LaTeX Warning: Text page 20 contains only floats.
+LaTeX Warning: Text page 24 contains only floats.
 
-[20 <E:/Project/GitHub/GWClassifier/Report/dt_classification_window.png> <E:/Pr
+[24 <E:/Project/GitHub/GWClassifier/Report/dt_classification_window.png> <E:/Pr
 oject/GitHub/GWClassifier/Report/dt_ga_algorithm.png>]
 
-LaTeX Warning: Text page 21 contains only floats.
+LaTeX Warning: Text page 25 contains only floats.
 
-[21 <E:/Project/GitHub/GWClassifier/Report/dt_manual_selection.png> <E:/Project
+[25 <E:/Project/GitHub/GWClassifier/Report/dt_manual_selection.png> <E:/Project
 /GitHub/GWClassifier/Report/git_hub.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 642.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 723.
 
 (E:\Project\GitHub\GWClassifier\Report\dt_ga_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 642.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 642.
-Package rerunfilecheck Info: File `dt_ga_report.out' has not changed.
-(rerunfilecheck)             Checksum: 21A5371828742A6B015E8EED05A6C488;1727.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 723.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 723.
 
+
+Package rerunfilecheck Warning: File `dt_ga_report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `dt_ga_report.out':
+(rerunfilecheck)             Before: 914D2E4FE79B18AC78397A888CE175AE;2014
+(rerunfilecheck)             After:  A78E0F2479AA4FF4477A3AC416CB7D1B;2098.
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8143 strings out of 494045
- 121279 string characters out of 3149991
+ 8183 strings out of 494045
+ 121871 string characters out of 3149991
  217829 words of memory out of 3000000
- 11293 multiletter control sequences out of 15000+200000
+ 11314 multiletter control sequences out of 15000+200000
  9316 words of font info for 33 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 36i,12n,43p,1044b,409s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 36i,12n,43p,1044b,440s stack positions out of 5000i,500n,10000p,200000b,50000s
 <G:/Program Files/MikTex/fonts/type1/public/amsfonts/cm/cmbx12.pfb><G:/Progra
 m Files/MikTex/fonts/type1/public/amsfonts/cm/cmex10.pfb><G:/Program Files/MikT
 ex/fonts/type1/public/amsfonts/cm/cmmi12.pfb><G:/Program Files/MikTex/fonts/typ
@@ -616,9 +693,9 @@ Tex/fonts/type1/public/amsfonts/cm/cmsy10.pfb><G:/Program Files/MikTex/fonts/ty
 pe1/public/amsfonts/cm/cmsy8.pfb><G:/Program Files/MikTex/fonts/type1/public/am
 sfonts/cm/cmti12.pfb><G:/Program Files/MikTex/fonts/type1/public/amsfonts/cm/cm
 tt12.pfb>
-Output written on dt_ga_report.pdf (28 pages, 772175 bytes).
+Output written on dt_ga_report.pdf (32 pages, 820403 bytes).
 PDF statistics:
- 379 PDF objects out of 1000 (max. 8388607)
- 85 named destinations out of 1000 (max. 500000)
- 259 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 432 PDF objects out of 1000 (max. 8388607)
+ 100 named destinations out of 1000 (max. 500000)
+ 311 words of extra memory for PDF output out of 10000 (max. 10000000)
 

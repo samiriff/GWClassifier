@@ -16,14 +16,22 @@
 \contentsline {subsection}{\numberline {3.4.2}Choosing the best attribute for a given node}{7}{subsection.3.4.2}
 \contentsline {subsection}{\numberline {3.4.3}Entropy - a measure of homogeneity of the set of examples}{8}{subsection.3.4.3}
 \contentsline {subsection}{\numberline {3.4.4}Information gain measures the expected reduction in entropy}{9}{subsection.3.4.4}
+\contentsline {subsection}{\numberline {3.4.5}Weakness of Decision Tree Methods}{10}{subsection.3.4.5}
 \contentsline {section}{\numberline {3.5}An Example}{11}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}An Example: "go go gophers"}{11}{subsection.3.5.1}
 \contentsline {subsection}{\numberline {3.5.2}Example Encoding Table}{11}{subsection.3.5.2}
 \contentsline {subsection}{\numberline {3.5.3}Encoded String}{11}{subsection.3.5.3}
-\contentsline {chapter}{\numberline {4}Genetic Algorithms}{12}{chapter.4}
-\contentsline {section}{\numberline {4.1}Storing the Huffman Tree}{12}{section.4.1}
-\contentsline {section}{\numberline {4.2}Creating the Huffman Table}{13}{section.4.2}
-\contentsline {section}{\numberline {4.3}Storing Sizes}{14}{section.4.3}
-\contentsline {chapter}{\numberline {5}CONCLUSION AND FUTURE WORKS}{15}{chapter.5}
-\contentsline {section}{BIBLIOGRAPHY}{17}{Item.12}
-\contentsline {section*}{APPENDICES}{18}{chapter*.15}
+\contentsline {chapter}{\numberline {4}Genetic Algorithms}{13}{chapter.4}
+\contentsline {section}{\numberline {4.1}The Algorithm}{13}{section.4.1}
+\contentsline {section}{\numberline {4.2}Genetic Operators}{14}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Generation Zero}{14}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Survival of the Fittest}{14}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}The Next Generation}{15}{subsection.4.2.3}
+\contentsline {subsubsection}{Selection}{15}{section*.15}
+\contentsline {subsubsection}{Crossover}{16}{section*.17}
+\contentsline {subsubsection}{Mutation}{16}{section*.19}
+\contentsline {section}{\numberline {4.3}An Example}{17}{section.4.3}
+\contentsline {chapter}{\numberline {5}When Decision Trees and Genetic Algorithms Meet}{18}{chapter.5}
+\contentsline {chapter}{\numberline {6}CONCLUSION AND FUTURE WORKS}{19}{chapter.6}
+\contentsline {section}{BIBLIOGRAPHY}{21}{Item.12}
+\contentsline {section*}{APPENDICES}{22}{chapter*.21}
