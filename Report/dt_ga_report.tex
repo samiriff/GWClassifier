@@ -167,10 +167,13 @@ USN:1RV09CS095\\
 \section*{ABSTRACT}
 \addcontentsline{toc}{section}{ABSTRACT}
 \end{center} 
-The Project ``\textbf{Decision Tree based Classifier}” is aimed at developing programs that transform a string of characters in some representation (such as ASCII) into a new string (of bits, for example) which contains the same information but whose length is as small as possible.  Compression is useful because it helps reduce the consumption of resources such as data space or transmission capacity. The design of data compression schemes involve trade-off s among various factors, including the degree of compression, the amount of distortion introduced (e.g., when using lossy data compression), and the computational resources required to compress and uncompress the data.
- 
+Machine Learning techniques have been applied to the field of classification for more than a decade. Machine Learning techniques can learn normal and anomalous patterns from training data and generate classifiers, which
+can be used to capture characteristics of interest. In general, the input data to classifiers is an extremely large set of features, but not all of features are relevant to the classes to be classified.
+Hence, the learner must generalize from the given examples in order to produce a useful output in new cases. 
 
-Many data processing applications require storage of large volumes of data, and the number of such applications is constantly increasing as the use of computers extends to new disciplines.  Compressing data to be stored or transmitted reduces storage and/or communication costs. When the amount of data to be transmitted is reduced, the effect is that of increasing the capacity of the communication channel. Similarly, compressing a file to half of its original size is equivalent to doubling the capacity of the storage medium. It may then become feasible to store the data at a higher, thus faster, level of the storage hierarchy and reduce the load on the input/output channels of the computer system.
+A major focus of machine learning research is the design of algorithms that recognize complex patterns and make intelligent decisions based on input data. Our Project, titled ``\textbf{Decision Tree Classifier with Genetic Algorithm-based Feature Selection}” is aimed at developing a complete program that constructs an optimal decision tree, based on any kind of data set, divided into training and testing examples, by selecting only a subset of features to classify data. 
+
+Although our program works with generic data samples, it must be noted that when we started this project, our main intention was to classify ground water samples into two classes, namely Potable and Non-Potable Water. However, thanks to the miracle of Object-Oriented Programming Concepts, we were able to extend this project.
 
 
 
@@ -198,53 +201,56 @@ Many data processing applications require storage of large volumes of data, and 
 
 \chapter{INTRODUCTION}
 
-Trees are everywhere. We love trees.
+
+Machine learning, a branch of artificial intelligence, is about the construction and study of systems that can learn from data. The core of machine learning deals with representation and generalization. Representation of data instances and functions evaluated on these instances are part of all machine learning systems. There is a wide variety of machine learning tasks and successful applications. 
+
+
+
+
+
 
 \section{SCOPE}
 
-The data compression techniques find applications in almost all fields. To list a few,
+The machine learning concepts we have used in our project are listed below,
 \begin{itemize}
 
 
-\item{\textbf{Audio data compression}} reduces the transmission bandwidth and storage requirements of audio data. Audio compression algorithms are implemented in software as audio codecs. Lossy audio compression algorithms provide higher compression at the cost of fidelity, are used in numerous audio applications. These algorithms almost all rely on psychoacoustics to eliminate less audible or meaningful sounds, thereby reducing the space required to store or transmit them.
-Video
+\item{\textbf{Supervised learning}}  is the machine learning task of inferring a function from labeled training data. The training data consist of a set of training examples. In supervised learning, each example is a pair consisting of an input object (typically a vector) and a desired output value (also called the supervisory signal). A supervised learning algorithm analyzes the training data and produces an inferred function, which is called a classifier (if the output is discrete; see classification) or a regression function (if the output is continuous; see regression). The inferred function should predict the correct output value for any valid input object. This requires the learning algorithm to generalize from the training data to unseen situations in a "reasonable" way.
 
-\item{\textbf{Video compression}} uses modern coding techniques to reduce redundancy in video data. Most video compression algorithms and codecs combine spatial image compression and temporal motion compensation. Video compression is a practical implementation of source coding in information theory. In practice most video codecs also use audio compression techniques in parallel to compress the separate, but combined data streams.
-\item{\textbf{Grammar-Based Codes}}
+\item{\textbf{Decision tree learning}}, used in statistics, data mining and machine learning, uses a decision tree as a predictive model which maps observations about an item to conclusions about the item's target value. The goal is to create a model that predicts the value of a target variable based on several input variables.
 
-They can extremely compress highly-repetitive text, for instance, biological data collection of same or related species, huge versioned document collection, internet archives, etc. The basic task of grammar-based codes is constructing a context-free grammar deriving a single string. Sequitur and Re-Pair are practical grammar compression algorithms which public codes are available.
+\item A {\textbf{Genetic Algorithms}} is a search heuristic that mimics the process of natural evolution. This heuristic is routinely used to generate useful solutions to optimization and search problems. Genetic algorithms belong to the larger class of evolutionary algorithms (EA), which generate solutions to optimization problems using techniques inspired by natural evolution, such as inheritance, mutation, selection, and crossover.
+
 \end{itemize}
 
 
 \pagestyle{fancy}
 \lhead{\scriptsize{Software Requirements Specification}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
+\rhead{\scriptsize{Decision Tree Classifier with GA-based Feature Selection}}
 \lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
 \rfoot{\small{\thepage}}
 \cfoot{\scriptsize{Feb 2012 - May 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \chapter{REQUIREMENT SPECIFICATION}
-Software Requirement Specification (SRS) is an important part of software development process. We describe about the overall description of the Data Compression Project, the specific requirements of the Data Compression Project, the software requirements and hardware requirements and the functionality of the system.
-
-
+Software Requirement Specification (SRS) is an important part of the  software development process. We describe the overall description of the Mini-Project, the specific requirements of the Mini-Project, the software requirements and hardware requirements and the functionality of the system.
 
 
 
 \subsubsection{Software Requirements}
 \begin{itemize}
 
-\item{	Front End: Qt GUI Application.}
-\item{	Back End: C++}
-\item{	Operating System: Linux.}
+\item{	Front End: Java SWT Application.}
+\item{	Back End: Java}
+\item{	Operating System: Windows 7, Ubuntu 12.10.}
 
 \end{itemize}
 
 \subsubsection{Hardware Requirements}
 \begin{itemize}
-\item{Processor: Intel Pentium 4 or higher version}
-\item{RAM: 512MB or more}
+\item{Processor: Intel Core 2 Duo or higher version}
+\item{RAM: 4GB or more}
 \item{Hard disk: 5 GB or less}
 \end{itemize}
 
@@ -258,21 +264,57 @@ Software Requirement Specification (SRS) is an important part of software develo
 \cfoot{\scriptsize{Feb 2012 - May 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-\chapter{Compression}
+\chapter{Decision Tree Learning}
 
 
 
 \section{A Naive Approach}
 
-\begin{figure}[h!]
-	\centering
-		%\includegraphics[scale=0.7]{Table1.png}
-		%\includegraphics{msrit-logo.jpg}
-	%\caption{}
-	%\label{fig:logo2}
-\end{figure}
+
+
+\section{Definition}
+
+
+Decision tree is the learning of decision tree from class labeled training tuples. A decision tree is a flow chart like structure, where each internal (non-leaf) node denotes a test on an attribute, each branch represents an outcome of the test, and each leaf (or terminal) node holds a class label. The topmost node in tree is the root node.
+
+There are many specific decision-tree algorithms. Notable ones include:
+
+\begin{itemize}
+\item{\textbf{ID3} (Iterative Dichotomiser 3)}
+\item{\textbf{C4.5} algorithm, successor of ID3}
+\item{\textbf{CART} (Classification And Regression Tree)}
+\item{\textbf{CHi-squared Automatic Interaction Detector }(CHAID). Performs multi-level splits when computing classification trees.}
+\item{\textbf{MARS}: extends decision trees to better handle numerical data}
+\end{itemize}
+
 
 \section{The Basic Idea}
+
+Decision tree is a classifier in the form of a tree structure (as shown in Fig. 3.1, where each node is either:
+\begin{enumerate}
+\item{A \textbf{leaf node} - indicates the value of the target attribute (class) of examples} (\textit{In Fig. 3.1, the nodes containing values K=x, K=y)}
+\item{A \textbf{decision node} - specifies some test to be carried out on a single attribute-value, with one branch and sub-tree for each possible outcome of the test.\textit{In Fig. 3.1, the nodes containing attributes A, B and C)}}
+
+\end{enumerate}
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[scale=1.0]{dtreeexample.jpg}
+	\caption{Sample Decision Tree}
+	\label{fig:logo2}
+\end{figure}
+
+A decision tree can be used to classify an example by starting at the root of the tree and moving through it until a leaf node, which provides the classification of the instance.\\
+
+Decision tree induction is a typical inductive approach to learn knowledge on classification. The key requirements to do mining with decision trees are:
+\begin{itemize}
+\item{\textbf{Attribute-value description}: object or case must be expressible in terms of a fixed collection of properties or attributes. This means that we need to discretize continuous attributes, or this must have been provided in the algorithm.\textit{(A, B and C, in Fig. 3.1)}}
+\item{\textbf{Predefined classes (target attribute values)}: The categories to which examples are to be assigned must have been established beforehand (supervised data) \textit{(Classes X and Y in Fig. 3.1)}.}
+\item{\textbf{Discrete classes}: A case does or does not belong to a particular class, and there must be more cases than classes.}
+\item{\textbf{Sufficient data}: Usually hundreds or even thousands of training cases.}
+
+\end{itemize}
+
 
 
 \section{Building the Huffman Tree}
