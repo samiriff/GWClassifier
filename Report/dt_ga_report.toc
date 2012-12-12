@@ -11,15 +11,19 @@
 \contentsline {section}{\numberline {3.1}A Naive Approach}{4}{section.3.1}
 \contentsline {section}{\numberline {3.2}Definition}{4}{section.3.2}
 \contentsline {section}{\numberline {3.3}The Basic Idea}{5}{section.3.3}
-\contentsline {section}{\numberline {3.4}Building the Huffman Tree}{6}{section.3.4}
-\contentsline {section}{\numberline {3.5}An Example}{7}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}An Example: "go go gophers"}{7}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}Example Encoding Table}{7}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Encoded String}{7}{subsection.3.5.3}
-\contentsline {chapter}{\numberline {4}Decompression}{8}{chapter.4}
-\contentsline {section}{\numberline {4.1}Storing the Huffman Tree}{8}{section.4.1}
-\contentsline {section}{\numberline {4.2}Creating the Huffman Table}{9}{section.4.2}
-\contentsline {section}{\numberline {4.3}Storing Sizes}{10}{section.4.3}
-\contentsline {chapter}{\numberline {5}CONCLUSION AND FUTURE WORKS}{11}{chapter.5}
-\contentsline {section}{BIBLIOGRAPHY}{13}{Item.10}
-\contentsline {section*}{APPENDICES}{14}{chapter*.13}
+\contentsline {section}{\numberline {3.4}Building the Decision Tree}{6}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}ID3 Algorithm}{6}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Choosing the best attribute for a given node}{7}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Entropy - a measure of homogeneity of the set of examples}{8}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Information gain measures the expected reduction in entropy}{9}{subsection.3.4.4}
+\contentsline {section}{\numberline {3.5}An Example}{11}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}An Example: "go go gophers"}{11}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Example Encoding Table}{11}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Encoded String}{11}{subsection.3.5.3}
+\contentsline {chapter}{\numberline {4}Genetic Algorithms}{12}{chapter.4}
+\contentsline {section}{\numberline {4.1}Storing the Huffman Tree}{12}{section.4.1}
+\contentsline {section}{\numberline {4.2}Creating the Huffman Table}{13}{section.4.2}
+\contentsline {section}{\numberline {4.3}Storing Sizes}{14}{section.4.3}
+\contentsline {chapter}{\numberline {5}CONCLUSION AND FUTURE WORKS}{15}{chapter.5}
+\contentsline {section}{BIBLIOGRAPHY}{17}{Item.12}
+\contentsline {section*}{APPENDICES}{18}{chapter*.15}

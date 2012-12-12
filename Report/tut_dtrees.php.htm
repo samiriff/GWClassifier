@@ -1,0 +1,486 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1250">
+<meta name="Author" content="Tom Smuc">
+<meta name="Description" content="DM Tutorial">
+<meta name="Keywords" content="data mining process - decision trees">
+<title>DMS Tutorial - Decision trees</title>
+<link rel="StyleSheet" href="tut_dtrees.php_files/dms.css" type="text/css" media="screen">
+
+<script language="javascript1.2">
+<!--- HIDE FROM OLD BROWSERS
+
+function WM_netscapeCssFix()
+{
+    // This part was inspired by Matthew_Baird@wayfarer.com
+    // It gets around another unfortunate bug whereby Netscape 
+    // fires a resize event when the scrollbars pop up. This 
+    // checks to make sure that the window's available size 
+    // has actually changed.
+
+    if (document.WM.WM_netscapeCssFix.initWindowWidth != window.innerWidth ||             document.WM.WM_netscapeCssFix.initWindowHeight != window.innerHeight)
+        {
+        document.location = document.location;
+        }
+}
+
+function WM_netscapeCssFixCheckIn()
+{
+    // This function checks to make sure the version of Netscape 
+    // in use contains the bug; if so, it records the window's 
+    // width and height and sets all resize events to be handled 
+    // by the WM_netscapeCssFix() function.
+
+    if ((navigator.appName == 'Netscape') && (parseInt(navigator.appVersion) == 4))
+        {
+        if (typeof document.WM == 'undefined')
+            {
+            document.WM = new Object;
+            }
+
+        if (typeof document.WM.WM_scaleFont == 'undefined')
+            {
+            document.WM.WM_netscapeCssFix = new Object;
+            document.WM.WM_netscapeCssFix.initWindowWidth = window.innerWidth;
+            document.WM.WM_netscapeCssFix.initWindowHeight = window.innerHeight;
+            }
+
+        window.onresize = WM_netscapeCssFix;
+        }
+}
+
+WM_netscapeCssFixCheckIn()
+
+// END HIDING --->
+
+</script>
+
+
+
+</head>
+<!-- DEfined body and bground-->
+<body <div="" id="body" background="tut_dtrees.php_files/bgrnd_1.txt" link="#0000ff" vlink="#800080">
+
+<!--Tutorial contents division part of the page-->
+<!--Tutorial contents division part of the page-->
+<div id="contents">
+<br>
+<p>
+ <a href="http://dms.irb.hr/index.php">DMS Home</a>
+</p>
+DM Methodology
+<ul>
+<li> <a href="http://dms.irb.hr/tutorial/tut_intro.php">Introduction</a></li>
+<li> <a href="http://dms.irb.hr/tutorial/dm_proces.php">DM Process</a></li>
+<li> <a href="http://dms.irb.hr/tutorial/tut_prob_understand.php">Problem Understanding</a></li>
+<li> <a href="http://dms.irb.hr/tutorial/tut_data_understand.php"> Data Understanding</a></li>
+<li> <a href="http://dms.irb.hr/tutorial/tut_data_prepare.php"> Data Preparation</a></li>
+<li>  <a href="http://dms.irb.hr/tutorial/tut_modelling.php">Modelling</a></li>
+<li>  <a href="http://dms.irb.hr/tutorial/tut_evaluation.php">Evaluation of results</a></li>
+<li>  <a href="http://dms.irb.hr/tutorial/tut_deployment.php">Deployment of results</a></li>
+<br>
+<br>
+<li>  <a href="http://dms.irb.hr/tutorial/tut_mod_tech.php">DM Modelling techniques</a></li>
+<li>  <a href="http://dms.irb.hr/tutorial/tut_applic_ref.php">DM Applications &amp; References</a></li>
+<li>  <a href="http://dms.irb.hr/tutorial/tut_glosary.php">Glossary of terms</a></li>
+</ul>
+<br>
+<br>
+
+</div>
+
+
+
+<div id="main">
+
+
+<h2>Decision Trees</h2>
+<p align="JUSTIFY">Decision trees are powerful and popular tools for 
+classification and prediction. The attractiveness of decision trees is 
+due to the fact that, in contrast to neural networks, decision trees 
+represent <i>rules</i>. Rules can readily be expressed so that humans 
+can understand them or even directly used in a database access language 
+like SQL so that records falling into a particular category may be 
+retrieved. </p>
+<p align="JUSTIFY">In some applications, the accuracy of a 
+classification or prediction is the only thing that matters. In such 
+situations we do not necessarily care how or why the model works. In 
+other situations, the ability to explain the reason for a decision, is 
+crucial. In marketing one has describe the customer segments to 
+marketing professionals, so that they can utilize this knowledge in 
+launching a successful marketing campaign. This domain experts must 
+recognize and approve this discovered knowledge, and for this we need 
+good descriptions. There are a variety of algorithms for building 
+decision trees that share the desirable quality of interpretability. A 
+well known and frequently used over the years is C4.5 (or improved, but 
+commercial version See5/C5.0). </p>
+
+<h3>What is a decision tree ?</h3>
+<p><i>Decision tree</i> is a classifier in the form of a tree structure (see Figure 1), where each node is either: </p>
+
+
+<ul>
+
+<ul>
+<li>a <i>leaf node</i> - indicates the value of the target attribute (class) of examples, or </li>
+<li>a <i>decision node</i> - specifies some test to be carried out on a 
+single attribute-value, with one branch and sub-tree for each possible 
+outcome of the test.</li></ul>
+</ul>
+
+<p align="JUSTIFY">A decision tree can be used to classify an example by
+ starting at the root of the tree and moving through it until a leaf 
+node, which provides the classification of the instance. </p>
+<p align="JUSTIFY">Decision tree induction is a typical inductive 
+approach to learn knowledge on classification. The key requirements to 
+do mining with decision trees are:</p>
+
+
+<ul>
+
+<ul>
+<i></i><li><i>Attribute-value description</i>: object or case must be 
+expressible in terms of a fixed collection of properties or attributes. 
+This means that we need to discretize continuous attributes, or this 
+must have been provided in the algorithm. </li>
+<i></i><li><i>Predefined classes (target attribute values)</i>: The categories to which examples are to be assigned must have been established beforehand (supervised data). </li>
+<i></i><li><i>Discrete classes</i>: A case does or does not belong to a particular class, and there must be more cases than classes. </li>
+<i></i><li><i>Sufficient data</i>: Usually hundreds or even thousands of training cases.</li></ul>
+</ul>
+
+
+<p align="CENTER"><img src="tut_dtrees.php_files/dtree_image.gif" height="554" width="700"></p>
+<p align="CENTER">Figure 1: An example of a simple decision tree</p>
+
+<h3>Constructing decision trees</h3>
+<p align="JUSTIFY">Most algorithms that have been developed for learning
+ decision trees are variations on a core algorithm that employs a 
+top-down, greedy search through the space of possible decision trees. 
+Decision tree programs construct a decision tree <i>T</i> from a set of training cases.</p>
+<p>J. Ross Quinlan originally developed ID3 at the University of Sydney. He first presented ID3 in 1975 in a book, <i>Machine Learning</i>, vol. 1, no. 1. ID3 is based on the Concept Learning System (CLS) algorithm. </p>
+<dir>
+<dir>
+<dir>
+
+<pre>_______________________________________________________
+<b>function</b> ID3
+Input:   (R: a set of non-target attributes,
+          C: the target attribute,
+          S: a training set) returns a decision tree;
+<b>begin
+</b>   If S is empty, return a single node with 
+      value Failure;
+   If S consists of records all with the same 
+      value for the target attribute, 
+      return a single leaf node with that value;
+   If R is empty, then return a single node 
+      with the value of the most frequent of the
+      values of the target attribute that are 
+      found in records of S; [in that case 
+      there may be be errors, examples 
+      that will be improperly classified];
+   Let A be the attribute with largest 
+      Gain(A,S) among attributes in R;
+   Let {aj| j=1,2, .., m} be the values of 
+      attribute A;
+   Let {Sj| j=1,2, .., m} be the subsets of 
+      S consisting respectively of records 
+      with value aj for A;
+   Return a tree with root labeled A and arcs 
+      labeled a1, a2, .., am going respectively 
+      to the trees (ID3(R-{A}, C, S1), ID3(R-{A}, C, S2),
+      .....,ID3(R-{A}, C, Sm);
+   Recursively apply <b>ID3 </b>to<b> </b>subsets {Sj| j=1,2, .., m}
+      until they are empty
+<b>end</b>
+_______________________________________________________
+</pre></dir>
+</dir>
+</dir>
+
+<p align="CENTER">Figure 2: ID3 Decision Tree Algorithm</p>
+
+<p align="JUSTIFY">ID3 searches through the attributes of the training 
+instances and extracts the attribute that best separates the given 
+examples. If the attribute perfectly classifies the training sets then 
+ID3 stops; otherwise it recursively operates on the m (where m = number 
+of possible values of an attribute) partitioned subsets to get their 
+"best" attribute. The algorithm uses a greedy search, that is, it picks 
+the best attribute and never looks back to reconsider earlier choices. 
+Note that ID3 may misclassify data.</p><p>
+</p><p>The central focus of the decision tree growing algorithm is 
+selecting which attribute to test at each node in the tree. For the 
+selection of the attribute with the most inhomogeneous class 
+distribution the algorithm uses the concept of entropy, which is 
+explained next </p>
+
+<h3>Which attribute is the best classifier?</h3>
+<p align="JUSTIFY">The estimation criterion in the decision tree 
+algorithm is the selection of an attribute to test at each decision node
+ in the tree. The goal is to select the attribute that is most useful 
+for classifying examples. A good quantitative measure of the worth of an
+ attribute is a statistical property called <i>information gain</i> that
+ measures how well a given attribute separates the training examples 
+according to their target classification. This measure is used to select
+ among the candidate attributes at each step while growing the tree. </p>
+<h3>Entropy - a measure of homogeneity of the set of examples</h3>
+<p align="JUSTIFY">
+In order to define information gain precisely, we need to define a 
+measure commonly used in information theory, called entropy, that 
+characterizes the (im)purity of an arbitrary collection of examples. 
+Given a set S, containing only positive and negative examples of some 
+target concept (a 2 class problem), the entropy of set S relative to 
+this simple, binary classification is defined as:</p>
+
+<p align="CENTER">Entropy(S) = - p<sub>p</sub>log<sub>2</sub> p<sub>p </sub>– p<sub>n</sub>log<sub>2</sub> p<sub>n</sub></p>
+<p align="JUSTIFY">where p<sub>p</sub>is the proportion of positive examples in S and p<sub>n </sub>is the proportion of negative examples in S. In all calculations involving entropy we define 0log0 to be 0. </p>
+<p align="JUSTIFY">To illustrate, suppose S is a collection of 25 
+examples, including 15 positive and 10 negative examples [15+, 10-]. 
+Then the entropy of S relative to this classification is </p>
+<p align="CENTER">Entropy(S) = - (15/25) log<sub>2</sub> (15/25) - (10/25) log<sub>2</sub> (10/25) = 0.970</p>
+
+<p align="JUSTIFY">Notice that the entropy is 0 if all members of S belong to the same class. For example, if all members are positive (p<sub>p</sub>= 1 ), then p<sub>n </sub>is 0, and Entropy(S) = -1´ log<sub>2</sub>(1) - 0´ log<sub>2</sub>0 = -1´ 0 - 0´ log<sub>2</sub>0
+ = 0. Note the entropy is 1 (at its maximum!) when the collection 
+contains an equal number of positive and negative examples. If the 
+collection contains unequal numbers of positive and negative examples, 
+the entropy is between 0 and 1. Figure 3 shows the form of the entropy 
+function relative to a binary classification, as p<sub>+</sub> varies between 0 and 1. </p>
+
+<p align="CENTER"><img src="tut_dtrees.php_files/entropy_graph.gif" height="362" width="720"></p>
+<p align="CENTER">Figure 3: The entropy function relative to a binary classification, as the proportion of positive </p>
+<p align="CENTER">examples p<sub>p </sub>varies between 0 and 1.</p>
+<p align="JUSTIFY">One interpretation of entropy from information theory
+ is that it specifies the minimum number of bits of information needed 
+to encode the classification of an arbitrary member of S (i.e., a member
+ of S drawn at random with uniform probability). For example, if p<sub>p</sub>
+ is 1, the receiver knows the drawn example will be positive, so no 
+message need be sent, and the entropy is 0. On the other hand, if p<sub>p</sub> is 0.5, one bit is required to indicate whether the drawn example is positive or negative. If p<sub>p </sub>is
+ 0.8, then a collection of messages can be encoded using on average less
+ than 1 bit per message by assigning shorter codes to collections of 
+positive examples and longer codes to less likely negative examples. </p>
+<p align="JUSTIFY">Thus far we have discussed entropy in the special 
+case where the target classification is binary. If the target attribute 
+takes on <i>c</i> different values, then the entropy of S relative to this <i>c</i>-wise classification is defined as </p>
+
+<p align="CENTER"><img src="tut_dtrees.php_files/entropy_eq.gif" height="56" width="240"></p>
+
+<p align="JUSTIFY">where <i>p<sub>i</sub></i> is the proportion of S belonging to class <i>i</i>.
+ Note the logarithm is still base 2 because entropy is a measure of the 
+expected encoding length measured in bits. Note also that if the target 
+attribute can take on c possible values, the maximum possible entropy is
+ log<sub>2</sub>c. </p>
+
+<h3>Information gain measures the expected reduction in entropy</h3>
+<p align="JUSTIFY">Given entropy as a measure of the impurity in a 
+collection of training examples, we can now define a measure of the 
+effectiveness of an attribute in classifying the training data. The 
+measure we will use, called <i>information gain</i>, is simply the 
+expected reduction in entropy caused by partitioning the examples 
+according to this attribute. More precisely, the information gain, <i>Gain (S, A) </i>of an attribute <i>A</i>, relative to a collection of examples S, is defined as </p>
+
+<p align="CENTER"><img src="tut_dtrees.php_files/gain_eq.gif" height="56" width="421"></p>
+
+<p align="JUSTIFY">where <i>Values(A)</i> is the set of all possible values for attribute <i>A</i>, and <i>S<sub>v</sub></i> is the subset of <i>S</i> for which attribute <i>A</i> has value <i>v</i> (i.e., <i>S<sub>v</sub> =</i> {s <font face="Symbol">Î</font> S | <i>A(s) = v</i>}). Note the first term in the equation for <i>Gain</i> is just the entropy of the original collection <i>S</i> and the second term is the expected value of the entropy after S is partitioned using attribute <i>A</i>. The expected entropy described by this second term is simply the sum of the entropies of each subset <i>S<sub>v</sub></i>, weighted by the fraction of examples |<i>S<sub>v</sub></i>|/|S| that belong to <i>S<sub>v</sub></i>. <i>Gain (S,A)</i> is therefore the expected reduction in entropy caused by knowing the value of attribute <i>A</i>. Put another way, <i>Gain(S,A)</i> is the information provided about the target attribute value, given the value of some other attribute A. The value of <i>Gain(S,A)</i> is the number of bits saved when encoding the target value of an arbitrary member of <i>S</i>, by knowing the value of attribute <i>A</i>. </p>
+<p align="JUSTIFY">The process of selecting a new attribute and 
+partitioning the training examples is now repeated for each non-terminal
+ descendant node, this time using only the training examples associated 
+with that node. Attributes that have been incorporated higher in the 
+tree are excluded, so that any given attribute can appear at most once 
+along any path through the tree. This process continues for each new 
+leaf node until either of two conditions is met: </p>
+
+<ol>
+<ol>
+
+<li>every attribute has already been included along this path through the tree, or </li>
+<li>the training examples associated with this leaf node all have the same target attribute value (i.e., their entropy is zero). </li></ol>
+</ol>
+
+
+<h3>Issues in data mining with decision trees</h3>
+<p align="JUSTIFY">Practical issues in learning decision trees include 
+determining how deeply to grow the decision tree, handling continuous 
+attributes, choosing an appropriate attribute selection measure, 
+handling training data with missing attribute values, handing attributes
+ with differing costs, and improving computational efficiency. Below we 
+discuss each of these issues and extensions to the basic ID3 algorithm 
+that address them. </p>
+
+<h3>Avoiding over-fitting the data </h3>
+<p align="JUSTIFY">In principle decision tree algorithm described in 
+Figure 2 can grow each branch of the tree just deeply enough to 
+perfectly classify the training examples. While this is sometimes a 
+reasonable strategy, in fact it can lead to difficulties when there is 
+noise in the data, or when the number of training examples is too small 
+to produce a representative sample of the true target function. In 
+either of these cases, this simple algorithm can produce trees that<i> over-fit </i>the training examples. </p>
+<p align="JUSTIFY">Over-fitting is a significant practical difficulty 
+for decision tree learning and many other learning methods. There are 
+several approaches to avoiding over-fitting in decision tree learning. 
+These can be grouped into two classes:</p>
+
+<ul>
+
+<ul>
+<li>approaches that stop growing the tree earlier, before it reaches the point where it perfectly classifies the training data,</li>
+<li>approaches that allow the tree to over-fit the data, and then post prune the tree. </li></ul>
+</ul>
+
+
+
+<p align="JUSTIFY">Although the first of these approaches might seem 
+more direct, the second approach of post-pruning over-fit trees has been
+ found to be more successful in practice. This is due to the difficulty 
+in the first approach of estimating precisely when to stop growing the 
+tree. </p>
+<p align="JUSTIFY">Regardless of whether the correct tree size is found 
+by stopping early or by post-pruning, a key question is what criterion 
+is to be used to determine the correct final tree size. Approaches 
+include:</p>
+
+<ul>
+
+<ul>
+<li>Use a separate set of examples, distinct from the training examples,
+ to evaluate the utility of post-pruning nodes from the tree. </li>
+<li>Use all the available data for training, but apply a statistical 
+test to estimate whether expanding (or pruning) a particular node is 
+likely to produce an improvement beyond the training set. </li>
+<li>Use an explicit measure of the complexity for encoding the training 
+examples and the decision tree, halting growth of the tree when this 
+encoding size is minimized. This approach is based on a heuristic called
+ the Minimum Description Length principle.</li></ul>
+</ul>
+
+
+<p align="JUSTIFY">The first of the above approaches is the most common 
+and is often referred to as a training and validation set approach. In 
+this approach, the available data are separated into two sets of 
+examples: a <i>training set</i>, which is used to form the learned hypothesis, and a separate <i>validation set</i>,
+ which is used to evaluate the accuracy of this hypothesis over 
+subsequent data and, in particular, to evaluate the impact of pruning 
+this hypothesis. </p>
+
+<h3>Incorporating Continuous-Valued Attributes </h3>
+<p align="JUSTIFY">The initial definition of ID3 is restricted to 
+attributes that take on a discrete set of values. First, the target 
+attribute whose value is predicted by the learned tree must be discrete 
+valued. Second, the attributes tested in the decision nodes of the tree 
+must also be discrete valued. This second restriction can easily be 
+removed so that continuous-valued decision attributes can be 
+incorporated into the learned tree. This can be accomplished by 
+dynamically defining new discrete-valued attributes that partition the 
+continuous attribute value into a discrete set of intervals. In 
+particular, for an attribute <i>A</i> that is continuous-valued, the algorithm can dynamically create a new Boolean attribute <i>A<sub>c</sub></i> that is true if <i>A</i> &lt; <i>c</i> and false otherwise. The only question is how to select the best value for the threshold <i>c</i>. Clearly, we would like to pick a threshold, <i>c</i>, that produces the greatest information gain. By sorting the examples according to the continuous attribute <i>A</i>,
+ then identifying adjacent examples that differ in their target 
+classification, we can generate a set of candidate thresholds midway 
+between the corresponding values of <i>A</i>. It can be shown that the value of <i>c</i>
+ that maximizes information gain must always lie at such a boundary. 
+These candidate thresholds can then be evaluated by computing the 
+information gain associated with each. The information gain can then be 
+computed for each of the candidate attributes, and the best can be 
+selected. This dynamically created Boolean attribute can then compete 
+with the other discrete-valued candidate attributes available for 
+growing the decision tree. </p>
+
+<h3>Handling Training Examples with Missing Attribute Values </h3>
+<p align="JUSTIFY">In certain cases, the available data may be missing 
+values for some attributes. For example, in a medical domain in which we
+ wish to predict patient outcome based on various laboratory tests, it 
+may be that the lab test Blood-Test-Result is available only for a 
+subset of the patients. In such cases, it is common to estimate the 
+missing attribute value based on other examples for which this attribute
+ has a known value. </p>
+<p align="JUSTIFY">Consider the situation in which <i>Gain(S, A) </i>is to be calculated at node n in the decision tree to evaluate whether the attribute <i>A</i> is the best attribute to test at this decision node. Suppose that &lt;<i>x, c(x)&gt;</i> is one of the training examples in <i>S</i> and that the value <i>A(x)</i> is unknown, where <i>c(x)</i> is the class label of <i>x</i>.</p>
+<p align="JUSTIFY">One strategy for dealing with the missing attribute 
+value is to assign it the value that is most common among training 
+examples at node n. Alternatively, we might assign it the most common 
+value among examples at node n that have the classification <i>c(x).</i> The elaborated training example using this estimated value for <i>A(x)</i> can then be used directly by the existing decision tree learning algorithm. </p>
+<p align="JUSTIFY">A second, more complex procedure is to assign a probability to each of the possible values of <i>A</i> rather than simply assigning the most common value to <i>A(x)</i>. These probabilities can be estimated again based on the observed frequencies of the various values for <i>A</i> among the examples at node n. For example, given a Boolean attribute <i>A</i>, if node n contains six known examples with <i>A</i> = 1 and four with <i>A</i> = 0, then we would say the probability that <i>A(x)</i> = 1 is 0.6, and the probability that <i>A(x)</i> = 0 is 0.4. A fractional 0.6 of instance x is now distributed down the branch for <i>A</i>
+ = 1 and a fractional 0.4 of x down the other tree branch. These 
+fractional examples are used for the purpose of computing information <i>Gain</i>
+ and can be further subdivided at subsequent branches of the tree if a 
+second missing attribute value must be tested. This same fractioning of 
+examples can also be applied after learning, to classify new instances 
+whose attribute values are unknown. In this case, the classification of 
+the new instance is simply the most probable classification, computed by
+ summing the weights of the instance fragments classified in different 
+ways at the leaf nodes of the tree. This method for handling missing 
+attribute values is used in C4.5.</p>
+
+<h3>Strengths and Weakness of Decision Tree Methods</h3>
+
+<p align="JUSTIFY">The strengths of decision tree methods are:</p>
+
+
+<ul>
+
+<ul>
+<li>Decision trees are able to generate understandable rules. </li>
+<li>Decision trees perform classification without requiring much computation. </li>
+<li>Decision trees are able to handle both continuous and categorical variables. </li>
+<li>Decision trees provide a clear indication of which fields are most important for prediction or classification. </li></ul>
+</ul>
+
+
+<h3>The weaknesses of decision tree methods </h3>
+
+
+<ul>
+
+<ul>
+<li>Decision trees are less appropriate for estimation tasks where the goal is to predict the value of a continuous attribute.</li>
+<li>Decision trees are prone to errors in classification problems with many class and relatively small number of training examples.</li>
+<li>Decision tree can be computationally expensive to train. The process
+ of growing a decision tree is computationally expensive. At each node, 
+each candidate splitting field must be sorted before its best split can 
+be found. In some algorithms, combinations of fields are used and a 
+search must be made for optimal combining weights. Pruning algorithms 
+can also be expensive since many candidate sub-trees must be formed and 
+compared. </li>
+<li>Decision trees do not treat well non-rectangular regions. Most 
+decision-tree algorithms only examine a single field at a time. This 
+leads to rectangular classification boxes that may not correspond well 
+with the actual distribution of records in the decision space. </li></ul>
+</ul>
+
+
+<h3>Links to online tutorials on decision trees</h3>
+<p>
+<b>Overview of Decision Trees</b><br>
+by H.Hamilton. E. Gurak, L. Findlater W. Olive<br>
+<a href="http://www.cs.uregina.ca/%7Edbd/cs831/notes/ml/dtrees/4_dtrees1.html">
+<font size="2">
+http://www.cs.uregina.ca/~dbd/cs831/notes/ml/dtrees/4_dtrees1.html
+</font>
+</a>
+</p>
+
+<br>
+<br>
+<!-- footer start -->
+<hr width="100%">
+
+<p align="center"><font size="-2">© 2001 LIS - Rudjer Boskovic Institute </font>
+<br>
+<font size="-2">
+Last modified: December 12 2012 12:56:18.</font>
+<!-- footer end -->
+
+</p></div>
+
+
+
+
+
+-----
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<meta name="Generator" content="Microsoft Word 97">
+<title>Decision Trees</title>
+<meta name="Template" content="C:\Program Files\Microsoft Office\Office\html.dot">
+
+
+<dir>
+
+</dir></body></html>

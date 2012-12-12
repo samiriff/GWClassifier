@@ -1,0 +1,153 @@
+DIV.titlebanner    { width:        100%;               
+                     height:        10%;
+                     margin-left:  20%;
+                     margin-right:  0%;
+                     background:   slateblue;
+                     border:       solid medium slateblue;  } 
+DIV.titlebanner H1 { width:        100%; 
+                     margin-left:  0%;
+                     margin-right: 0%;            
+                     background:   slateblue;
+                     border:       solid medium slateblue;
+                     text-align:   center;
+                     font-family:  Verdana, "Times New Roman", sans-serif;    
+                     font-size:    2em;
+                     font-weight:  bold;  
+                     color:        white;  }
+EM.abse            {position:    absolute;
+                    top:           45px;    left:        50px;
+                    color:       white;    background:  transparent;   }
+
+BODY         { font-size:    medium;
+             font-family:    Helvetica, Verdana, "Times New Roman";
+             width:           100%;
+             color:           darkblue;    }
+A:link           {font-size:     small;
+                   font-style:    normal;
+                   font-weight: bold; 
+                   text-decoration: none; 
+                   color:         sienna; }      
+A:visited        { font-size:    small; 
+                  font-style:      normal;   
+                   font-weight: bold; 
+                  text-decoration:  none; 
+                  color:           darkgreen; }
+A:hover           { font-size:     small;
+                   font-style:    normal;
+                   font-weight: bold; 
+                   color: indianred;
+                   text-decoration: blink; }
+H2               {font-family:    Helvetica, Verdana, "Times New Roman";
+                  font-size:      18pt;
+                  font-style:     normal;
+                  font-weight:    bold; 
+                  padding-top:    0.1em;
+                  padding-bottom: 0.1em;
+                  color:          darkblue;
+                  text-align:     left;
+                  border:         transparent;  }
+
+H2.c             { font-family:    Helvetica, Verdana, "Times New Roman";
+                  font-size:      18pt;
+                  font-style:     normal;
+                  font-weight:    bold; 
+                  padding-top:    0.1em;
+                  padding-bottom: 0.1em;
+                  color:          darkblue;
+                  text-align:     center;
+                  border:         transparent;  }
+
+H3               {font-family:    Helvetica, Verdana, "Times New Roman";
+                  font-size:      14pt;
+                  font-style:     normal;
+                  font-weight:    bold; 
+                  padding-top:    0.1em;
+                  padding-bottom: 0.1em;
+                  color:          darkblue;
+                  text-align:     left;
+                  border:         transparent;  }
+
+H3.c               {font-family:    Helvetica, Verdana, "Times New Roman";
+                  font-size:      14pt;
+                  font-style:     normal;
+                  font-weight:    bold; 
+                  padding-top:    0.1em;
+                  padding-bottom: 0.1em;
+                  color:          darkblue;
+	          text-align:     center;
+                  border:         transparent;  }
+
+H4               {font-family:    Helvetica, Verdana, "Times New Roman";
+                  font-size:      8pt;
+                  font-style:     normal;
+                  font-weight:    bold; 
+                  padding-top:    0.1em;
+                  padding-bottom: 0.1em;
+                  color:          darkblue;
+                  text-align:     left;
+                  border:         transparent;  }
+H4.c               {font-family:    Helvetica, Verdana, "Times New Roman";
+                  font-size:      8pt;
+                  font-style:     normal;
+                  font-weight:    bold; 
+                  padding-top:    0.1em;
+                  padding-bottom: 0.1em;
+                  color:          darkblue;
+                  text-align:     center;
+                  border:         transparent;  }
+
+P.disclaim {
+	FONT-SIZE: 8pt;
+        MARGIN-LEFT: 3em;
+        MARGIN-RIGHT: 3em; 
+        FONT-FAMILY: verdana, sans-serif
+           }
+#body {
+        position: relative;
+      }
+#body80 {
+      position: absolute;
+      top: 130;
+      left: 0;
+      width: 100%;
+      padding-left:  5em;
+      padding-right: 5em;
+      text-align:  justify;
+      }
+#main {
+      padding-left: 11.5em;
+      padding-right: 2em;
+      text-align:   "justify";
+     }
+#main_language {
+      position: absolute;
+      top: 3em;
+      left: 70%;
+      width: 70%;
+      border: transparent;
+     }
+#contents {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10em;
+      border: transparent;
+      }
+#contents_rudjer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      border: transparent;
+      }
+
+#body80a {
+      position: absolute;
+      top: 130;
+      left: 0;
+      width: 100%;
+      padding-left:  5em;
+      padding-right: 5em;
+      text-align:  justify;
+      border: transparent;
+      }

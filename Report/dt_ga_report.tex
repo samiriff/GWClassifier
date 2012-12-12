@@ -317,16 +317,86 @@ Decision tree induction is a typical inductive approach to learn knowledge on cl
 
 
 
-\section{Building the Huffman Tree}
+\section{Building the Decision Tree}
 
-\begin{itemize}
+Most algorithms that have been developed for learning decision trees are variations on a core algorithm that employs a top-down, greedy search through the space of possible decision trees. Decision tree programs construct a decision tree T from a set of training cases.
 
-\item Begin with a forest of trees. All trees are one node, with the weight of the tree equal to the weight of the character in the node. Characters that occur most frequently have the highest weights. Characters that occur least frequently have the smallest weights.
-\item    Repeat this step until there is only one tree:
-\item    Choose two trees with the smallest weights, call these trees T1 and T2. Create a new tree whose root has a weight equal to the sum of the weights T1 + T2 and whose left subtree is T1 and whose right subtree is T2.
-\item    The single tree left after the previous step is an optimal encoding tree..
 
-\end{itemize}
+\subsection{ID3 Algorithm}
+J. Ross Quinlan originally developed ID3 at the University of Sydney. He first presented ID3 in 1975 in a book, Machine Learning, vol. 1, no. 1. ID3 is based on the Concept Learning System (CLS) algorithm. ID3 searches through the attributes of the training instances and extracts the attribute that best separates the given examples. If the attribute perfectly classifies the training sets then ID3 stops; otherwise it recursively operates on the m (where m = number of possible values of an attribute) partitioned subsets to get their "best" attribute. The algorithm uses a greedy search, that is, it picks the best attribute and never looks back to reconsider earlier choices. Note that ID3 may misclassify data. 
+
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[scale=1.0]{ID3.png}
+	\caption{ID3 Algorithm}
+	\label{fig:ID3}
+\end{figure}
+
+
+
+
+\subsection{Choosing the best attribute for a given node}
+The estimation criterion in the decision tree algorithm is the selection of an attribute to test at each decision node in the tree. The goal is to select the attribute that is most useful for classifying examples. A good quantitative measure of the worth of an attribute is a statistical property called information gain that measures how well a given attribute separates the training examples according to their target classification. This measure is used to select among the candidate attributes at each step while growing the tree. 
+
+\subsection{Entropy - a measure of homogeneity of the set of examples}
+
+In order to define information gain precisely, we need to define a measure commonly used in information theory, called entropy, that characterizes the (im)purity of an arbitrary collection of examples. Given a set S, containing only positive and negative examples of some target concept (a 2 class problem), the entropy of set S relative to this simple, binary classification is defined as:
+
+\begin{math} Entropy(S) =  - p_{p}log_{2} p_{p} - p_{n}log_{2} p_{n} 
+\end{math}
+
+where p$_{p}$ is the proportion of positive examples in S and p$_{n}$ is the proportion of negative examples in S. In all calculations involving entropy we define 0 log 0 to be 0. 
+
+To illustrate, suppose S is a collection of 25 examples, including 15 positive and 10 negative examples [15+, 10-]. Then the entropy of S relative to this classification is 
+
+\begin{math} Entropy(S) = - (15/25) log_{2} (15/25) - (10/25) log_{2} (10/25) = 0.970 \end{math}
+
+
+Notice that the entropy is 0 if all members of S belong to the same class. For example, if all members are positive (p$_{p}$= 1 ), then p$_{n}$ is 0, and:
+
+\begin{math}Entropy(S) = -1 log_{2}(1) - 0 log_{2}0 = -1 0 - 0 log_{2}0 = 0. \end{math}
+
+Note the entropy is 1 (at its maximum!) when the collection contains an equal number of positive and negative examples. If the collection contains unequal numbers of positive and negative examples, the entropy is between 0 and 1. Figure 3.3 shows the form of the entropy function relative to a binary classification, as p+ varies between 0 and 1. 
+
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[scale=0.5]{entropy_graph.jpg}
+	\caption{The entropy function relative to a binary classification, as the proportion of positive examples p$_{p}$ varies between 0 and 1.}
+	\label{fig:ID3}
+\end{figure}
+
+
+
+
+One interpretation of entropy from information theory is that it specifies the minimum number of bits of information needed to encode the classification of an arbitrary member of S (i.e., a member of S drawn at random with uniform probability). For example, if p$_{p}$ is 1, the receiver knows the drawn example will be positive, so no message need be sent, and the entropy is 0. On the other hand, if p$_{p}$ is 0.5, one bit is required to indicate whether the drawn example is positive or negative. If p$_{p}$ is 0.8, then a collection of messages can be encoded using on average less than 1 bit per message by assigning shorter codes to collections of positive examples and longer codes to less likely negative examples.
+
+Thus far we have discussed entropy in the special case where the target classification is binary. If the target attribute takes on c different values, then the entropy of S relative to this c-wise classification is defined as:
+
+\begin{math}
+Entropy(S) = \sum_{1}^{c} -p_{i} log_{2} p_{i}
+\end{math}
+
+where p$_{i}$ is the proportion of S belonging to class i. Note the logarithm is still base 2 because entropy is a measure of the expected encoding length measured in bits. Note also that if the target attribute can take on c possible values, the maximum possible entropy is log$_{2}$c. 
+
+\subsection{Information gain measures the expected reduction in entropy}
+Given entropy as a measure of the impurity in a collection of training examples, we can now define a measure of the effectiveness of an attribute in classifying the training data. The measure we will use, called information gain, is simply the expected reduction in entropy caused by partitioning the examples according to this attribute. More precisely, the information gain, Gain (S, A) of an attribute A, relative to a collection of examples S, is defined as:
+
+\begin{math}
+Gain(S, A) = Entropy(S) - \sum_{v \in Value(A)} \frac{S_{v}}{S} Entropy(S_{v})
+\end{math}
+
+where Values(A) is the set of all possible values for attribute A, and S$_{v}$ is the subset of S for which attribute A has value v (i.e., S$_{v}$ = {s Î S | A(s) = v}). Note the first term in the equation for Gain is just the entropy of the original collection S and the second term is the expected value of the entropy after S is partitioned using attribute A. The expected entropy described by this second term is simply the sum of the entropies of each subset S$_{v}$, weighted by the fraction of examples $|$S$_{v}$ $|$/$|S|$ that belong to S$_{v}$. Gain (S,A) is therefore the expected reduction in entropy caused by knowing the value of attribute A. Put another way, Gain(S,A) is the information provided about the target attribute value, given the value of some other attribute A. The value of Gain(S,A) is the number of bits saved when encoding the target value of an arbitrary member of S, by knowing the value of attribute A.
+
+The process of selecting a new attribute and partitioning the training examples is now repeated for each non-terminal descendant node, this time using only the training examples associated with that node. Attributes that have been incorporated higher in the tree are excluded, so that any given attribute can appear at most once along any path through the tree. This process continues for each new leaf node until either of two conditions is met:
+
+\begin{enumerate}
+\item{Every attribute has already been included along this path through the tree}
+\item{The training examples associated with this leaf node all have the same target attribute value (i.e., their entropy is zero).} 
+
+\end{enumerate}
+
 
 \section{An Example}
 
@@ -364,7 +434,19 @@ Once again, 37 bits are used to encode "go go gophers". There are several trees 
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-\chapter{Decompression}
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Genetic Algorithms}
 
 Generally speaking, the process of decompression is simply a matter of translating the stream of prefix codes to individual byte values, usually by traversing the Huffman tree node by node as each bit is read from the input stream (reaching a leaf node necessarily terminates the search for that particular byte value). Before this can take place, however, the Huffman tree must be somehow reconstructed.
 

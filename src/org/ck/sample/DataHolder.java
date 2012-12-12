@@ -61,8 +61,8 @@ public class DataHolder implements Constants{
 		case WATER_DATASET: TRAINING_SAMPLES_FILE_NAME = "Training Data/Water/water.train";
 							TESTING_SAMPLES_FILE_NAME = "Training Data/Water/water.test";
 							ATTRIBUTES_FILE_NAME = "Training Data/Water/water.attribute";
-							POSITIVE_CLASS = "portable.";
-							NEGATIVE_CLASS = "not portable.";
+							POSITIVE_CLASS = "potable.";
+							NEGATIVE_CLASS = "not potable.";
 							CURRENT_DATASET = "WATER_DATASET";
 							SAVE_DATA_TO_FILE = "Saved Data/WaterDT";
 							

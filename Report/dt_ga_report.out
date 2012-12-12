@@ -8,15 +8,19 @@
 \BOOKMARK [1][-]{section.3.1}{A Naive Approach}{chapter.3}% 8
 \BOOKMARK [1][-]{section.3.2}{Definition}{chapter.3}% 9
 \BOOKMARK [1][-]{section.3.3}{The Basic Idea}{chapter.3}% 10
-\BOOKMARK [1][-]{section.3.4}{Building the Huffman Tree}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.5}{An Example}{chapter.3}% 12
-\BOOKMARK [2][-]{subsection.3.5.1}{An Example: "go go gophers"}{section.3.5}% 13
-\BOOKMARK [2][-]{subsection.3.5.2}{Example Encoding Table}{section.3.5}% 14
-\BOOKMARK [2][-]{subsection.3.5.3}{Encoded String}{section.3.5}% 15
-\BOOKMARK [0][-]{chapter.4}{Decompression}{}% 16
-\BOOKMARK [1][-]{section.4.1}{Storing the Huffman Tree}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.2}{Creating the Huffman Table}{chapter.4}% 18
-\BOOKMARK [1][-]{section.4.3}{Storing Sizes}{chapter.4}% 19
-\BOOKMARK [0][-]{chapter.5}{CONCLUSION AND FUTURE WORKS}{}% 20
-\BOOKMARK [1][-]{Item.10}{BIBLIOGRAPHY}{chapter.5}% 21
-\BOOKMARK [0][-]{chapter*.13}{APPENDICES}{}% 22
+\BOOKMARK [1][-]{section.3.4}{Building the Decision Tree}{chapter.3}% 11
+\BOOKMARK [2][-]{subsection.3.4.1}{ID3 Algorithm}{section.3.4}% 12
+\BOOKMARK [2][-]{subsection.3.4.2}{Choosing the best attribute for a given node}{section.3.4}% 13
+\BOOKMARK [2][-]{subsection.3.4.3}{Entropy - a measure of homogeneity of the set of examples}{section.3.4}% 14
+\BOOKMARK [2][-]{subsection.3.4.4}{Information gain measures the expected reduction in entropy}{section.3.4}% 15
+\BOOKMARK [1][-]{section.3.5}{An Example}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.5.1}{An Example: "go go gophers"}{section.3.5}% 17
+\BOOKMARK [2][-]{subsection.3.5.2}{Example Encoding Table}{section.3.5}% 18
+\BOOKMARK [2][-]{subsection.3.5.3}{Encoded String}{section.3.5}% 19
+\BOOKMARK [0][-]{chapter.4}{Genetic Algorithms}{}% 20
+\BOOKMARK [1][-]{section.4.1}{Storing the Huffman Tree}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.2}{Creating the Huffman Table}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.3}{Storing Sizes}{chapter.4}% 23
+\BOOKMARK [0][-]{chapter.5}{CONCLUSION AND FUTURE WORKS}{}% 24
+\BOOKMARK [1][-]{Item.12}{BIBLIOGRAPHY}{chapter.5}% 25
+\BOOKMARK [0][-]{chapter*.15}{APPENDICES}{}% 26
