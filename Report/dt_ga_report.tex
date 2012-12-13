@@ -138,7 +138,7 @@ without thanking the persons responsible for this venture.
 We acknowledge RVCE (Autonomous under VTU) for providing an opportunity to
 create a mini-project in the 5th semester. We express our gratitude towards \textbf{Prof. B.S. Satyanarayana}, principal, R.V.C.E for constant encouragement and facilitates extended in completion of this project. We would like to thank \textbf{Prof. N.K.Srinath}, HOD, CSE
 Dept. for providing excellent lab facilites for the completion of the project. We would
-personally like to thank our project guides \textbf{Ms. Shantha Rangaswamy and Dr. } and also the lab in charge, for providing timely assistance \& guidance at the time.
+personally like to thank our project guides \textbf{Ms. Shantha Rangaswamy and Dr. G. Shobha} and also the lab in charge, for providing timely assistance \& guidance at the time.
 
 
 
@@ -150,11 +150,11 @@ Bangalore
 
 \begin{flushright}
 Samir Sheriff\\
-6th semester, CSE\\
+7th semester, CSE\\
 USN:1RV09CS093\\
 
 Satvik N\\
-6th semester, CSE\\
+7th semester, CSE\\
 USN:1RV09CS095\\
 
 \end{flushright}
@@ -192,10 +192,10 @@ Although our program works with generic data samples, it must be noted that when
 \pagestyle{fancy}
 \lhead{\scriptsize{Introduction}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
-\lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
+\rhead{\scriptsize{DT Classifier with GA based feature selector.}}
+\lfoot{\scriptsize{Dept. of CSE, RVCE, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
@@ -230,13 +230,11 @@ The machine learning concepts we have used in our project are listed below,
 \rhead{\scriptsize{Decision Tree Classifier with GA-based Feature Selection}}
 \lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \chapter{REQUIREMENT SPECIFICATION}
 Software Requirement Specification (SRS) is an important part of the  software development process. We describe the overall description of the Mini-Project, the specific requirements of the Mini-Project, the software requirements and hardware requirements and the functionality of the system.
-
-
 
 \subsubsection{Software Requirements}
 \begin{itemize}
@@ -256,21 +254,15 @@ Software Requirement Specification (SRS) is an important part of the  software d
 
 %\input{IMP.tex}
 \pagestyle{fancy}
-\lhead{\scriptsize{Compression}}
+\lhead{\scriptsize{Decision Tree Learning}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
-\lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
+\rhead{\scriptsize{Decision Tree Classifier with GA-based Feature Selection}}
+\lfoot{\scriptsize{Dept. of CSE, RVCE, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \chapter{Decision Tree Learning}
-
-
-
-\section{A Naive Approach}
-
-
 
 \section{Definition}
 
@@ -398,7 +390,7 @@ The process of selecting a new attribute and partitioning the training examples 
 \end{enumerate}
 
 
-\subsection{Weakness of Decision Tree Methods}
+\subsection{Limitation of Decision Tree Methods}
 The weaknesses of decision tree methods
 
 \begin{itemize}
@@ -413,57 +405,15 @@ The weaknesses of decision tree methods
 
 
 
-
-
-
-
-\section{An Example}
-
-\subsection{An Example: "go go gophers"}
-
-
-\subsection{Example Encoding Table}
-
-The character encoding induced by the last tree is shown below where again, 0 is used for left edges and 1 for right edges.
-
-\begin{figure}[h!]
-	\centering
-		%\includegraphics[scale=0.7]{huffTable1.png}
-		%\includegraphics{msrit-logo.jpg}
-	%\caption{}
-	%\label{fig:logo2}
-\end{figure}
-
-\subsection{Encoded String}
-
-The string "go go gophers" would be encoded as shown (with spaces used for easier reading, the spaces wouldn't appear in the real encoding).
-\textbf{00 01 100 00 01 100 00 01 1110 1101 101 1111 1100}
-
-Once again, 37 bits are used to encode "go go gophers". There are several trees that yield an optimal 37-bit encoding of "go go gophers". The tree that actually results from a programmed implementation of Huffman's algorithm will be the same each time the program is run for the same weights (assuming no randomness is used in creating the tree).
-
-
-
 \pagestyle{fancy}
-\lhead{\scriptsize{Decompression}}
+\lhead{\scriptsize{Genetic Algorithms}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
-\lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
+\rhead{\scriptsize{DT Classifier with GA based feature selector.}}
+\lfoot{\scriptsize{Dept. of CSE, RVCE, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-
-
-
-
-
-
-
-
-
-
-
-
 
 \chapter{Genetic Algorithms}
 
@@ -502,7 +452,7 @@ The basic genetic algorithm attempts to evolve traits that are optimal for a giv
 
 
 \subsection{Generation Zero}
-The first step in the genetic algorithm is to create an initial population, generation zero, that contains a set of randomized strings of genes. Each string of genes, illustratively called a genome or chromosome, represents a series of traits that may or may not be useful for the problem at hand. These "genes" are usually represented by either binary digits or real numbers.
+The first step in the genetic algorithm is to create an initial population, generation zero, that contains a set of randomized strings of genes. Each string of genes, illustratively called a genome or chromosome, represents a series of traits that may or may not be useful for the problem at hand. These ``genes" are usually represented by either binary digits or real numbers.
 
 
 \begin{figure}[h!]
@@ -536,11 +486,11 @@ The best way to program the selection function is through a method creatively na
 \subsubsection{Crossover}
 The two genomes now have a good chance of crossing over with one another, meaning that they will each donate a portion of their genes to form two offspring that become part of the next generation. If they do not cross over, they simply go on to the next generation unchanged. The crossover rate determines how often the genomes will cross over, and should be in the vicinity of 65-85%.
 
-A crossover operation on the binary genomes in our example would begin by choosing a random position at which to cross them. The first part of the father’s genes and the second part of the mother’s genes combine to form the first child, with a similar effect for the second child. The following shows a crossover operation with the crossover point at 12. 
+A crossover operation on the binary genomes in our example would begin by choosing a random position at which to cross them. The first part of the father’s genes and the second part of the mother\'s genes combine to form the first child, with a similar effect for the second child. The following shows a crossover operation with the crossover point at 12. 
 
 \begin{figure}[h!]
 	\centering
-		\includegraphics[scale=1.0]{crossover.png}
+		\includegraphics[scale=1]{crossover.png}
 	\caption{Crossover}
 	\label{fig:ID3}
 \end{figure}
@@ -557,62 +507,88 @@ Just before the genomes are placed into the next generation, they have a slight 
 \end{figure}
 
 
-\section{An Example}
-
-To create a table or map of coded bit values for each character you'll need to traverse the Huffman tree (e.g., inorder, preorder, etc.) making an entry in the table each time you reach a leaf. For example, if you reach a leaf that stores the character 'C', following a path left-left-right-right-left, then an entry in the 'C'-th location of the map should be set to 00110. You'll need to make a decision about how to store the bit patterns in the map. At least two methods are possible for implementing what could be a class/struct BitPattern: 
-
-\begin{itemize}
-
-\item    Use a string. This makes it easy to add a character (using +) to a string during tree traversal and makes it possible to use string as BitPattern. Your program may be slow because appending characters to a string (in creating the bit pattern) and accessing characters in a string (in writing 0's or 1's when compressing) is slower than the next approach.
-
-\item    Alternatively you can store an integer for the bitwise coding of a character. You need to store the length of the code too to differentiate between 01001 and 00101. However, using an int restricts root-to-leaf paths to be at most 32 edges long since an int holds 32 bits. In a pathological file, a Huffman tree could have a root-to-leaf path of over 100. Because of this problem, you should use strings to store paths rather than ints. A slow correct program is better than a fast incorrect program. 
-
-\end{itemize}
-
 
 \pagestyle{fancy}
 \lhead{\scriptsize{Conclusion}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
+\rhead{\scriptsize{DT classifier with GA based feature selection}}
 \lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-\chapter{When Decision Trees and Genetic Algorithms Meet}
+\chapter{Decision Trees and Genetic Algorithms}
+In GA based DT Classifier, the search component is a GA and the
+evaluation component is a decision tree. A detailed description of
+this algorithm is shown in Figure 5.1.
+
+\begin{figure}[h!]
+  
+  \centering
+    \includegraphics[scale=0.40]{dfd.png}
+\caption{The data flow in DT/GA Hybrid Classifier Algorithm.}
+\end{figure}
+
+
+ The initial population is
+randomly generated. Every individual of the population has N
+genes, each of which represents a feature of the input data and
+can be assigned to 1 or 0. 1 means the represented feature is used
+during constructing decision trees; 0 means it is not used. As a
+result, each individual in the population represents a choice of
+available features. For each individual in the current population, a
+decision tree is built using the C4.5 program. This resulting
+decision tree is then tested over validation data sets, which
+generate classification error rates. 
+The lower the classification error rate, the better the fitness of the
+individual.
+
+
+
+
 
 
 \pagestyle{fancy}
 \lhead{\scriptsize{Conclusion}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
-\lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
+\rhead{\scriptsize{DT Classifier with GA based feature selector.}}
+\lfoot{\scriptsize{Dept. of CSE, RVCE, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \chapter{CONCLUSION AND FUTURE WORKS}
 
-\textbf{Summary}
+\section{Summary}
+In this mini project we were able to successfully implement and test the performance of the Decision Tree based classifiers. The Decision Tree classifiers were optimized using the Genetic Algorithm to select the features that are to be used in constructing the DTs.
 
-\textbf{Limitations}
+
+The application has been developed in Java and Java SWT. The main goal of the application was to work with \textbf{Ground Water Samples} and help in classifying them. We were able to extend this application to work with any generic samples. Two other samples/ Classification problems were addressed:
+\begin{itemize}
+\item{Classifying a Horse as colic or healthy based on its Blood Sample Data.}
+\item{Classifying/Determining the quality of a whine using Data Samples containing it\'s quality parameters} 
+\end{itemize} 
+
+The hybrid GA /decision tree algorithm needs to be tested
+more in depth for its true potential.
+The test results show that the DTs constructed using GA based feature selector were more efficient and accurate in classifying the data than DTs with manual feature selection.
+
+\section{Limitations}
+These are a few limitations of this application.
 \begin{enumerate}
-\item{Huffman code is optimal only if exact probability distribution of the source symbols is known.}
- 
-\item{Each symbol is encoded with integer number of bits.}
- 
-\item{Huffman coding is not efficient to adapt with the changing source statistics.}
- \item{The length of the codes of the least probable symbol could be very large to store into a single word or basic storage unit in a computing system.}
+\item{The application takes about 800MB-1GB of RAM.}
+
+\item{The GA feature selector takes a considerable amount time to optimize the DT depending on the size of the training and testing samples.}
+\item{The GA optimizer may take a long time to converge or may not, resulting in an application crash.}
+\item{ The DT classifier with GA based feature selector requires the use of accurate training and testing samples. The efficiency of the DT constructed is solely based on the input training and testing samples.}
+
 \end{enumerate}
-	\textbf{Further enhancements}
-The huffman coding the we have considered is simple binary Huffman codingbut many variations of Huffman coding exist,
+\section{Further enhancements}
+Some of the future enhancements are :
 \begin{enumerate}
+\item{The application could be made more responsive by using Threads and Parallel/Cloud Computing}
+\item{The Decision Tree Classifier of this application could be optimized using Neural Networks which are more efficient than Decision Trees.}
 
-\item{\textbf{ n-ary Huffman coding: }} The n-ary Huffman algorithm uses the \{0, 1, ... , n − 1\} alphabet to encode message and build an n-ary tree. This approach was considered by Huffman in his original paper. The same algorithm applies as for binary (n equals 2)codes, except that the n least probable symbols are taken together, instead of just the 2 least probable. Note that for n greater than 2, not all sets of source words can properly form an n-ary tree for Huffman coding. In this case, additional 0-probability place holders must be added. If the number of source words is congruent to 1 modulo n-1, then the set of source words will form a proper Huffman tree.
-\item{\textbf{Adaptive Huffman coding: }}A variation called adaptive Huffman coding calculates the probabilities dynamically based on recent actual frequencies in the source string. This is some what related to the LZ family of algorithms.
-\item{\textbf{Huffman template algorithm: }}Most often, the weights used in implementations of Huffman coding represent numeric probabilities, but the algorithm given above does not require this; it requires only a way to order weights and to add them. The Huffman template algorithm enables one to use any kind of weights (costs,frequencies etc)
-\item{\textbf{Length-limited Huffman coding: }}Length-limited Huffman coding is a variant where the goal is still to achieve a minimum weighted path length, but there is an additional restriction that the length of each codeword must be less than a given constant. The package-merge algorithm solves this problem with a simple greedy approach very similar to that used by Huffman's algorithm. Its time complexity is O(nL),where L is the maximum length of a codeword. No algorithm is known to solve this problem in linear or linear logarithmic time, unlike the presorted and unsorted conventional Huffman problems, respectively.
-%\item{\textbf{Huffman coding with unequal letter costs: }}Huffman coding with unequal letter costs is the generalization in which this assumption is no longer assumed true: the letters of the encoding alphabet may have non-uniform lengths, due to characteristics of the transmission medium. An example is the encoding alphabet of Morse code, where a 'dash' takes longer to send than a 'dot', and therefore the cost of a dash in transmission time is higher. The goal is still to minimize the weighted average codeword length,but it is no longer sufficient just to minimize the number of symbols used by the message. No algorithm is known to solve this in the same manner or with the same efficiency as conventional Huffman coding.Moreover we can extend the range of the huffman coding software to in corporate unicode which will require an interfacing module that will interpret a particular key in different languages based on the option selected. In that case the maximum number of symbols will be of the order of $2^{32}$
 \end{enumerate}
 
 \newpage
@@ -636,10 +612,10 @@ The huffman coding the we have considered is simple binary Huffman codingbut man
 \pagestyle{fancy}
 \lhead{\scriptsize{Appendix A: Source Code}}
 \chead{}
-\rhead{\scriptsize{Data Compression Techniques}}
-\lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
+\rhead{\scriptsize{DT Classifier with GA based feature selector.}}
+\lfoot{\scriptsize{Dept. of CSE, RVCE, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Feb 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
@@ -669,10 +645,10 @@ The huffman coding the we have considered is simple binary Huffman codingbut man
 \pagestyle{fancy}
 \lhead{\scriptsize{Appendix B: Screen shots}}
 \chead{}
-\rhead{\scriptsize{Decision Tree Classifier}}
-\lfoot{\scriptsize{Dept. of CSE, R V C E, Bangalore.}}
+\rhead{\scriptsize{DT Classifier with GA based feature selector.}}
+\lfoot{\scriptsize{Dept. of CSE, RVCE, Bangalore.}}
 \rfoot{\small{\thepage}}
-\cfoot{\scriptsize{Sep 2012 - May 2013}}
+\cfoot{\scriptsize{Sept 2012 - Jan 2013}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
