@@ -1,6 +1,7 @@
 package org.ck.sample;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * Used to find an optimal way to split samples based on a given feature
@@ -74,5 +75,51 @@ public class SampleSplitter {
 	public ArrayList<Sample> getSampleSubset(int index)
 	{
 		return sampleSubsets[index];
+	}
+	
+	/*
+	 * Returns the Information Gain of the current split, calculated using the formula:
+	 * 		Entropy of Parent Table - Sum(k/n * Entropy of subsetTable i)
+	 */
+	public double getInformationGain()
+	{
+		double informationGain = 0.0;
+		
+		for(int i=0; i<sampleSubsets.length; i++)
+		{
+			informationGain += ((double)sampleSubsets[i].size() / (double)samples.size()) * getEntropy(sampleSubsets[i]);
+		}
+
+		informationGain = getEntropy(samples) - informationGain;
+		
+		return informationGain;
+	}
+	
+	/*
+	 * Returns the entropy of the given sample list, calculated by the formula 
+	 * 		sum ( - p ln(p) )
+	 */
+	private double getEntropy(ArrayList<Sample> samples)
+	{
+		HashMap<String, Double> groups = new HashMap<String, Double>();
+		
+		//Find number of samples for each classification
+		for(Sample sample : samples)
+		{
+			String classification = sample.getClassification();
+			if(groups.containsKey(classification))
+				groups.put(classification, groups.get(classification) + 1);
+			else
+				groups.put(classification, 1.0);
+		}
+		
+		double entropy = 0.0;
+		for(String key : groups.keySet())
+		{			
+			double probability = groups.get(key) / samples.size();
+			entropy += - (probability * Math.log(probability) / Math.log(2)); 
+		}
+		
+		return entropy;		
 	}
 }

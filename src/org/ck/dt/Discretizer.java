@@ -44,21 +44,7 @@ public class Discretizer implements Constants
 		//Setting the number of discrete classes for easy access during decision tree induction.
 		samples.setNumDiscreteClasses(featureIndex, 2);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/* *************************************ALGORITHM 2 ******************************************/
 	
 	private static double minValue = Double.MAX_VALUE;
@@ -74,6 +60,10 @@ public class Discretizer implements Constants
 		
 		double delta = computeBinWidth(samples, featureList.get(featureIndex), binSize);
 		//System.out.println("Delta = " + delta);
+<<<<<<< HEAD
+=======
+		samples.addBinningVar(featureIndex, delta, minValue);
+>>>>>>> origin/master
 		
 		discretizeSamples(samples, featureList.get(featureIndex), delta);
 		samples.setNumDiscreteClasses(featureIndex, binSize + 1);
@@ -90,9 +80,26 @@ public class Discretizer implements Constants
 				
 		for(Sample sample : samplesList)
 		{
-			double newValue = (int)((sample.getFeature(featureName).getValue() - minValue) / delta);
-			sample.setFeature(new Feature(featureName, newValue));
+			/*double newValue = (int)((sample.getFeature(featureName).getValue() - minValue) / delta);
+			sample.setFeature(new Feature(featureName, newValue));*/
+			discretizeSample(sample, featureName, delta, minValue);
 		}
+	}	
+	
+	/*
+	 * A public method to discretize the feature - featureName of sample based on delta and min
+	 */
+	public static void discretizeSample(Sample sample, String featureName, double delta, double min)
+	{
+		double newValue = (int)((sample.getFeature(featureName).getValue() - min) / delta);
+		
+		//Check for extraneous values
+		if(newValue < 0)
+			newValue = 0;
+		if(newValue > NUMBER_OF_BINS)
+			newValue = NUMBER_OF_BINS;
+		
+		sample.setFeature(new Feature(featureName, newValue));
 	}
 	
 	/*

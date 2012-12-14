@@ -168,4 +168,13 @@ public class DecisionTreeNode
 		return ClassifiedResult;
 	}
 
+	/*
+	 * Returns the number of children of the given node
+	 */
+	public int getNumChildren()
+	{
+		if(children != null)
+			return children.length;
+		return 0;
+	}
 }

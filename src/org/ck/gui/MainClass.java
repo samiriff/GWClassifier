@@ -7,52 +7,67 @@ import org.ck.dt.DecisionTreeClassifier;
 import org.ck.ga.DTOptimizer;
 import org.ck.ga.OptimalScoreException;
 import org.ck.ga.Population;
+import org.ck.sample.DataHolder;
 import org.ck.sample.SampleCollection;
 
-public class MainClass {
+public class MainClass implements Constants{
 
-	public static void main(String args[]) throws IOException
+	public static void main(String args[]) throws IOException, OptimalScoreException
 	{
-		System.out.println("Hello, Welcome to the Horse Classifier");
+		System.out.println("Hello, Welcome to the Decision Tree Based Classifier");
 		
 		//sampleCaller(); // This is for nsatvik
-		sampleCaller2(); //This is for samiriff
+		//sampleCaller2(); //This is for samiriff		
 	}
-	private static void sampleCaller2() {
+	
+	
+	public static void sampleCaller2()throws OptimalScoreException
+	{
 		Population population = null;
 		try {
 			population = new Population();
 			population.displayPopulation();
-			population.runGeneticAlgorithm();
 			
+			System.out.println("Starting Genetic Algorithm Engine...");
+			System.out.println(DataHolder.getPositiveClass());
+			System.out.println(DataHolder.getFitnessScoreThreshold());
+			Thread.sleep(0);
+			population.runGeneticAlgorithm();			
 			
-		} catch (OptimalScoreException e) {
+		} 
+		catch (InterruptedException e)
+		{
 			e.printStackTrace();
-			//population.displayPopulation();
 		}
+<<<<<<< HEAD
 		//population.displayPopulation();
+=======
+		
+		System.out.println(DataHolder.getFitnessScoreThreshold());
+		System.out.println(DataHolder.getCrossoverProbabilityThreshold());
+		System.out.println(DataHolder.getMutationProbabilityThreshold());
+>>>>>>> origin/master
 	}
-	private static void sampleCaller()
+	
+	/*
+	 * I call this method from the Classifier Window.
+	 */
+	public static DecisionTreeClassifier sampleCaller(ArrayList<String> featureList)
 	{
 		
-		SampleCollection samples = new SampleCollection("Training Data/horse.train", "Training Data/horse.attribute");
-		ArrayList<String> featureList = new ArrayList<String>();		//Subset of features
-		featureList.add("K");
-		featureList.add("Na");
-		featureList.add("CL");
-		featureList.add("HCO3");
-		featureList.add("Endotoxin");
-		featureList.add("Breath rate");
-		//featureList.add("Pulse rate");
-		SampleCollection testing_samples = new SampleCollection("Training Data/horse.test", "Training Data/horse.attribute");
+		SampleCollection samples = new SampleCollection(DataHolder.getTrainingSamplesFileName(), DataHolder.getAttributesFileName());
 		
+		SampleCollection testing_samples = new SampleCollection(DataHolder.getTestingSamplesFileName(), DataHolder.getAttributesFileName());
+		SampleCollection new_samples = new SampleCollection(samples, featureList);
+		new_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 		//Discretizing
 		samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);
 		testing_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);		
 		
-		samples.displaySamples();
+		//new_samples.displaySamples();
 	
-		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples.getSampleCollectionSubset(featureList));
+		//DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples.getSampleCollectionSubset(featureList));
+		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(new_samples);
 		
 		System.out.println("\n\nTest Set Accuracy : ");
 		dtClassifier.setTestingSamples(testing_samples);
@@ -63,6 +78,7 @@ public class MainClass {
 		dtClassifier.setTestingSamples(samples);
 		dtClassifier.TestAndFindAccuracy();
 		dtClassifier.getAccuracy();
+		return dtClassifier;
 		
 	}
 }
