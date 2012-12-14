@@ -1,30 +1,160 @@
 
+%% bare_conf.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
 \documentclass[conference]{IEEEtran}
-\usepackage[pdftex]{graphicx}
+% Add the compsoc option for Computer Society conferences.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
 
 
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+
+
+
+
+%\hyphenation{op-tical net-works semi-conduc-tor}
+\usepackage{authblk}
 
 \begin{document}
-\title{Decision Tree Classifiers with GA based feature selectors}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Decision Tree Classiﬁers with GA based feature
+selectors}
 
 
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{
-\IEEEauthorblockN{Samir Sheriff}
-\IEEEauthorblockA{BE 7 semester\\ Department of Computer Science\\RV College of Engineering\\
-Email:samiriff@gmail.com}
-\and
-\IEEEauthorblockN{Satvik N}
-\IEEEauthorblockA{BE 7 semester\\ Department of Computer Science\\RV College of Engineering\\
-Email:nsatvik@gmail.com}
-\and
-\IEEEauthorblockN{Mrs. Shanta Rangaswamy }
-\IEEEauthorblockA{Assistant Professor\\ Department of Computer Science\\RV College of Engineering\\
-Email:shantharangaswamy@rvce.edu.in}
-}
 
+\author[1]{Mrs. Shantha Rangaswamy\thanks{shantharangaswamy@rvce.edu.in}}
+\author[2]{Dr. Shobha G\thanks{shobhag@rvce.edu.in}}
+\author[3]{Samir Sheriff\thanks{samiriff@gmail.com}}
+\author[4]{Satvik N\thanks{nsatvik@gmail.com}}
+
+\affil[1]{shantharangaswamy@rvce.edu.in, Assistant Professor, Department of Computer Science, RV College of Engineering.}
+\affil[2]{shobhag@rvce.edu.in,Dean PG Studies (CSE and ISE), Department of Computer Science, RV College of Engineering.}
+\affil[3]{samiriff@gmail.com, 7th semester BE, Department of Computer Science, RV College of Engineering.}
+\affil[4]{nsatvik@gmail.com, 7th semester BE, Department of Computer Science, RV College of Engineering.}
+
+
+%\author{
+%\IEEEauthorblockN{Dr. N. K. Cauvery}
+%\IEEEauthorblockA{Professor\\ Department of Computer Science\\RV College of Engineering\\
+%Email: cauverynk@rvce.edu.in}
+%\and
+%\IEEEauthorblockN{Sandhya S}
+%\IEEEauthorblockA{Assistant Professor\\ Department of Computer Science\\RV College of Engineering\\
+%Email:sandhya.sampangi@rvce.edu.in}
+%\and 
+%\IEEEauthorblockN{Satvik N}
+%\IEEEauthorblockA{BE 7 semester\\ Department of Computer Science\\RV College of Engineering\\
+%Email:nsatvik@gmail.com}
+%\and
+%\IEEEauthorblockN{Vaishakh BN}
+%\IEEEauthorblockA{BE 7 semester\\ Department of Computer Science\\RV College of Engineering\\
+%Email: vaishakhbn@gmail.com}
+%
+%}
+%\author{
+%    Dr. N. K. Cauvery\\
+%	Professor\\
+%	Department of Computer Science\\
+%	RV College of Engineering
+%  \and
+%    Ms. Sandhya S.
+%    Assistant Professor\\
+%	Department of Computer Science\\
+%	RV College of Engineering
+%    \and
+%    Satvik N\\
+%    Student 7 semester\\
+%	Department of Computer Science\\
+%    email@edu
+%    \and
+%    Fourth Author\\
+%    Department of Computer Science\\
+%	RV College of Engineering
+%    email@edu
+%}
 
 
 
@@ -34,12 +164,10 @@ Email:shantharangaswamy@rvce.edu.in}
 
 \begin{abstract}
 %\boldmath
-Machine Learning techniques like decision trees can learn classification patterns  from training data and generate classifiers that then are used to solve decision problems. In general, the input data to classifiers is a set of features, but not all of features are relevant
-to the classes to be classified.Although the problem of finding an optimal decision tree has received attention, it is a hard  optimization problem.
+Machine Learning techniques like decision trees can learn classification patterns  from training data and generate classifiers that can then be used to solve decision problems. In general, the input data to classifiers is a set of features, but not all of features are relevant to the classes to be classified. Although the problem of finding an optimal decision tree has received attention, it is a hard  optimization problem.
 
 
- In this paper, we use a genetic algorithm to select a subset of input features for decision tree
-classifiers, with a goal of increasing the efficiency of the decision tree and thus increasing it’s efficiency to solve the decision problem.
+In this paper, we use a genetic algorithm to select a subset of input features for decision tree classifiers, with the goal of increasing the efficiency of the decision tree construction and thus, increasing its efficiency in solving decision problems.
 \end{abstract}
 \begin{keywords}
 decision tree, machine learning, genetic algorithms, decision problems.
@@ -58,7 +186,7 @@ learning will take place. Since not every feature of the training  data may be r
 
 
 
-In this paper we use a genetic algorithm to find an optimal subset of features for decision tree classifiers based on few generic data sets.
+In this paper we describe a software application we have designed that uses a genetic algorithm to find an optimal subset of features for decision tree classifiers based on few generic data sets.
 
 
 \section{Introduction to Decision Trees and Genetic Algorithms}
@@ -70,7 +198,15 @@ of branches, each of which handles an outcome of the test X. In binary decision 
 Each leaf node represents a class that is the result of decision for
 a case.
 
+There are many specific decision-tree algorithms. Notable ones include:
 
+\begin{itemize}
+\item{\textbf{ID3} (Iterative Dichotomiser 3)}
+\item{\textbf{C4.5} algorithm, successor of ID3}
+\item{\textbf{CART} (Classification And Regression Tree)}
+\item{\textbf{CHi-squared Automatic Interaction Detector }(CHAID). Performs multi-level splits when computing classification trees.}
+\item{\textbf{MARS}: extends decision trees to better handle numerical data}
+\end{itemize}
 
 The process of constructing a decision tree is basically a divide and conquer process. A set T of training data consists of k
 classes $( C_1, C_2,$…,$ C_k )$. If T only consists of cases of one single
@@ -84,9 +220,10 @@ where $1\leq j \leq n$ , until every subset belongs to a single class.
 
 
 
+
 The problem here is how to choose the best attribute for each
 decision node during construction of the decision tree. The
-criterion that C4.5 chooses is Gain Ratio Criterion. The basic idea
+criterion that ID3 chooses is Gain Ratio Criterion. The basic idea
 of this criterion is to, at each splitting step, choose an attribute
 which provides the maximum information gain while reducing
 the bias in favor of tests with many outcomes by normalization.
@@ -120,6 +257,44 @@ generate new hypotheses. The size of a population is the same for
 all generations in our implementation. This process is iterated
 until either a predefined fitness criterion is met or the preset
 maximum number of generations is reached.
+
+
+A GA generally has four components. 
+
+\begin{enumerate}
+\item{A population of individuals where each individual in the population represents a possible solution.}
+\item{A fitness function which is an evaluation function by which we can tell if an individual is a good solution or not.}
+\item{A selection function which decides how to pick good
+individuals from the current population for creating the next
+generation.}
+\item{Genetic operators such as \textit{crossover} and \textit{mutation}
+which explore new regions of search space while keeping some of
+the current information at the same time.}
+\end{enumerate} 
+The following is a typical GA procedure:
+
+\begin{itemize}
+\item{Create an initial population of random genomes.}
+\item{Loop through the genetic algorithm, which produces a new generation every iteration.}
+
+\begin{itemize}
+\item{Assess the fitness of each genome, stopping if a solution is found.}
+\item{Evolve the next generation through natural selection and reproduction.}
+
+\begin{itemize}
+\item{Select two random genomes based on fitness.}
+\item{Cross the genomes or leave them unchanged.}
+\item{Mutate genes if necessary.}
+\end{itemize}
+             
+\item{Delete the old generation and set the new generation to the current population.}
+\end{itemize}
+            
+\item{When a solution is found or a generation limit is exceeded, the loop breaks and the genetic algorithm is complete.}
+
+\end{itemize} 
+
+\subsection{GA-Based Feature Selection for Decision Trees}
 \begin{figure}[h!]
   
   \centering
@@ -127,32 +302,6 @@ maximum number of generations is reached.
 \caption{The data flow in DT/GA Hybrid Classifier.}
 \end{figure}
 
-
-A GA generally has four components. A population of
-individuals where each individual in the population represents a
-possible solution. A fitness function which is an evaluation
-function by which we can tell if an individual is a good solution
-or not. A selection function which decides how to pick good
-individuals from the current population for creating the next
-generation. Genetic operators such as crossover and mutation
-which explore new regions of search space while keeping some of
-the current information at the same time.
-The following is a typical GA procedure:
-\begin{verbatim}
-Procedure GA
-Begin
-___Initialize population;
-___Evaluate population members;
-___While not an optimal solution do
-___Begin
-______Select parents from population;
-______GA operation on parents;
-______Evaluate offspring;
-______Set offspring equal to population;
-___End
-End
-\end{verbatim}
-\subsection{GA-Based Feature Selection for Decision Trees}
 In this algorithm, the search component is a GA and the
 evaluation component is a decision tree. A detailed description of
 this algorithm is shown in Figure 1. The initial population is
@@ -162,17 +311,17 @@ can be assigned to 1 or 0. 1 means the represented feature is used
 during constructing decision trees; 0 means it is not used. As a
 result, each individual in the population represents a choice of
 available features. For each individual in the current population, a
-decision tree is built using the C4.5 program. This resulting
+decision tree is built using the ID3 algorithm. This resulting
 decision tree is then tested over validation data sets, which
 generate classification error rates. The fitness of this
-individual is the aggregate total of these classification error rates.
+individual is the weighted average of these classification error rates.
 The lower the classification error rate, the better the fitness of the
 individual.
 Once the fitness values of all individuals of the current population
 have been computed, the GA begins to generate next generation
 as follows:
 \begin{enumerate}
-\item{}Choose individuals according to Rank Selection method.
+\item{}Choose individuals according to Roulette Selection method.
 \item{}Use two point crossover to exchange genes between parents to
 create offspring.
 \item{}Perform a bit level mutation to each offspring.
@@ -180,9 +329,9 @@ create offspring.
 current population with offspring.
 \end{enumerate}
 The procedure above is iteratively executed until the maximum
-number of generations is reached. Finally, the best
+number of generations is reached or a Fitness value threshold, defined by the user, is crossed \textit{(in case the user doesn't want to wait for the algorithm to converge precisely)}. Finally, the best
 individual of the last generation is chosen to build the final
-decision tree classifier, which is tested on the test data set.
+decision tree classifier, which is tested on the test data set, and this is the tree that is returned.
 
 \section{Implementation and Results}
 The decision tree based classifier was implemented in Java. The implementation is generic so that it can be applied to any classification problem.
