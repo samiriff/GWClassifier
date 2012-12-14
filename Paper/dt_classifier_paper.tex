@@ -107,13 +107,15 @@ selectors}
 
 \author[1]{Mrs. Shantha Rangaswamy\thanks{shantharangaswamy@rvce.edu.in}}
 \author[2]{Dr. Shobha G\thanks{shobhag@rvce.edu.in}}
-\author[3]{Samir Sheriff\thanks{samiriff@gmail.com}}
-\author[4]{Satvik N\thanks{nsatvik@gmail.com}}
+\author[3]{Dr.B.L.Shivakumar\thanks{shivakumarbl@rvce.edu.in}}
+\author[4]{Samir Sheriff\thanks{samiriff@gmail.com}}
+\author[5]{Satvik N\thanks{nsatvik@gmail.com}}
 
 \affil[1]{shantharangaswamy@rvce.edu.in, Assistant Professor, Department of Computer Science, RV College of Engineering.}
-\affil[2]{shobhag@rvce.edu.in,Dean PG Studies (CSE and ISE), Department of Computer Science, RV College of Engineering.}
-\affil[3]{samiriff@gmail.com, 7th semester BE, Department of Computer Science, RV College of Engineering.}
-\affil[4]{nsatvik@gmail.com, 7th semester BE, Department of Computer Science, RV College of Engineering.}
+\affil[2]{shobhag@rvce.edu.in, Dean PG Studies (CSE and ISE), Department of Computer Science, RV College of Engineering.}
+\affil[3]{shivakumarbl@rvce.edu.in, HOD, Department of Civil Engineering, RV College of Engineering.}
+\affil[4]{samiriff@gmail.com, 7th semester BE, Department of Computer Science, RV College of Engineering.}
+\affil[5]{nsatvik@gmail.com, 7th semester BE, Department of Computer Science, RV College of Engineering.}
 
 
 %\author{
@@ -304,7 +306,16 @@ The following is a typical GA procedure:
 
 In this algorithm, the search component is a GA and the
 evaluation component is a decision tree. A detailed description of
-this algorithm is shown in Figure 1. The initial population is
+this algorithm is shown in Figure 1. The basic idea of our hybrid system is to use GAs to
+efficiently explore the space of all possible subsets of a given
+feature set in order to find feature subsets which are of low
+order and high discriminatory power. In order to achieve this
+goal, fitness evaluation has to involve direct
+measures of size and classification performance, rather than
+measures such as the ranking methods such as information gain, etc.
+
+
+The initial population is
 randomly generated. Every individual of the population has N
 genes, each of which represents a feature of the input data and
 can be assigned to 1 or 0. 1 means the represented feature is used
@@ -333,18 +344,125 @@ number of generations is reached or a Fitness value threshold, defined by the us
 individual of the last generation is chosen to build the final
 decision tree classifier, which is tested on the test data set, and this is the tree that is returned.
 
-\section{Implementation and Results}
-The decision tree based classifier was implemented in Java. The implementation is generic so that it can be applied to any classification problem.
+\section{Object-Oriented Design and Results}
+The decision tree based classifier was implemented in Java. The implementation is generic so that it can be applied to any supervised classification problem.
 
 
-The DT/GA hybrid classifiers were tested with three classification problems. They are
+Object-oriented programming (OOP) is a programming paradigm that represents concepts as "objects" that have data fields \textit{(attributes that describe the object)} and associated procedures known as methods. Objects, which are instances of classes, are used to interact with one another to design applications and computer programs.
+\\Had it not been for the presence of the OOP paradigm, our efforts in this project would have gone in vain, and we do not use that term lightly. Code management was a whole lot easier when compared to our past experience with procedural programming. In this section, we describe the different packages that were created by us to efficiently manage our code.\\
+Know first that our application consists of four diverse packages. We describe each package in detail, in the following sections. We follow a bottom-up methodology for explaining the layout of the classes.
+
+\begin{enumerate}
+\item{\textbf{org.ck.sample}} - 
+This package allows us to efficiently manage and encapsulate the details of the data samples, provided by users, which are required for analysis. It is this class that allows our application to accept generic data sets. It consists of five classes:
+
+\begin{enumerate}
+\item{\textbf{DataHolder}} - This class keeps track of names of files that contain training and testing samples; lists of features; their corresponding classification values; and Probability values. It provides this information, when required, to the front-end or back-end of our application. To make a long story short, this class acts like a middleman between the back-end and front-end of our application.
+\item{\textbf{Feature}} - This class stores a mapping between a feature name and a feature value.
+
+\item{\textbf{Sample}} - This class stores all the features and the corresponding classification value for one training/test sample only.  
+
+\item{\textbf{SampleCollection}} - A SampleCollection, as the name suggests, is a collection of samples. In essence, this class reads the sample data from a file (using information provided by a DataHolder object) and initializes all the necessary data structures to store the data values for Classification analysis.
+
+\item{\textbf{SampleSplitter}} - This class contains methods that operate on a given SampleCollection, in order to split it into two new SampleCollections, based on a given Feature. It also calculates the information gain of the given split operation.
+
+
+\end{enumerate}
+
+
+
+
+\item{\textbf{org.ck.dt}} - This package allows us to efficiently manage and encapsulate methods for all stages of Decision Tree Learning.
+
+\begin{enumerate}
+
+\item{\textbf{DecisionTreeNode}} - A DecisionTreeNode is a structure which may have either:
+
+\begin{enumerate}
+\item{a classification value, if it happens to be a leaf node}
+\item{a list of one or more children DecisionTreeNodes, if it happens to be a decision node, i.e., an internal node.}
+\end{enumerate}
+
+Know that the types of these nodes is defined by the decision tree that is constructed, and a node has at most one parent.
+
+\item{\textbf{DecisionTreeConstructor}} - This class takes a SampleCollection \textit{(containing training samples)} as input,  builds a decision tree and stores the root DecisionTreeNode of the decision tree. In essence, a DecisionTreeConstructor consists of a number of DecisionTreeNodes.
+
+\item{\textbf{DecisionTreeClassifier}} - This class keeps track of the measurements of the DecisionTree constructed by a DecisionTreeConstructor object. It keeps track of the training as well as the test SampleCollection, and runs each sample through the Decision Tree that was constructed, to find out its classification accuracy, which it stores and retrieves, when required.
+
+
+\item{\textbf{Discretizer}} - This class provides implementations of algorithms used for discretization. As mentioned earlier, decision trees work with discretized values, and if continuous-valued features are present, they have to be discretized. The Discretizer class contains two algorithms for discretization:
+\begin{enumerate}
+\item{A naive discretizer that discretizes data based on the median, with those values below the median being set to 0 and those values above the median being set to 1.}
+\item{An Equal-Binning Discretizer that discretizes the values of certain feature of a collection of samples, by putting each value into particular bins. After discretization, the values can be any integer between 0 and binSize (inclusive).}
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+\item{\textbf{org.ck.ga}} - This package takes care of all operations of the Genetic algorithm that was mentioned earlier.
+
+\begin{enumerate}
+\item{\textbf{Genome}} - This class takes as input, a SampleCollection, and initializes a chromosome with random values for the presence/absence of features, as defined in Chapter 5. It keeps track of this chromosome, and provides methods to manipulate this chromosome; to calculate the fitness score of this chromosome; and to throw an exception when the fitness value threshold has been crossed or when the best solution has been discovered. It also provides facilities to switch between a chromosome and the corresponding optimal decision tree to which it is bound.
+
+
+\item{\textbf{Population}} - As defined earlier, a population is a collection of genomes. And this is exactly what this class is. Initially, the Population class randomly initializes a large number of genomes, of which it keeps track. It provides methods such as roulette selection, reproduction, crossover, and mutation to operate on the population and discover the best genome, and hence, the best decision tree with the appropriate feature subset.
+
+\item{\textbf{OptimalScoreException}} - This class is responsible for catching the best genome as soon as it is discovered, since the best genome should never be allowed to escape. It should be caught and nurtured for future use.
+
+\end{enumerate}
+
+
+\item{\textbf{org.ck.gui}} - As you've probably guessed by now, this package handles the Graphical User Interface of our application, with all its bells and whistles. We made use of the Standard Widget Toolkit for the GUI of our application. This package consists of the following classes:
+
+\begin{enumerate}
+
+\item{\textbf{WelcomeWindow}} - This class takes care of drawing the window that appears when our application is first switched on, and obviously, its name should be WelcomeWindow, nothing more, nothing less. It displays a list of clickable options, namely
+\begin{enumerate}
+\item{Train Decision Tree}
+\item{Classify Data Sets}
+\item{View on Github}
+\item{Exit Application}
+\end{enumerate}
+
+We have organized the code in this package in such a way that all the options \textit{(except for the last one - "Exit Application")}, correspond to a different class which handles the creation of the corresponding window.
+
+\item{\textbf{MainWindow}} - This class manages the window that is opened when a user clicks the \textit{Train Decision Tree} option in the Welcome Window. In this window, the user can select the appropriate options required to construct a decision tree using our Hybrid DT/GA Classifier. By the way, did we mention that a constructed decision tree can be saved for later usage?
+
+\item{\textbf{ClassifyWindow}} - This class manages the window that is opened when a user clicks the \textit{Classify Data Sets} option in the Welcome Window. A user is provided with an interface to select a saved decision tree, and classify new samples based on it. It really saves a lot of time in this fast-paced world of ours.
+
+
+\item{\textbf{BrowserWindow}} - This class manages the window that is opened when a user clicks the \textit{View on Github} option in the Welcome Window. In order to see and verify whether our code is original or not, users can see the online repository of our code (including its version history) on Github, in this window. Verification couldn't have been more easier. 
+
+\item{\textbf{Constants}} - This interface (mark my words, this is not a class) contains a list of constants used by all the classes in all the packages. This interface really makes updating our software and meddling with various values much easier, like never before.
+
+
+
+\item{\textbf{MainClass}} - Before our application had a GUI, this class was used to test out the code in the other packages using the console. The SampleCaller2 method is still being used by the MainWindow class. We didn't have the heart to delete this class, which has been with us for so very long. We kept it for old times' sake.
+
+
+
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+The DT/GA hybrid classifiers were tested with three classification problems, namely:
 \begin{itemize}
 \item{Classifying Horse blood samples}
-\item{Determining the portability of water}
-\item{Determining the quality of the whine}
+\item{Determining the potability of water}
+\item{Determining the quality of the wine}
 \end{itemize}
 
-The results with the GA based optimization is shown in the Figure 2.
+The results of the GA-based optimization scheme is shown in the Figure 2.
 \begin{figure}[h!]
   
   \centering
@@ -361,7 +479,7 @@ The results obtained with manual feature selection is shown in Figure 3.
 \end{figure}
 \section{Conclusion}
 The genetic algorithm and decision tree hybrid was able to
-outperform the decision tree algorithm without feature selection.
+outperform the decision tree algorithm which was based on manual feature selection.
 We believe that this improvement is due to the fact that the
 hybrid approach is able to focus on relevant features and
 eliminate unnecessary or distracting features. This initial filtering
@@ -373,13 +491,27 @@ done once. The classification process takes the same amount of
 time for the hybrid and non-hybrid systems.
 
 \section{Future Work}
-The hybrid GA /decision tree algorithm needs to be tested more
-in depth for its true potential. A forest of decision trees will be
+The hybrid GA /decision tree algorithm needs to be tested
+further to realize its true potential. Clearly more work needs to be done. 
+The test results show that the Decision Trees constructed using the Genetic algorithm-based feature selector, were more efficient and accurate in classifying the data than the Decision Trees constructed by selecting features manually. A forest of decision trees will be
 constructed from the combination of four final decision trees,
 each for one major attack category. The final decision will be
 made through a voting algorithm. We will then compare the
 overall classification ability of the hybrid algorithm with other
 machine learning algorithms in the literature.
+
+Some other future enhancements could include one of the following:
+\begin{enumerate}
+\item{The application could be made more responsive by using Threads and Parallel/Cloud Computing}
+\item{The Decision Tree Classifier of this application could be optimized using Neural Networks which are more efficient than Decision Trees.}
+\item{An interesting extension to be explored is the possibility of
+additional feedback from ID3 concerning the evaluation of a
+feature set. Currently only classification accuracy is returned.
+However, there is potentially exploitable information with
+respect to which features were actually used to build the
+decision tree and their relative positions in the tree.}
+
+\end{enumerate}
 
 
 \begin{thebibliography}{1}
