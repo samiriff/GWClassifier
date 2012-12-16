@@ -32,44 +32,44 @@ showstringspaces=false
 %\input{Coverpage.tex}
 
 %----------------title page
-\begin{titlepage}
-\begin{center}
-{\bf \large Decision Tree Classifier with GA based feature selection}\\
-\vspace{.15in}
-{\bfseries Mini Project Report}\\
-\vspace{.15in}
-{\normalsize Submitted to} \\
-\vspace{.1in}
-{\bfseries DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING}\\
-\vspace{.25in}
-{\normalsize \emph{By}}\\
-{\bfseries\normalsize Samir Sheriff }\\
-{\bfseries\normalsize Satvik N }\\
-\vspace{.25in}
-{\normalsize \emph{In partial fulfilment of the requirements\\ for the award of the degree \\
-\vspace{.15in}
-} } 
-
-\vspace{.15in}
-{\large{BACHELOR OF ENGINEERING}}\\
-\vspace{.15in}
-{\normalsize{IN}}\\
-\vspace{.15in}
-{\bfseries\normalsize COMPUTER SCIENCE AND ENGINEERING}\\
-\vspace{0.15in}
-
-\begin{figure}[h!]
-	\centering
-		\includegraphics[scale=0.5]{RVCE.png}
-		
-\end{figure} 
-\vspace{.25in}
-{\bfseries\large R V College of Engineering}\\
-{\normalsize (Autonomous Institute, Affiliated to VTU)}\\
-{\bfseries\normalsize BANGALORE - 560059}\\ 
-{\bfseries\large May 2012}
-\end{center}
-\end{titlepage}
+%\begin{titlepage}
+%\begin{center}
+%{\bf \large Decision Tree Classifier with GA based feature selection}\\
+%\vspace{.15in}
+%{\bfseries Mini Project Report}\\
+%\vspace{.15in}
+%{\normalsize Submitted to} \\
+%\vspace{.1in}
+%{\bfseries DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING}\\
+%\vspace{.25in}
+%{\normalsize \emph{By}}\\
+%{\bfseries\normalsize Samir Sheriff }\\
+%{\bfseries\normalsize Satvik N }\\
+%\vspace{.25in}
+%{\normalsize \emph{In partial fulfilment of the requirements\\ for the award of the degree \\
+%\vspace{.15in}
+%} } 
+%
+%\vspace{.15in}
+%{\large{BACHELOR OF ENGINEERING}}\\
+%\vspace{.15in}
+%{\normalsize{IN}}\\
+%\vspace{.15in}
+%{\bfseries\normalsize COMPUTER SCIENCE AND ENGINEERING}\\
+%\vspace{0.15in}
+%
+%\begin{figure}[h!]
+%	\centering
+%		\includegraphics[scale=0.5]{RVCE.png}
+%		
+%\end{figure} 
+%\vspace{.25in}
+%{\bfseries\large R V College of Engineering}\\
+%{\normalsize (Autonomous Institute, Affiliated to VTU)}\\
+%{\bfseries\normalsize BANGALORE - 560059}\\ 
+%{\bfseries\large Sept 2012 - Jan 2013}
+%\end{center}
+%\end{titlepage}
 
 
 %---------Declaration
@@ -79,7 +79,7 @@ showstringspaces=false
 \section*{DECLARATION}
 \end{center}
 
-\paragraph{}  We, Samir Sheriff and Satvik N bearing USN number 1RV09CS093 and 1RV09CS095 respectively, hereby declare that the dissertation entitled ``\textbf{Decision Tree Classifier with GA feature selection}'' completed and written by us, has not been previously formed the basis for the award of any degree or diploma or certificate of any other University.
+\paragraph{}  We, Samir Sheriff and Satvik N bearing USN number 1RV09CS093 and 1RV09CS095 respectively, hereby declare that the dissertation entitled ``\textbf{Decision Tree Classifier with GA based feature selection}'' completed and written by us, has not been previously formed the basis for the award of any degree or diploma or certificate of any other University.
 \vspace{1in}
 
 \begin{flushright} {Bangalore \hspace{4.4in} Samir Sheriff } 
@@ -91,7 +91,7 @@ showstringspaces=false
  \end{flushright}
 \end{titlepage}
 
-%---------Certificate
+%%---------Certificate
 \begin{titlepage}
 \newpage
 \begin{center}
@@ -114,11 +114,12 @@ showstringspaces=false
 \noindent This is to certify that the dissertation entitled, ``\textbf{Decision Tree Classifier with GA based feature selection}'',  which is being submitted herewith for the award of B.E is the result of the work completed by \textbf{Samir Sheriff and Satvik N}  under my supervision and guidance.
 \vspace{.5in}
 
-\begin{flushleft} Signature of Guide 	
-\\ (Name of the Guide) \\
+\begin{flushleft} 
 \vspace{.5in}
- Signature of Head of Department  \hspace{4cm} Signature of Principal \\
- (Dr. N K Srinath) \hspace{6.6cm} (Dr. B.S Sathyanarayana)\\
+Signature of Guide 	
+\hspace{4cm}
+ Signature of Head of Department  \\
+(Mrs. Shanta R)  \hspace{6cm}(Dr. N K Srinath) \\
  
  \end{flushleft} 
 \begin{flushleft}
@@ -147,7 +148,7 @@ without thanking the persons responsible for this venture.
 We acknowledge RVCE (Autonomous under VTU) for providing an opportunity to
 create a mini-project in the 5th semester. We express our gratitude towards \textbf{Prof. B.S. Satyanarayana}, principal, R.V.C.E for constant encouragement and facilitates extended in completion of this project. We would like to thank \textbf{Prof. N.K.Srinath}, HOD, CSE
 Dept. for providing excellent lab facilites for the completion of the project. We would
-personally like to thank our project guides \textbf{Ms. Shantha Rangaswamy and Dr. G. Shobha} and also the lab in charge, for providing timely assistance \& guidance at the time.
+personally like to thank our project guides \textbf{Mrs. Shantha Rangaswamy and Dr. G. Shobha} and also the lab in charge, for providing timely assistance \& guidance at the time.
 
 
 
@@ -711,7 +712,7 @@ We have organized the code in this package in such a way that all the options \t
 
 
 
-\item{\textbf{MainClass}} - Before our application had a GUI, this class was used to test out the code in the other packages using the console. The SampleCaller2 method is still being used by the MainWindow class. We didn't have the heart to delete this class, which has been with us for so very long. We kept it for old times' sake.
+% For page optimization\item{\textbf{MainClass}} - Before our application had a GUI, this class was used to test out the code in the other packages using the console. The SampleCaller2 method is still being used by the MainWindow class. We didn't have the heart to delete this class, which has been with us for so very long. We kept it for old times' sake.
 
 
 
@@ -761,28 +762,29 @@ These are a few limitations of this application.
 Some of the future enhancements are :
 \begin{enumerate}
 \item{The application could be made more responsive by using Threads and Parallel/Cloud Computing}
-\item{The Decision Tree Classifier of this application could be optimized using Neural Networks which are more efficient than Decision Trees.}
+\item{The Decision Tree Classifier of this application could be optimized using Neural Networks which are more efficient than Genetic Algorithms.}
 \item{An interesting extension to be explored is the possibility of
 additional feedback from ID3 concerning the evaluation of a
-feature set. Currently only classification accuracy is returned.
-However, there is potentially exploitable information with
-respect to which features were actually used to build the
-decision tree and their relative positions in the tree.}
-
+feature set.}
+%--- For efficient page utilization!
+% Currently only classification accuracy is returned.
+%However, there is potentially exploitable information with
+%respect to which features were actually used to build the
+%decision tree and their relative positions in the tree.
 \end{enumerate}
 
-\newpage
+
 
 %For Bib refer to refs.bib to add/remove bib items
 \addcontentsline{toc}{section}{BIBLIOGRAPHY}
 \begin{thebibliography}{refs}
 \bibitem{test}Genetic Algorithms  -\url{http://en.wikipedia.org/wiki/Genetic_algorithm}
 \bibitem{t}Genetic Algorithm for constructing DT - \url{http://www.jprr.org/index.php/jprr/article/viewFile/44/25}
-%\bibtitem{te}Decision Trees - \url{http://web.cecs.pdx.edu/~mm/MachineLearningWinter2010/pdfslides/DecisionTrees.pdf}
+\bibitem{te}Decision Trees - \url{http://web.cecs.pdx.edu/~mm/MachineLearningWinter2010/pdfslides/DecisionTrees.pdf}
 \bibitem{t} Project brief for the DT  using Horse data sets  - \url{https://cs.uwaterloo.ca/~ppoupart/teaching/cs486-spring06/assignments/asst4/asst4.pdf}
 \bibitem{t}Supervised and Unsupervised Discretization of Continous Features - \url{http://robotics.stanford.edu/users/sahami/papers-dir/disc.pdf}
 \bibitem{t}Hybrid learning using Genetic Algorithms and Decision Trees for pattern sification - \url{http://cs.gmu.edu/~eclab/papers/ijcai95.pdf}
-\bibitem{t}Kardi Maams' Tutorials - \url{http://people.revoledu.com/kardi/tutorial/DecisionTree/index.html}
+\bibitem{t}Kardi Tutorials on Decision Trees- \url{http://people.revoledu.com/kardi/tutorial/DecisionTree/index.html}
 
 %\bibitem{}
 %\bibitem{}
@@ -803,46 +805,8 @@ decision tree and their relative positions in the tree.}
 \section*{Appendices}
 \section*{Appendix A : Source Code}
 
-\lstinputlisting[language=Java, caption=DataHolder.java, breaklines=true]{../src/org/ck/sample/DataHolder.java}
-\lstinputlisting[language=Java, caption=Feature.java, breaklines=true]{../src/org/ck/sample/Feature.java}
-\lstinputlisting[language=Java, caption=Sample.java, breaklines=true]{../src/org/ck/sample/Sample.java}
-\lstinputlisting[language=Java, caption=SampleCollection.java, breaklines=true]{../src/org/ck/sample/SampleCollection.java}
-\lstinputlisting[language=Java, caption=SampleSplitter.java, breaklines=true]{../src/org/ck/sample/SampleSplitter.java}
-
-\lstinputlisting[language=Java, caption=DecisionTreeNode.java, breaklines=true]{../src/org/ck/dt/DecisionTreeNode.java}
-\lstinputlisting[language=Java, caption=DecisionTreeConstructor.java, breaklines=true]{../src/org/ck/dt/DecisionTreeConstructor.java}
-\lstinputlisting[language=Java, caption=DecisionTreeClassifier.java, breaklines=true]{../src/org/ck/dt/DecisionTreeClassifier.java}
-\lstinputlisting[language=Java, caption=Discretizer.java, breaklines=true]{../src/org/ck/dt/Discretizer.java}
-
-\lstinputlisting[language=Java, caption=Genome.java, breaklines=true]{../src/org/ck/ga/Genome.java}
-\lstinputlisting[language=Java, caption=Population.java, breaklines=true]{../src/org/ck/ga/Population.java}
-\lstinputlisting[language=Java, caption=OptimalScoreException.java, breaklines=true]{../src/org/ck/ga/OptimalScoreException.java}
-
-\lstinputlisting[language=Java, caption=WelcomeWindow.java, breaklines=true]{../src/org/ck/gui/WelcomeWindow.java}
-\lstinputlisting[language=Java, caption=MainWindow.java, breaklines=true]{../src/org/ck/gui/MainWindow.java}
-\lstinputlisting[language=Java, caption=ClassifyWindow.java, breaklines=true]{../src/org/ck/gui/ClassifyWindow.java}
-\lstinputlisting[language=Java, caption=BrowserWindow.java, breaklines=true]{../src/org/ck/gui/BrowserWindow.java}
-\lstinputlisting[language=Java, caption=MainClass.java, breaklines=true]{../src/org/ck/gui/MainClass.java}
-\lstinputlisting[language=Java, caption=Constants.java, breaklines=true]{../src/org/ck/gui/Constants.java}
-
-
-%\begin{lstinputlisting}[label=some-code,caption=Some Code]{Charnode.h}
-%\lstinputlisting[ language=C++, label=charnode, caption=The definiton of the class Charnode\, each node of the huffman tree is an object of this class.]{Charnode.h}
-%
-%\lstinputlisting[language=C++, label=huffman,caption=The definition  of the class Huffman\, this class helps in building the huffman tree for an input file.]{HuffmanCode.h}
-%
-%\lstinputlisting[language=C++, label=compresswrite,caption=The definition  of the class CompressionWriting\, this class helps in writing the bits to the compressed file.]{CompressionWriting.h}
-%
-%\lstinputlisting[language=C++, label=huff,caption=The main program of the huffman compression algorithm.]{huff.cpp}
-%
-%\lstinputlisting[language=C++, label=unhuff,caption=The definition of the class Decompressor\, this class helps in decompressing the compressed file using huffman algorithm.]{Decompressor.h}
-%
-%\lstinputlisting[language=C++, label=unhuff,caption=The main program of the huffman decompression algorithm.]{unhuff.cpp}
-
-
-%\lstinputlisting[language=C++, label=unhuff,caption=The definition of the class TCP\_Server\, an object of this class is a server object that can concurrently handle requests for files from the clients.]{TCP_Server.h}
-
-%\lstinputlisting[language=C++, label=unhuff,caption=The definition of the class TCP\_Client\, an object of this class indicates a client object that can request for files from the server.]{TCP_Client.h}
+\lstinputlisting[language=Java, caption=DecisionTreeConstructor.java, breaklines=true]{../../src/org/ck/dt/DecisionTreeConstructor.java}
+\lstinputlisting[language=Java, caption=DecisionTreeClassifier.java, breaklines=true]{../../src/org/ck/dt/DecisionTreeClassifier.java}
 
 
 \newpage
