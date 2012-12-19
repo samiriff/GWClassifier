@@ -333,7 +333,8 @@
 \DeclareOption{romanappendices}{\CLASSOPTIONromanappendicestrue}
 
 
-% default to US letter paper, 10pt, twocolumn, one sided, final, journal
+% default to US letter paper, 10pt, one sided, final, journal
+% Samir to change to one column ... change here ! :P
 \ExecuteOptions{letterpaper,10pt,twocolumn,oneside,final,journal}
 % overrride these defaults per user requests
 \ProcessOptions
