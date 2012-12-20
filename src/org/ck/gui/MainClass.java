@@ -17,20 +17,21 @@ public class MainClass implements Constants{
 		System.out.println("Hello, Welcome to the Decision Tree Based Classifier");
 		
 		//sampleCaller(); // This is for nsatvik
-		//sampleCaller2(); //This is for samiriff		
+		sampleCaller2(); //This is for samiriff		
 	}
 	
 	
 	public static void sampleCaller2()throws OptimalScoreException
 	{
 		Population population = null;
+		//DataHolder.setDataset(DatasetOptions.WATER_DATASET);
 		try {
 			population = new Population();
-			population.displayPopulation();
+			//population.displayPopulation();
 			
 			System.out.println("Starting Genetic Algorithm Engine...");
-			System.out.println(DataHolder.getPositiveClass());
-			System.out.println(DataHolder.getFitnessScoreThreshold());
+			//System.out.println(DataHolder.getPositiveClass());
+			//System.out.println(DataHolder.getFitnessScoreThreshold());
 			Thread.sleep(0);
 			population.runGeneticAlgorithm();			
 			
@@ -40,9 +41,9 @@ public class MainClass implements Constants{
 			e.printStackTrace();
 		}
 		
-		System.out.println(DataHolder.getFitnessScoreThreshold());
-		System.out.println(DataHolder.getCrossoverProbabilityThreshold());
-		System.out.println(DataHolder.getMutationProbabilityThreshold());
+		//System.out.println(DataHolder.getFitnessScoreThreshold());
+		//System.out.println(DataHolder.getCrossoverProbabilityThreshold());
+		//System.out.println(DataHolder.getMutationProbabilityThreshold());
 	}
 	
 	/*

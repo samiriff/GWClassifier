@@ -1,12 +1,8 @@
 package org.ck.dt;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.ck.ga.OptimalScoreException;
 import org.ck.sample.DataHolder;
 import org.ck.sample.Sample;
 import org.ck.sample.SampleCollection;
