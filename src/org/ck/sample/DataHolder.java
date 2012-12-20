@@ -49,7 +49,7 @@ public class DataHolder implements Constants{
 							SAVE_DATA_TO_FILE = "Saved Data/HorseDT";
 							break;
 		
-		case WHINE_DATASET:	TRAINING_SAMPLES_FILE_NAME = "Training Data/Whine/whine.train";
+		case WINE_DATASET:	TRAINING_SAMPLES_FILE_NAME = "Training Data/Whine/whine.train";
 							TESTING_SAMPLES_FILE_NAME = "Training Data/Whine/whine.test";
 							ATTRIBUTES_FILE_NAME = "Training Data/Whine/whine.attribute";
 							POSITIVE_CLASS = "excellent.";

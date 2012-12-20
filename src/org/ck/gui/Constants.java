@@ -25,7 +25,7 @@ public interface Constants
 	{
 		HORSE_DATASET,
 		WATER_DATASET,
-		WHINE_DATASET
+		WINE_DATASET
 	}
 	enum Filenames
 	{
