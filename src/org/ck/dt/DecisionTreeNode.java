@@ -6,13 +6,10 @@ package org.ck.dt;
 public class DecisionTreeNode 
 {
 	private String featureName; //Name of the feature this node indicates
-	private double lowerLimit;
-	private double upperLimit;
 	
 	private boolean isLeaf; //Is this node a leaf
 	private String ClassifiedResult;//If this is the leaf node what is the classified result
 	
-	//private DecisionTreeNode Left, Right;//Left and Right Nodes
 	
 	private DecisionTreeNode children[];
 	
@@ -22,8 +19,6 @@ public class DecisionTreeNode
 	 */
 	public DecisionTreeNode()
 	{
-		//Left = Right = null;
-		lowerLimit = upperLimit = 0;
 		isLeaf = false;
 		children = null;
 	}
@@ -62,30 +57,7 @@ public class DecisionTreeNode
 		return isLeaf;
 	}
 	
-	/*
-	 * Sets lower limit of node feature value
-	 */
-	public void setLowerLimit(double low_value)
-	{
-		lowerLimit = low_value;
-	}
-	
-	/*
-	 * Sets upper limit of node feature value
-	 */
-	public void setUpperLimit(double high_value)
-	{
-		upperLimit = high_value;
-	}
-	
-	/*
-	 * Returns the value of UpperLImit variable
-	 */
-	public double getUpperLimit()
-	{
-		return upperLimit;
-	}
-	
+
 	/*
 	 * Can be used to modify the node's feature name
 	 */
@@ -101,41 +73,7 @@ public class DecisionTreeNode
 	{
 		return featureName;
 	}
-	
-	/*
-	 * Initializes the node's left child
-	 */
-	public void setLeftNode(DecisionTreeNode left)
-	{
-		//this.Left = left;
-	}
-	
-	/*
-	 * Returns the left child of this node
-	 */
-	public DecisionTreeNode getLeftNode()
-	{
-		return null; //Left;
-	}
-
-	/*
-	 * Returns the right child of this node
-	 */
-	public DecisionTreeNode getRightNode()
-	{
-		return null; //Right;
-	}
-
-	
-	/*
-	 * Initializes the node's right child
-	 */
-	public void setRightNode(DecisionTreeNode right)
-	{
-		//this.Right = right;
-	}
-	
-	
+		
 	/*
 	 * Returns the child node at index
 	 */

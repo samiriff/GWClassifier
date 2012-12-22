@@ -157,7 +157,7 @@ public class Genome implements Constants
 		for(int i=0; i<chromosome.length(); ++i)
 			if(chromosome.charAt(i)=='1')
 				features.add(FeatureSuperSet.get(i));
-		//randomizeFeatures(features);
+		
 		DecisionTreeClassifier dtClassifier = new DecisionTreeClassifier(samples, features);
 		SampleCollection training_samples = new SampleCollection(samples.getSamplesFilename(Filenames.TRAINING_SAMPLES_FILE), samples.getSamplesFilename(Filenames.FEATURES_FILE));
 		training_samples.discretizeSamples(Constants.DiscretizerAlgorithms.EQUAL_BINNING);

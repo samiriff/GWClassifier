@@ -47,6 +47,16 @@ public class WelcomeWindow {
 		}
 	}
 
+	/*
+	 * The Main method
+	 */
+	public static void main(String args[])
+	{
+		Display display = new Display();
+		new WelcomeWindow(display);
+		//new MainWindow(display);
+		display.dispose();
+	}
 	private void initListeners() {
 		iconGit.addListener(SWT.MouseDown, new Listener() {
 

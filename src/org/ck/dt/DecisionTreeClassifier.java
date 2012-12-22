@@ -103,7 +103,7 @@ public class DecisionTreeClassifier {
 	 */
 	public double getAccuracy()
 	{
-		System.out.println("The Accuracy of the DT is "+Accuracy*100+"%");
+		//System.out.println("The Accuracy of the DT is "+Accuracy*100+"%");
 		return Accuracy;
 	}
 	

@@ -3,13 +3,11 @@ package org.ck.gui;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import org.ck.dt.DecisionTreeClassifier;
 import org.ck.ga.Genome;
 import org.ck.ga.OptimalScoreException;
-import org.ck.gui.Constants.DatasetOptions;
+import org.ck.ga.Population;
 import org.ck.sample.DataHolder;
 import org.ck.sample.Sample;
 import org.ck.sample.SampleCollection;
@@ -18,7 +16,6 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -31,7 +28,6 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Table;
@@ -83,7 +79,81 @@ public class MainWindow implements Constants
 	private Tree graphicalDecisionTree = null;
 
 	private OptimalScoreException currentException = null;
+	private Thread createGraphicalTreeUpdaterTask(Button button, final OptimalScoreException exception)
+	{
+		final Button thisButton = button;
+		Thread t = new Thread() {
+			public void run()
+			{
+				addGraphicalDecisionTree(); //Time consuming task								
+				shell.getDisplay().asyncExec(null/*new Runnable()
+				{
+					public void run()
+					{
+						accuracyTextArea.setVisible(true);
 
+						String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy()*100 + "%\n";
+						result += "Test Set Accuracy = " + exception.getTestSetAccuracy()*100 + "%\n";
+						result += "Selected Features = " + exception.getSelectedFeatures(); 
+						accuracyTextArea.setText(result);				  
+
+						//Clear previous selection, if any
+						TableItem items[] = trainingSamplesTable.getItems();
+						for(int i=0; i < items.length; i++)
+						{
+							items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
+							items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
+						}
+
+						//highlightIncorrectlyClassifiedSamples();
+						addTrainingSamplesTable(false, true);
+						addTestingSamplesTable(false, true);
+
+
+						toggleIllegalWidgetsForStep2(true);
+
+						thisButton.setText("Run the Engine");
+					}
+				}*/);
+			}
+		};
+		t.setPriority(Thread.MAX_PRIORITY);
+		return t;
+	}
+	private Thread createGenticAlgoRunnerTask()
+	{
+		return new Thread() {
+			public void run()
+			{
+				//OptimalScoreException excep;
+				try
+				{
+					//System.out.println("Sleeping here!");
+					Thread.sleep(0);
+					System.out.println("this is being called!");
+					Population population = new Population();
+					population.runGeneticAlgorithm();
+				}
+				catch(InterruptedException ie)
+				{
+					ie.printStackTrace();
+				} catch (OptimalScoreException e) {
+					displayResult(e);
+					//excep = e;
+				}
+				shell.getDisplay().asyncExec(null/*new Runnable()
+				{
+					public void run()
+					{
+						runButton.setText("Run The Engine");
+						
+					}
+				}*/);
+				
+				
+			}
+		};
+	}
 	/*
 	 * A constructor that takes in a display parameter and initializes the shell and other components of the UI
 	 */
@@ -108,16 +178,7 @@ public class MainWindow implements Constants
 		}		
 	}
 
-	/*
-	 * The Main method
-	 */
-	public static void main(String args[])
-	{
-		Display display = new Display();
-		new WelcomeWindow(display);
-		//new MainWindow(display);
-		display.dispose();
-	}
+	
 
 	/*
 	 * Centers the shell on the screen.... Doesn't work
@@ -191,6 +252,7 @@ public class MainWindow implements Constants
 		addBreak(gridHorizontalSpacing / 4);
 		addGraphicalDecisionTree();
 		graphicalDecisionTree.setVisible(false);
+		
 	}	
 
 	/*
@@ -214,20 +276,23 @@ public class MainWindow implements Constants
 					switch(algorithmList.getSelectionIndex())
 					{
 					case 0:
-						MainClass.sampleCaller2();
+						runButton.setText("Running the Genetic Algorithm ...");
+						createGenticAlgoRunnerTask().run();
 						break;
 					case 1:
 						//String allFeaturesChromosome = "0001111000101001";
 						String allFeaturesChromosome = constructChromosomeFromFeatureSelectorButtons();	            	  
 						Genome allFeaturesGenome = new Genome(allFeaturesChromosome);
-						System.out.println(allFeaturesChromosome);
-						throw new OptimalScoreException(allFeaturesGenome);	            	  
+						runButton.setText("Building the Graphical DT...");
+						throw new OptimalScoreException(allFeaturesGenome);
 					}
 				}
 				catch(OptimalScoreException exception)
 				{									  
 					displayResult(exception);
-				}
+				}/* catch (InterruptedException et) {
+					displayResult(dtBuilder.getException());
+				}*/
 			}
 
 			private String constructChromosomeFromFeatureSelectorButtons()
@@ -243,37 +308,39 @@ public class MainWindow implements Constants
 				return chromosome;
 			}
 
-			private void displayResult(OptimalScoreException exception)
-			{
-				currentException = exception;
-
-				accuracyTextArea.setVisible(true);
-
-				String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy()*100 + "%\n";
-				result += "Test Set Accuracy = " + exception.getTestSetAccuracy()*100 + "%\n";
-				result += "Selected Features = " + exception.getSelectedFeatures(); 
-				accuracyTextArea.setText(result);				  
-
-				//Clear previous selection, if any
-				TableItem items[] = trainingSamplesTable.getItems();
-				for(int i=0; i < items.length; i++)
-				{
-					items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
-					items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
-				}
-
-				//highlightIncorrectlyClassifiedSamples();
-				addTrainingSamplesTable(false, true);
-				addTestingSamplesTable(false, true);
-
-
-				toggleIllegalWidgetsForStep2(true);				  
-				addGraphicalDecisionTree();
-			}
+			
 
 		});			
 
 		return button;
+	}
+	private void displayResult(OptimalScoreException exception)
+	{
+		
+		currentException = exception;
+		createGraphicalTreeUpdaterTask(runButton, exception).run();
+		accuracyTextArea.setVisible(true);
+
+		String result = "Training Set Accuracy = " + exception.getTrainingSetAccuracy()*100 + "%\n";
+		result += "Test Set Accuracy = " + exception.getTestSetAccuracy()*100 + "%\n";
+		result += "Selected Features = " + exception.getSelectedFeatures(); 
+		accuracyTextArea.setText(result);				  
+
+		//Clear previous selection, if any
+		TableItem items[] = trainingSamplesTable.getItems();
+		for(int i=0; i < items.length; i++)
+		{
+			items[i].setBackground(display.getSystemColor(SWT.COLOR_WHITE));
+			items[i].setForeground(display.getSystemColor(SWT.COLOR_BLACK));
+		}
+
+		//highlightIncorrectlyClassifiedSamples();
+		addTrainingSamplesTable(false, true);
+		addTestingSamplesTable(false, true);
+
+
+		toggleIllegalWidgetsForStep2(true);
+		runButton.setText("Run the Engine");
 	}
 
 	/*
@@ -905,7 +972,6 @@ public class MainWindow implements Constants
 		Tree previousTree = graphicalDecisionTree;
 
 		graphicalDecisionTree = new Tree(shell, SWT.BORDER);
-
 		if(currentException != null)
 			currentException.getCurrentDTClassifier().getGraphicalDecisionTree(graphicalDecisionTree);
 

@@ -77,7 +77,6 @@ public class DecisionTreeConstructor
 		{
 			ArrayList<Sample> sampleSubset = sampleSplitter.getSampleSubset(i);
 			new_test_node.setChildNode(i, buildDecisionTree(sampleSubset, (ArrayList<String>) featureList.clone(), numDiscreteClassesList));
-			//new_test_node.setChildNode(i, buildDecisionTree(sampleSubset, featureList, numDiscreteClassesList));
 		}
 		
 		return new_test_node;

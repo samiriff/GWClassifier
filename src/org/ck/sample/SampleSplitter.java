@@ -12,8 +12,6 @@ public class SampleSplitter {
 	private String feature_name;
 	
 	private double Optimum_feature_value;
-	private ArrayList<Sample> leftsampleSubset = new ArrayList<Sample>();	//Not needed now
-	private ArrayList<Sample> rightsampleSubset = new ArrayList<Sample>();	//Not needed now
 	
 	private ArrayList<Sample> sampleSubsets[];		//An array of arraylists
 	
@@ -53,21 +51,7 @@ public class SampleSplitter {
 		return Optimum_feature_value;
 	}
 
-	/*
-	 * Returns the samples for which the given feature has values lesser than the Optimum value.
-	 */
-	public ArrayList<Sample> getLeftSampleSubset() 
-	{
-		return leftsampleSubset;
-	}
 
-	/*
-	 * Returns the samples for which the given feature has values greater than the Optimum value.
-	 */
-	public ArrayList<Sample> getRightSampleSubset() 
-	{
-		return rightsampleSubset;
-	}	
 	
 	/*
 	 * Returns the sample subset of the "index"th partition

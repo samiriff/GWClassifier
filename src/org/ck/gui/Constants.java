@@ -35,14 +35,14 @@ public interface Constants
 	
 	public static final int NUMBER_OF_BINS = 6;
 	
-	public static final int POPULATION_SIZE = 75;
-	public static final int NUM_OF_GENERATIONS = 150;
-	public static final double FITNESS_SCORE_THRESHOLD = 0.87;
-	public static final double CROSSOVER_PROBABILITY_THRESHOLD = 0.85;
+	public static final int POPULATION_SIZE = 35;
+	public static final int NUM_OF_GENERATIONS = 8;
+	public static final double FITNESS_SCORE_THRESHOLD = 0.88;
+	public static final double CROSSOVER_PROBABILITY_THRESHOLD = 0.850;
 	public static final double MUTATION_PROBABILITY_THRESHOLD = 0.025;
 	
-	public static final double TRAINING_SET_WEIGHT = 0.75;
-	public static final double TEST_SET_WEIGHT = 0.25;
+	public static final double TRAINING_SET_WEIGHT = 0.750;
+	public static final double TEST_SET_WEIGHT = 0.50;
 	
 
 }

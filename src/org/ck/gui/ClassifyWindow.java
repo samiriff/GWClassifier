@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.ck.dt.DecisionTreeClassifier;
+import org.ck.ga.OptimalScoreException;
 import org.ck.gui.Constants.DatasetOptions;
 import org.ck.sample.DataHolder;
 import org.ck.sample.Sample;
@@ -16,11 +17,9 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
@@ -79,8 +78,8 @@ public class ClassifyWindow {
 		initDataLoaderPart();
 		initFeatureReaderPart();
 		initDTSelector();
-		initGraphicalDecisionTree();
-		ClassificationLabel = new Label(shell,SWT.BORDER);
+		//initGraphicalDecisionTree();
+		ClassificationLabel = new Label(shell,SWT.BORDER | SWT.WRAP);
 		ClassificationLabel.setFont(new Font(shell.getDisplay(), "Helvectica", 20, SWT.ITALIC | SWT.BOLD));
 		ClassificationLabel.setText("Classification Result\n Appears Here");
 		
@@ -104,13 +103,7 @@ public class ClassifyWindow {
 				Sample currentSample= new Sample(featureLine, featureList);
 				samples.discretizeSample(currentSample);
 				String Classification = dtClassifier.Classify(currentSample);
-				ClassificationLabel.setText("Classification: \n" + Classification);
-//				if(Classification.equals(DataHolder.getPositiveClass()))
-//					ClassificationLabel.setBackground(new Color(shell.getDisplay(), 0, 1, 0));				
-//				else
-//					ClassificationLabel.setBackground(new Color(shell.getDisplay(), 1, 0, 0));
-				
-				
+				ClassificationLabel.setText("Classification: \n" + Classification);				
 			}
 		});
 		ResetButton.addListener(SWT.MouseDown, new Listener() {
@@ -125,23 +118,6 @@ public class ClassifyWindow {
 				
 			}
 		});
-	}
-
-	private void initGraphicalDecisionTree() {
-		Tree previousTree = graphicalDecisionTree;
-		
-		graphicalDecisionTree = new Tree(shell, SWT.BORDER);
-		dtClassifier.getGraphicalDecisionTree(graphicalDecisionTree);
-		
-		//graphicalDecisionTree.setLayoutData(gridData);
-		//This block is executed if a previous table has to be overwritten with a new table
-		if(previousTree != null)
-		{
-			graphicalDecisionTree.moveAbove(previousTree);
-			previousTree.dispose();
-			graphicalDecisionTree.getParent().layout();
-		}
-		
 	}
 
 	private void initFeatureReaderPart() {
@@ -197,7 +173,7 @@ public class ClassifyWindow {
 
 			
         });
-        infoLabel = new Label(shell,SWT.None | SWT.BORDER_SOLID);
+        infoLabel = new Label(shell,SWT.WRAP | SWT.BORDER_SOLID);
         infoLabel.setText("General Information Label");
         Label savedValues = new Label(dataLoader, SWT.NONE|SWT.CENTER);
 		savedValues.setText("Select Decision Tree");
@@ -214,6 +190,30 @@ public class ClassifyWindow {
         
 		
 	}
+	private void initGraphicalDecisionTree() {
+		final Tree previousTree = graphicalDecisionTree;
+		graphicalDecisionTree = new Tree(shell, SWT.VIRTUAL | SWT.BORDER);
+ 		dtClassifier.getGraphicalDecisionTree(graphicalDecisionTree);
+    	if(previousTree != null)
+		{
+			graphicalDecisionTree.moveAbove(previousTree);
+			previousTree.dispose();
+			graphicalDecisionTree.getParent().layout();
+		}
+			
+	}
+	private Thread createGraphicalTreeUpdaterTask()
+	{
+		Thread t = new Thread() {
+			public void run()
+			{
+				initGraphicalDecisionTree(); //Time consuming task								
+				shell.getDisplay().asyncExec(null);
+			}
+		};
+		t.setPriority(Thread.MAX_PRIORITY);
+		return t;
+	}
 	private void initDecisionTree() {
 		String selection = treeSelectorCombo.getText();
     	String featureLine = selection.split("->")[0]; 
@@ -223,11 +223,13 @@ public class ClassifyWindow {
     	for(int i=0; i<features.length; ++i)
     		featrList.add(features[i]);
     	infoLabel.setText("Decision Tree with features\n"+featrList+"\nConstructed has a accuracy of "+selection.split("->")[1]);
-    	
     	dtClassifier = new DecisionTreeClassifier(samples,featrList);
-		initGraphicalDecisionTree();
+    	//infoLabel.setText("Building Decision Tree...");
+    	createGraphicalTreeUpdaterTask().run();  	
+    	infoLabel.setText("Decision Tree with features\n"+featrList+"\nConstructed has a accuracy of "+selection.split("->")[1]);
+    	
 	}
-	private void initDTSelector()
+	private void initDTSelector()//for initializing from the saved data file.
 	{
 		treeSelectorCombo.removeAll();
 		try {
@@ -263,20 +265,20 @@ public class ClassifyWindow {
 			}
 			for(i=0;i<featureList.size();i++)
 			{
-				//if(i>=11)
+				if(i>=11)
 				{
-					//featureLabels[i].setVisible(true); //Some Bug here!
-					//featureTextBox[i].setVisible(true);
+					featureLabels[i].setVisible(true); //Some Bug here!
+					featureTextBox[i].setVisible(true);
 				}
 				featureLabels[i].setText(featureList.get(i));
 				featureTextBox[i].setText("     0     ");
-				System.out.println(""+featureList.get(i));
+				//System.out.println(""+featureList.get(i));
 				
 			}
 			for(;i<16;i++)
 			{
-				//featureLabels[i].setVisible(false);
-				//featureTextBox[i].setVisible(false);
+				featureLabels[i].setVisible(false);
+				featureTextBox[i].setVisible(false);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -29,8 +29,9 @@ public class Population implements Constants
 		for(int i=0; i<NUM_OF_GENERATIONS; ++i)
 			{
 				double totalFitnessScore = assessFitness(genomes);
-				System.out.println("Total Fitness Score = " + totalFitnessScore);
+				//System.out.println("Total Fitness Score = " + totalFitnessScore);
 				naturalSelection(totalFitnessScore);
+				System.out.println("*Generation No "+i);
 				//displayBestGenome();
 			}
 		displayBestGenome();
@@ -51,7 +52,7 @@ public class Population implements Constants
 		
 		System.out.println("Best Genome: ");
 		//bestGenome.displayGenes();
-		//throw new OptimalScoreException(bestGenome);
+		throw new OptimalScoreException(bestGenome);
 	}
 
 	/*
@@ -189,17 +190,25 @@ public class Population implements Constants
 	private void randomPopulationInit() throws OptimalScoreException
 	{
 		int numOfFeatures = Genome.getFeatureSuperSetSize();
-		double upperLimit = Math.pow(2, numOfFeatures)-1;
+		double upperLimit = Math.pow(2, numOfFeatures-5)-1;
 		int[] FeatureSubsetValues = new int[(int)upperLimit];
 		for(int i=0; i<upperLimit; ++i)
 			FeatureSubsetValues[i] = i;
 		//randomShuffle(FeatureSubsetValues);
-		for(int i=0; i< POPULATION_SIZE; i++)
-			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i],numOfFeatures)));		
+		//Loop Unrooling :P
+		for(int i=0; i< POPULATION_SIZE; )
+		{
+			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i],numOfFeatures)));
+			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i+1],numOfFeatures)));
+			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i+2],numOfFeatures)));
+			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i+3],numOfFeatures)));
+			genomes.add(new Genome(toNBitBinaryString(FeatureSubsetValues[i+4],numOfFeatures)));
+			i += 5;
+		}
 	}
 	
 	private void randomShuffle(int[] featureSubsetValues) {
-		for(int i=0; i<featureSubsetValues.length; ++i)
+		for(int i=0; i<featureSubsetValues.length-5; ++i)
 		{
 			int j = rgen.nextInt(featureSubsetValues.length);
 			int temp = featureSubsetValues[0];
